@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroMarket - Farmer Marketplace & Advisory Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="leaf-icon">🌾</div>
+        <span data-i18n="platform_name">AgroMarket</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="active" data-i18n="home">Home</a>
+        <a href="buyer-dashboard.html" data-i18n="marketplace">Marketplace</a>
+        <a href="advisory-dashboard.html" data-i18n="advisory">Advisory</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-select-wrap">
+          <span>🌐</span>
+          <select id="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+          </select>
+        </div>
+
+        <div id="nav-auth-area">
+          <a href="auth.html" class="btn btn-outline btn-sm" data-i18n="login">Login</a>
+          <a href="auth.html" class="btn btn-primary btn-sm" data-i18n="register">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-i18n="tagline">Direct Farm Marketplace & Agricultural Advisory</h1>
+      <p>Empowering local farmers with fair pricing, direct buyer connections, OTP-secured local delivery logistics, and verified crop advisory guidance.</p>
+      <div class="hero-actions">
+        <a href="auth.html" class="btn btn-primary btn-large">Get Started Today</a>
+        <a href="buyer-dashboard.html" class="btn btn-secondary btn-large">Explore Fresh Produce</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid: 4 Roles Portals -->
+  <section class="features-section">
+    <div class="role-cards-grid">
+      
+      <!-- Farmer Card -->
+      <div class="role-card">
+        <div class="icon-box" style="background:#e8f5e9; color:#2e7d32;">👨‍🌾</div>
+        <h3 data-i18n="role_farmer">Farmer</h3>
+        <p>List and manage your crops, confirm buyer orders with automated stock deduction, track deliveries, view monthly earnings bar charts, and receive UPI QR payments.</p>
+        <a href="farmer-dashboard.html" class="btn btn-primary btn-sm" style="width:100%;">Farmer Portal &rarr;</a>
+      </div>
+
+      <!-- Buyer Card -->
+      <div class="role-card">
+        <div class="icon-box" style="background:#e0f2fe; color:#0284c7;">🛒</div>
+        <h3 data-i18n="role_buyer">Buyer</h3>
+        <p>Browse fresh farm-harvested produce in your district, add to cart with transparent charges (GST, delivery & platform fees), pay via Farmer UPI QR or COD, and track orders with OTP.</p>
+        <a href="buyer-dashboard.html" class="btn btn-primary btn-sm" style="width:100%;">Buyer Marketplace &rarr;</a>
+      </div>
+
+      <!-- Delivery Agent Card -->
+      <div class="role-card">
+        <div class="icon-box" style="background:#fef3c7; color:#d97706;">🛵</div>
+        <h3 data-i18n="role_delivery">Delivery Agent</h3>
+        <p>Find nearby deliveries, navigate between farmer and buyer with Google Maps, confirm deliveries via buyer OTP, and earn a guaranteed 30% payout split credited directly to your bank account.</p>
+        <a href="delivery-dashboard.html" class="btn btn-primary btn-sm" style="width:100%;">Delivery Portal &rarr;</a>
+      </div>
+
+      <!-- Advisory Expert Card -->
+      <div class="role-card">
+        <div class="icon-box" style="background:#f3e8ff; color:#7c3aed;">🌱</div>
+        <h3 data-i18n="role_advisory">Advisory Expert</h3>
+        <p>Guide farmers and home gardeners with certified agricultural science, pest diagnosis, weather warnings, and organic treatment solutions.</p>
+        <a href="advisory-dashboard.html" class="btn btn-primary btn-sm" style="width:100%;">Advisory Panel &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Highlight Strip -->
+  <div style="background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; margin-top: 2rem;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center;">
+      <div>
+        <div style="font-size: 2.25rem; font-weight: 800; color: var(--primary);">70% / 30%</div>
+        <h4 style="margin: 0.5rem 0; font-size: 1.1rem;">Transparent Revenue Split</h4>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">70% revenue goes straight to the farmer and 30% to the delivery agent.</p>
+      </div>
+      <div>
+        <div style="font-size: 2.25rem; font-weight: 800; color: var(--secondary);">🔑 6-Digit OTP</div>
+        <h4 style="margin: 0.5rem 0; font-size: 1.1rem;">Secure Drop-off Verification</h4>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Orders are only marked delivered once the buyer shares the verification OTP with the agent.</p>
+      </div>
+      <div>
+        <div style="font-size: 2.25rem; font-weight: 800; color: #0284c7;">📱 Direct UPI QR</div>
+        <h4 style="margin: 0.5rem 0; font-size: 1.1rem;">Zero Middlemen Payment</h4>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Buyers scan the farmer's registered UPI QR code directly for rapid settlement.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <strong>AgroMarket Platform</strong> - Integrated Farmer Marketplace & Agricultural Advisory
+      </div>
+      <div>
+        Separate Frontend, Java Backend & SQL Database Architecture
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

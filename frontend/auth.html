@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Register - AgroMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+  <div class="auth-container">
+    <div class="auth-header">
+      <div style="font-size: 2.2rem; margin-bottom: 0.3rem;">🌾</div>
+      <h2 data-i18n="platform_name">AgroMarket</h2>
+      <p>Integrated Farmer Marketplace & Agricultural Advisory</p>
+    </div>
+
+    <!-- Auth Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab-btn active" id="tab-login-btn" data-i18n="login">Login</button>
+      <button class="auth-tab-btn" id="tab-register-btn" data-i18n="register">Register</button>
+    </div>
+
+    <!-- Auth Body -->
+    <div class="auth-body">
+
+      <!-- LOGIN SECTION -->
+      <div id="login-section">
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit-btn" data-i18n="login">Login to Dashboard</button>
+        </form>
+
+        <!-- Quick 1-Click Demo Logins -->
+        <div class="quick-demo-logins">
+          <p>⚡ Quick 1-Click Demo Login:</p>
+          <div class="quick-demo-btns">
+            <button type="button" onclick="quickLogin('FARMER')" class="btn btn-outline btn-sm">👨‍🌾 Farmer</button>
+            <button type="button" onclick="quickLogin('BUYER')" class="btn btn-outline btn-sm">🛒 Buyer</button>
+            <button type="button" onclick="quickLogin('DELIVERY')" class="btn btn-outline btn-sm">🛵 Delivery Agent</button>
+            <button type="button" onclick="quickLogin('ADVISORY')" class="btn btn-outline btn-sm">🌱 Advisory Expert</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- REGISTER SECTION -->
+      <div id="register-section" style="display: none;">
+        <form id="register-form">
+          <!-- Role Selection Grid -->
+          <label class="form-label" style="margin-bottom: 0.6rem;">Select Your Platform Role:</label>
+          <div class="role-picker">
+            <div class="role-option">
+              <input type="radio" id="role-farmer" name="role" value="FARMER" checked>
+              <label for="role-farmer" class="role-card-label">
+                <span class="role-icon">👨‍🌾</span>
+                <span data-i18n="role_farmer">Farmer</span>
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" id="role-buyer" name="role" value="BUYER">
+              <label for="role-buyer" class="role-card-label">
+                <span class="role-icon">🛒</span>
+                <span data-i18n="role_buyer">Buyer</span>
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" id="role-delivery" name="role" value="DELIVERY">
+              <label for="role-delivery" class="role-card-label">
+                <span class="role-icon">🛵</span>
+                <span data-i18n="role_delivery">Delivery Agent</span>
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" id="role-advisory" name="role" value="ADVISORY">
+              <label for="role-advisory" class="role-card-label">
+                <span class="role-icon">🌱</span>
+                <span data-i18n="role_advisory">Advisor</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Basic Common Fields -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="reg-name" class="form-control" placeholder="Ramesh Kumar" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="reg-phone" class="form-control" placeholder="9876543210" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="reg-email" class="form-control" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" id="reg-password" class="form-control" placeholder="Create password" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">District</label>
+              <input type="text" id="reg-district" class="form-control" placeholder="Coimbatore" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">State</label>
+              <input type="text" id="reg-state" class="form-control" value="Tamil Nadu" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Full Address / Village</label>
+            <input type="text" id="reg-address" class="form-control" placeholder="Farm / House address with landmarks" required>
+          </div>
+
+          <!-- ROLE-SPECIFIC CONDITIONAL FIELDS -->
+
+          <!-- 1. FARMER FIELDS: UPI & QR CODE -->
+          <div id="farmer-fields" class="role-fields">
+            <h4>👨‍🌾 Farmer UPI Payment & Farm Details</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">UPI ID for Direct Payments</label>
+                <input type="text" id="reg-upi" class="form-control" placeholder="username@okaxis">
+                <small style="color: #64748b; font-size: 0.775rem;">Buyers will scan and pay directly to this UPI ID.</small>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Farm Size (in Acres)</label>
+                <input type="number" id="reg-farm-size" class="form-control" placeholder="e.g. 5.0" step="0.5">
+              </div>
+            </div>
+
+            <!-- Live QR code generation preview -->
+            <div class="qr-preview-box" id="reg-qr-box" style="display: none;">
+              <img id="reg-qr-preview" src="" alt="UPI QR Preview">
+              <div>
+                <strong style="color: #166534; font-size: 0.85rem;">Generated Dynamic UPI QR Code</strong>
+                <p style="font-size: 0.775rem; color: #64748b;">This QR code will be displayed to buyers during checkout and on Cash on Delivery orders.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. DELIVERY AGENT FIELDS: VEHICLE & BANK DETAILS FOR 30% PAYOUT -->
+          <div id="delivery-fields" class="role-fields" style="display: none;">
+            <h4>🛵 Delivery Agent & 30% Payout Bank Details</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Vehicle Type</label>
+                <select id="reg-vehicle-type" class="form-control">
+                  <option value="Motorcycle">Motorcycle</option>
+                  <option value="Scooter">Scooter</option>
+                  <option value="Mini Truck">Mini Truck</option>
+                  <option value="Bicycle">Bicycle</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Vehicle Registration Number</label>
+                <input type="text" id="reg-vehicle-number" class="form-control" placeholder="TN 38 BX 4412">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Bank Account Number</label>
+                <input type="text" id="reg-bank-acc" class="form-control" placeholder="109823485721">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Bank IFSC Code</label>
+                <input type="text" id="reg-bank-ifsc" class="form-control" placeholder="SBIN0001234">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Bank Name</label>
+              <input type="text" id="reg-bank-name" class="form-control" placeholder="State Bank of India">
+            </div>
+          </div>
+
+          <!-- 3. ADVISORY FIELDS -->
+          <div id="advisory-fields" class="role-fields" style="display: none;">
+            <h4>🌱 Agricultural Advisory Credentials</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Specialization</label>
+                <input type="text" id="reg-specialization" class="form-control" placeholder="Crop Pathology, Horticulture, Soil Science">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Academic Qualification / Institute</label>
+                <input type="text" id="reg-qualification" class="form-control" placeholder="M.Sc. / Ph.D. in Agronomy (TNAU)">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary auth-submit-btn" data-i18n="register">Complete Registration</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

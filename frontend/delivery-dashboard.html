@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Agent Portal - AgroMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="leaf-icon">🌾</div>
+        <span data-i18n="platform_name">AgroMarket</span>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-select-wrap">
+          <span>🌐</span>
+          <select id="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+          </select>
+        </div>
+
+        <div class="user-badge">
+          <span class="role-pill role-delivery" data-i18n="role_delivery">Delivery Agent</span>
+          <span id="agent-name-display" style="font-weight:700;">Delivery Agent</span>
+          <button onclick="Auth.logout()" class="btn btn-outline btn-sm" data-i18n="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="dashboard-container">
+    
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h2 data-i18n="delivery_portal">Delivery Agent Portal</h2>
+        <p>Pick up produce from farmers, navigate to buyers via Google Maps, verify OTP, and collect 30% payout.</p>
+      </div>
+      <div>
+        <span style="font-size:0.9rem; color:#64748b;">Operating District: <strong id="agent-district-display" style="color:var(--dark);">-</strong></span>
+      </div>
+    </div>
+
+    <!-- Metrics Row -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4 data-i18n="delivery_payout">Total 30% Commission</h4>
+          <div class="metric-value" id="agent-total-earnings" style="color:#16a34a;">₹0.00</div>
+          <div class="metric-subtext">30% split credited per delivery</div>
+        </div>
+        <div class="metric-icon icon-green">💵</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Active Deliveries</h4>
+          <div class="metric-value" id="active-deliveries-count">0</div>
+          <div class="metric-subtext">Currently assigned to you</div>
+        </div>
+        <div class="metric-icon icon-amber">🛵</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Completed Deliveries</h4>
+          <div class="metric-value" id="completed-deliveries-count">0</div>
+          <div class="metric-subtext">OTP verified drop-offs</div>
+        </div>
+        <div class="metric-icon icon-blue">✓</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Payout Ratio</h4>
+          <div class="metric-value" style="font-size:1.6rem; color:#0284c7;">30%</div>
+          <div class="metric-subtext">70% Farmer / 30% Agent</div>
+        </div>
+        <div class="metric-icon icon-purple">⚖️</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-active-deliveries" data-i18n="active_deliveries">Active Deliveries</button>
+      <button class="tab-btn" data-tab="tab-available-pickups" data-i18n="available_pickups">Available Pickups in District</button>
+      <button class="tab-btn" data-tab="tab-completed">Completed Deliveries</button>
+      <button class="tab-btn" data-tab="tab-payout-bank" data-i18n="bank_details">Bank Payout Profile</button>
+    </div>
+
+    <!-- 1. TAB: ACTIVE DELIVERIES -->
+    <div id="tab-active-deliveries" class="tab-content active">
+      <div id="active-orders-container">
+        <!-- Rendered active orders with Google Maps links and OTP verify button -->
+      </div>
+    </div>
+
+    <!-- 2. TAB: AVAILABLE PICKUPS -->
+    <div id="tab-available-pickups" class="tab-content">
+      <div class="panel">
+        <div class="panel-header">
+          <h3 data-i18n="available_pickups">Nearby Confirmed Farm Orders Ready for Pickup</h3>
+        </div>
+        <div class="panel-body" id="available-orders-container">
+          <!-- Rendered available orders -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. TAB: COMPLETED DELIVERIES -->
+    <div id="tab-completed" class="tab-content">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Completed Delivery Records</h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Route</th>
+                  <th>Order Value</th>
+                  <th>My 30% Share</th>
+                  <th>Status</th>
+                  <th>Delivered Time</th>
+                </tr>
+              </thead>
+              <tbody id="completed-orders-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. TAB: BANK DETAILS PROFILE -->
+    <div id="tab-payout-bank" class="tab-content">
+      <div class="panel" style="max-width: 650px; margin: 0 auto;">
+        <div class="panel-header">
+          <h3 data-i18n="bank_details">Registered Bank Account for 30% Payouts</h3>
+        </div>
+        <div class="panel-body">
+          <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+              <span style="color:#64748b;">Bank Name:</span>
+              <strong id="agent-bank-name">State Bank of India</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+              <span style="color:#64748b;">Account Number:</span>
+              <strong id="agent-bank-acc" style="font-family:monospace; font-size:1.05rem;">109823485721</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+              <span style="color:#64748b;">Bank IFSC Code:</span>
+              <strong id="agent-bank-ifsc" style="font-family:monospace;">SBIN0001234</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:#64748b;">Vehicle:</span>
+              <strong id="agent-vehicle">Motorcycle (TN 38 BX 4412)</strong>
+            </div>
+          </div>
+          <p style="color:#16a34a; font-size:0.875rem; background:#f0fdf4; padding:0.85rem; border-radius:6px; border-left:3px solid #16a34a;">
+            ✓ Your 30% delivery share is automatically accumulated and settled to this bank account upon each successful OTP delivery confirmation.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- OTP VERIFICATION MODAL -->
+  <div class="modal-overlay" id="otp-verification-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="verify_otp_deliver">Verify Delivery OTP</h3>
+        <button class="modal-close" onclick="closeModal('otp-verification-modal')">&times;</button>
+      </div>
+      <form id="otp-verify-form">
+        <div class="modal-body">
+          <p style="color:#475569; font-size:0.95rem; margin-bottom:1.25rem;">
+            Ask the buyer for the 6-digit OTP code displayed on their AgroMarket order screen for Order <strong id="otp-modal-order-num">#ORD-XXXX</strong>.
+          </p>
+
+          <!-- COD CASH / QR INSTRUCTIONS IF CASH ON DELIVERY -->
+          <div id="otp-cod-notice" style="display:none; background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:1.25rem; margin-bottom:1.5rem;">
+            <h4 style="color:#92400e; font-size:0.95rem; margin-bottom:0.5rem;">💵 Cash on Delivery (COD) Collection Notice</h4>
+            <div style="font-size:0.9rem; color:#78350f; margin-bottom:0.75rem;">
+              Amount to collect from buyer: <strong id="cod-amount-to-collect" style="font-size:1.15rem; color:#92400e;">₹0.00</strong>
+            </div>
+            
+            <div style="background:white; padding:0.75rem; border-radius:6px; border:1px solid #fed7aa; margin-bottom:0.75rem; font-size:0.85rem; color:#451a03;">
+              <div>• Farmer Share (70%): <strong id="cod-farmer-share">₹0.00</strong></div>
+              <div>• Delivery Agent Share (30%): <strong id="cod-agent-share" style="color:#16a34a;">₹0.00</strong></div>
+            </div>
+
+            <p style="font-size:0.8rem; color:#78350f; margin-bottom:0.5rem;">
+              If the buyer prefers cashless UPI for COD, show them the farmer's registered QR code below:
+            </p>
+            <div style="width:140px; height:140px; margin:0 auto; background:white; padding:6px; border-radius:8px; border:1px solid #ddd;">
+              <img id="cod-farmer-qr" src="" alt="Farmer UPI QR" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+
+            <button type="button" onclick="collectCodPayment()" class="btn btn-warning btn-sm" style="width:100%; margin-top:0.85rem; font-weight:700;">
+              💰 Payment Received &rarr; Generate Buyer OTP
+            </button>
+          </div>
+
+          <div style="text-align:center; margin-bottom:1rem;">
+            <label class="form-label" data-i18n="enter_buyer_otp" style="font-weight:700;">Enter 6-Digit Buyer OTP:</label>
+            <input type="text" id="otp-input" class="form-control otp-input-field" maxlength="6" placeholder="••••••" required autofocus>
+          </div>
+
+          <div style="background:#eff6ff; border-radius:6px; padding:0.75rem; font-size:0.8rem; color:#1e40af; text-align:center;">
+            Entering the correct OTP immediately updates status to <strong>DELIVERED</strong> across Farmer, Buyer and Delivery dashboards!
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('otp-verification-modal')" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn btn-success" data-i18n="confirm">Confirm OTP & Finish Delivery</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/delivery.js"></script>
+</body>
+</html>

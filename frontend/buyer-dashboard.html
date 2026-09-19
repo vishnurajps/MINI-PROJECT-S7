@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyer Marketplace - AgroMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="leaf-icon">🌾</div>
+        <span data-i18n="platform_name">AgroMarket</span>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Cart Button -->
+        <button id="cart-btn" class="btn btn-outline btn-sm" style="position:relative;">
+          🛒 <span data-i18n="cart">Cart</span>
+          <span id="cart-badge" style="background:#dc2626; color:white; font-size:0.75rem; font-weight:700; padding:0.15rem 0.45rem; border-radius:10px; margin-left:0.25rem;">0</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <div class="lang-select-wrap">
+          <span>🌐</span>
+          <select id="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+          </select>
+        </div>
+
+        <div class="user-badge">
+          <span class="role-pill role-buyer" data-i18n="role_buyer">Buyer</span>
+          <span id="buyer-name-display" style="font-weight:700;">Buyer</span>
+          <button onclick="Auth.logout()" class="btn btn-outline btn-sm" data-i18n="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="dashboard-container">
+    
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h2 data-i18n="buyer_portal">Buyer Marketplace</h2>
+        <p>Buy farm-fresh vegetables, fruits, and grains directly from farmers in your district.</p>
+      </div>
+      <div>
+        <span style="font-size:0.9rem; color:#64748b;">Current District: <strong id="buyer-district-display" style="color:var(--dark);">-</strong></span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-market" data-i18n="marketplace">Explore Produce</button>
+      <button class="tab-btn" data-tab="tab-buyer-orders" data-i18n="my_orders">My Orders & Delivery OTP</button>
+      <button class="tab-btn" data-tab="tab-buyer-advisory">Consult Plant Advisory</button>
+    </div>
+
+    <!-- 1. TAB: MARKETPLACE -->
+    <div id="tab-market" class="tab-content active">
+      
+      <!-- Filter Bar -->
+      <div class="market-filter-bar">
+
+  <div>
+    <input
+      type="text"
+      id="search-input"
+      class="form-control"
+      placeholder="Search crops, produce, or farmer...">
+  </div>
+
+  <div>
+    <select id="district-filter" class="form-control">
+  <option value="">All Districts</option>
+  <option value="Erode">Erode</option>
+  <option value="Coimbatore">Coimbatore</option>
+  <option value="Madurai">Madurai</option>
+  <option value="Salem">Salem</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Thanjavur">Thanjavur</option>
+</select>
+  </div>
+
+  <div>
+    <select id="category-filter" class="form-control">
+      <option value="">All Categories</option>
+      <option value="Vegetables">Vegetables</option>
+      <option value="Fruits">Fruits</option>
+      <option value="Grains & Pulses">Grains & Pulses</option>
+      <option value="Spices">Spices</option>
+      <option value="Organic Goods">Organic Goods</option>
+    </select>
+  </div>
+
+</div>
+
+      <!-- Products Grid -->
+      <div class="product-grid" id="buyer-product-grid">
+        <!-- Dynamically rendered products -->
+      </div>
+    </div>
+
+    <!-- 2. TAB: BUYER ORDERS & OTP -->
+    <div id="tab-buyer-orders" class="tab-content">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h3 data-i18n="my_orders">My Order History & Live Tracking</h3>
+            <span style="font-size:0.85rem; color:#64748b;" data-i18n="give_otp_to_agent">Give this OTP to Delivery Agent upon arrival to confirm your goods!</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order # / Date</th>
+                  <th>Farmer</th>
+                  <th>Items Purchased</th>
+                  <th>Total Bill</th>
+                  <th>Status</th>
+                  <th>Delivery Boy</th>
+                  <th>Delivery OTP</th>
+                </tr>
+              </thead>
+              <tbody id="buyer-orders-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. TAB: ADVISORY -->
+    <div id="tab-buyer-advisory" class="tab-content">
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Ask Agricultural Guidance</h3>
+          </div>
+          <div class="panel-body">
+            <form id="buyer-advisory-form">
+              <div class="form-group">
+                <label class="form-label">Plant / Produce Area</label>
+                <input type="text" id="buyer-adv-crop" class="form-control" placeholder="e.g. Balcony garden, Coriander, Storage tips" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Topic / Question Title</label>
+                <input type="text" id="buyer-adv-subject" class="form-control" placeholder="e.g. How to preserve fresh tomatoes naturally?" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Details</label>
+                <textarea id="buyer-adv-question" class="form-control" rows="4" placeholder="Explain your inquiry for expert response..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit to Advisory</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Previous Answers</h3>
+          </div>
+          <div class="panel-body" id="buyer-queries-list">
+            <!-- Advisory list -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CART MODAL -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="cart">My Produce Cart</h3>
+        <button class="modal-close" onclick="closeModal('cart-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="cart-items-body" style="max-height: 250px; overflow-y: auto; margin-bottom: 1.25rem;">
+          <!-- Cart items list -->
+        </div>
+
+        <!-- Transparent Bill Breakdown -->
+        <!-- Cart Bill Breakdown -->
+
+<div class="bill-breakdown">
+
+  <div class="bill-row">
+    <span data-i18n="item_subtotal">Produce Subtotal</span>
+    <strong id="bill-subtotal">₹0.00</strong>
+  </div>
+
+  <div class="bill-row">
+    <span data-i18n="gst_charges">GST (5%)</span>
+    <span id="bill-gst">₹0.00</span>
+  </div>
+
+  <div class="bill-row">
+    <span data-i18n="delivery_fee">Delivery Charges</span>
+    <span id="bill-delivery">₹40.00</span>
+  </div>
+
+  <div class="bill-row">
+    <span data-i18n="platform_fee">Platform Maintenance Fee</span>
+    <span id="bill-platform">₹15.00</span>
+  </div>
+
+  <div class="bill-total-row">
+    <strong data-i18n="grand_total">Total Payable</strong>
+    <strong id="bill-grand-total">₹0.00</strong>
+  </div>
+
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('cart-modal')" data-i18n="close">Close</button>
+        <button type="button" id="checkout-btn" class="btn btn-primary" onclick="proceedToCheckout()" data-i18n="checkout">Proceed to Checkout &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT & UPI PAYMENT MODAL -->
+<div class="modal-overlay" id="checkout-modal">
+
+  <div class="modal-box">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h3>🛒 Checkout & Payment</h3>
+
+      <button
+        class="modal-close"
+        onclick="closeModal('checkout-modal')">
+        &times;
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- Payment Section -->
+      <div class="checkout-section-title">
+        <span>1</span>
+        Choose Payment Method
+      </div>
+
+      <div class="payment-method-grid">
+
+        <!-- UPI -->
+        <label class="payment-method-card">
+
+          <input
+            type="radio"
+            name="payment_choice"
+            value="UPI"
+            checked
+            onchange="
+              document.getElementById('upi-qr-display-box').style.display='block';
+              document.getElementById('checkout-utr-group').style.display='block';
+            ">
+
+          <div class="payment-method-content">
+            <strong>💳 UPI QR Payment</strong>
+            <small>Pay directly to the farmer using UPI</small>
+          </div>
+
+        </label>
+
+        <!-- COD -->
+        <label class="payment-method-card">
+
+          <input
+            type="radio"
+            name="payment_choice"
+            value="COD"
+            onchange="
+              document.getElementById('upi-qr-display-box').style.display='none';
+              document.getElementById('checkout-utr-group').style.display='none';
+            ">
+
+          <div class="payment-method-content">
+            <strong>💵 Cash on Delivery</strong>
+            <small>Pay the delivery agent at your doorstep</small>
+          </div>
+
+        </label>
+
+      </div>
+
+      <!-- UPI QR Payment -->
+      <div id="upi-qr-display-box">
+
+        <h4>Scan Farmer's UPI QR Code</h4>
+
+        <p>
+          Farmer:
+          <strong id="pay-farmer-name">Farmer</strong>
+          <br>
+
+          UPI ID:
+          <strong
+            id="pay-farmer-upi"
+            style="font-family:monospace;">
+            farmer@upi
+          </strong>
+        </p>
+
+        <img
+          id="pay-qr-img"
+          src=""
+          alt="Farmer UPI QR Code">
+
+        <span>
+          ✓ Scan using Google Pay, PhonePe, Paytm or BHIM
+        </span>
+
+      </div>
+
+      <!-- Delivery Details -->
+      <div class="checkout-delivery-box">
+
+        <div class="checkout-section-title">
+          <span>2</span>
+          Delivery Details
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="checkout-address">
+            📍 Delivery Address
+          </label>
+
+          <textarea
+            id="checkout-address"
+            class="form-control"
+            rows="3"
+            placeholder="House/Flat No, Street, Landmark"
+            required></textarea>
+
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="checkout-phone">
+            📞 Contact Phone
+          </label>
+
+          <input
+            type="tel"
+            id="checkout-phone"
+            class="form-control"
+            placeholder="Enter 10-digit phone number"
+            maxlength="10"
+            required>
+
+        </div>
+
+        <!-- UTR -->
+        <div
+          class="form-group"
+          id="checkout-utr-group">
+
+          <label
+            class="form-label"
+            for="checkout-utr">
+            🔐 UPI Reference / UTR Number
+            <span style="font-weight:400;color:#94a3b8;">
+              (Optional)
+            </span>
+          </label>
+
+          <input
+            type="text"
+            id="checkout-utr"
+            class="form-control"
+            placeholder="Enter UPI reference after payment">
+
+          <small
+            style="display:block;margin-top:6px;color:#64748b;font-size:0.75rem;">
+            You can enter the transaction reference after completing the UPI payment.
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        onclick="closeModal('checkout-modal')">
+        ← Back
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="placeFinalOrder()">
+        Confirm Order & Generate OTP
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  <!-- ONLINE PAYMENT MODAL (FOR PENDING ORDERS) -->
+  <div class="modal-overlay" id="online-payment-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>💳 Complete UPI Payment</h3>
+        <button class="modal-close" onclick="closeModal('online-payment-modal')">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:1.25rem; margin-bottom:1.25rem;">
+          <h4 style="color:#166534; font-size:1.05rem; margin-bottom:0.25rem;">Scan Farmer's UPI QR Code</h4>
+          <p style="font-size:0.85rem; color:#475569; margin-bottom:0.75rem;">
+            Farmer: <strong id="online-pay-farmer-name">Farmer</strong>
+          </p>
+          <div style="width:180px; height:180px; margin:0 auto; background:white; padding:8px; border-radius:12px; box-shadow:var(--shadow-sm);">
+            <img id="online-pay-qr-img" src="" alt="UPI QR" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+        </div>
+
+        <div class="form-group" style="text-align:left;">
+          <label class="form-label">UPI Transaction Reference (Optional)</label>
+          <input type="text" id="online-utr-input" class="form-control" placeholder="Enter 12-digit UTR number">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('online-payment-modal')">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="confirmOnlinePayment()">Verify Payment & Generate OTP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS & OTP MODAL -->
+  <div class="modal-overlay" id="order-success-modal">
+    <div class="modal-box" style="text-align:center;">
+      <div class="modal-header">
+        <h3 style="color:#16a34a;">🎉 Order Received!</h3>
+        <button class="modal-close" onclick="closeModal('order-success-modal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding:2rem;">
+        <p style="font-size:1.05rem; color:#1e293b; margin-bottom:1rem;">
+          Order <strong id="confirm-order-num">#ORD-XXXX</strong> has been confirmed with the farmer!
+        </p>
+
+        <!-- OTP BOX (GENERATED ONLY AFTER PAYMENT) -->
+        <div id="confirm-otp-container" style="background:#eff6ff; border:2px dashed #3b82f6; border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;">
+          <div style="font-size:0.85rem; font-weight:700; color:#1e40af; margin-bottom:0.5rem;">
+            🔑 YOUR SECURE DELIVERY OTP:
+          </div>
+          <div class="otp-display-badge" id="confirm-order-otp">
+            ------
+          </div>
+          <p style="font-size:0.8rem; color:#475569; margin-top:0.75rem;">
+            ✓ Payment verified. Share this OTP with the delivery agent only after receiving your items to confirm delivery!
+          </p>
+        </div>
+
+        <!-- COD NOTICE IF PAYMENT PENDING -->
+        <div id="confirm-cod-notice" style="display:none; background:#fffbeb; border:2px dashed #f59e0b; border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;">
+          <div style="font-size:0.9rem; font-weight:700; color:#b45309; margin-bottom:0.35rem;">
+            💵 CASH ON DELIVERY ORDER
+          </div>
+          <p style="font-size:0.825rem; color:#78350f;">
+            Your secure Delivery OTP will be generated as soon as payment is made (Cash or UPI scan at your doorstep with the delivery agent).
+          </p>
+        </div>
+
+        <div style="font-size:0.95rem; color:#64748b;">
+          Total Payable: <strong id="confirm-order-total" style="color:var(--dark);">₹0.00</strong>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content:center;">
+        <button type="button" class="btn btn-primary" onclick="closeModal('order-success-modal')">View My Orders</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/buyer.js"></script>
+</body>
+</html>

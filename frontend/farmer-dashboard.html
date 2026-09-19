@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Dashboard - AgroMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN for Monthly Earnings Bar Chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="leaf-icon">🌾</div>
+        <span data-i18n="platform_name">AgroMarket</span>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-select-wrap">
+          <span>🌐</span>
+          <select id="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+          </select>
+        </div>
+
+        <div class="user-badge">
+          <span class="role-pill role-farmer" data-i18n="role_farmer">Farmer</span>
+          <span id="farmer-name-display" style="font-weight:700;">Farmer</span>
+          <button onclick="Auth.logout()" class="btn btn-outline btn-sm" data-i18n="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Main Container -->
+  <div class="dashboard-container">
+    
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h2 data-i18n="farmer_portal">Farmer Portal</h2>
+        <p>Manage your harvest, accept buyer orders, track delivery logistics, and check weather.</p>
+      </div>
+
+      <div class="dashboard-actions">
+        <button onclick="openAddProductModal()" class="btn btn-primary">
+          ➕ <span data-i18n="add_product">Add New Produce</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Metrics Row -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4 data-i18n="monthly_earnings">Total Net Revenue (70%)</h4>
+          <div class="metric-value" id="farmer-total-earnings">₹0.00</div>
+          <div class="metric-subtext">Direct 70% share from delivered orders</div>
+        </div>
+        <div class="metric-icon icon-green">💰</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4 data-i18n="my_products">Active Produce</h4>
+          <div class="metric-value" id="farmer-product-count">0</div>
+          <div class="metric-subtext">Listed in marketplace</div>
+        </div>
+        <div class="metric-icon icon-blue">🥦</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4 data-i18n="orders_received">Orders Received</h4>
+          <div class="metric-value" id="farmer-order-count">0</div>
+          <div class="metric-subtext">From district buyers</div>
+        </div>
+        <div class="metric-icon icon-amber">📦</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Farm District</h4>
+          <div class="metric-value" id="farmer-district-display" style="font-size: 1.35rem;">-</div>
+          <div class="metric-subtext">Local Hub</div>
+        </div>
+        <div class="metric-icon icon-purple">📍</div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-products" data-i18n="my_products">My Produce Catalog</button>
+      <button class="tab-btn" data-tab="tab-orders" data-i18n="orders_received">Orders Received & Accept</button>
+      <button class="tab-btn" data-tab="tab-earnings" data-i18n="monthly_earnings">Earnings Bar Chart</button>
+      <button class="tab-btn" data-tab="tab-weather" data-i18n="weather_widget_title">Weather & Advisory</button>
+      <button class="tab-btn" data-tab="tab-queries">Ask Agricultural Advisory</button>
+      <button class="tab-btn" data-tab="tab-profile" data-i18n="upi_qr_code">My Profile & UPI QR</button>
+    </div>
+
+    <!-- 1. TAB: PRODUCTS CATALOG -->
+    <div id="tab-products" class="tab-content active">
+      <div class="panel">
+        <div class="panel-header">
+          <h3 data-i18n="my_products">My Listed Produce & Stock</h3>
+          <button onclick="openAddProductModal()" class="btn btn-primary btn-sm">+ Add New Item</button>
+        </div>
+        <div class="panel-body">
+          <div class="product-grid" id="farmer-products-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. TAB: ORDERS RECEIVED & ACCEPT -->
+    <div id="tab-orders" class="tab-content">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h3 data-i18n="orders_received">Orders Received</h3>
+            <span style="font-size:0.85rem; color:#64748b;">Accepting an order confirms the booking and automatically deducts the ordered quantity from your stock inventory.</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order # / Date</th>
+                  <th>Buyer Info</th>
+                  <th>Ordered Produce</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Delivery OTP</th>
+                  <th>Assigned Agent</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="farmer-orders-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. TAB: MONTHLY EARNINGS BAR CHART -->
+    <div id="tab-earnings" class="tab-content">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h3 data-i18n="monthly_earnings">Monthly Revenue Bar Chart</h3>
+            <span style="font-size:0.85rem; color:#64748b;">Visualizing your 70% direct crop revenue month-by-month</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div style="position: relative; height: 380px; width: 100%;">
+            <canvas id="farmerEarningsChart"></canvas>
+          </div>
+          <div style="margin-top: 1.5rem; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1rem; border-radius: 8px; font-size: 0.9rem; color: #166534;">
+            💡 <strong>Prorated Commission Transparency:</strong> 70% of every order value goes straight to your account, while 30% compensates the local delivery boy. Zero additional intermediary cuts!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. TAB: WEATHER WIDGET -->
+    <div id="tab-weather" class="tab-content">
+      <div class="dashboard-grid">
+        <div id="farmer-weather-widget">
+          <!-- Weather card populated here -->
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Recent Farm Alerts</h3>
+          </div>
+          <div class="panel-body" id="farmer-notifs-container">
+            <!-- Notifications list -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. TAB: AGRICULTURAL ADVISORY QUERIES -->
+    <div id="tab-queries" class="tab-content">
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Consult Agricultural Scientists</h3>
+          </div>
+          <div class="panel-body">
+            <form id="farmer-advisory-form">
+              <div class="form-group">
+                <label class="form-label" data-i18n="crop_type">Crop Name</label>
+                <input type="text" id="adv-crop" class="form-control" placeholder="e.g. Tomato, Chilli, Coconut" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="query_subject">Subject / Problem</label>
+                <input type="text" id="adv-subject" class="form-control" placeholder="e.g. Leaf spot disease treatment" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="describe_issue">Detailed Symptoms & Questions</label>
+                <textarea id="adv-question" class="form-control" rows="4" placeholder="Describe the plant discoloration, soil condition, or pest attack..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" data-i18n="submit_question">Ask Agronomist</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>My Questions & Answers</h3>
+          </div>
+          <div class="panel-body" id="farmer-queries-list">
+            <!-- Loaded questions -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. TAB: PROFILE & UPI QR CODE -->
+    <div id="tab-profile" class="tab-content">
+      <div class="panel" style="max-width: 650px; margin: 0 auto;">
+        <div class="panel-header">
+          <h3 data-i18n="upi_qr_code">My Farmer Profile & Direct UPI QR Code</h3>
+        </div>
+        <div class="panel-body" style="text-align: center;">
+          <div style="margin: 1.5rem auto; width: 220px; height: 220px; border: 2px dashed #16a34a; padding: 10px; border-radius: 16px; background: white;">
+            <img id="farmer-profile-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=farmer@upi&cu=INR" alt="UPI QR" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+          <h4 style="color: #1e293b; margin-bottom: 0.25rem;">Registered UPI ID:</h4>
+          <span id="farmer-profile-upi" style="font-size: 1.15rem; font-weight: 800; color: #16a34a; font-family: monospace; background: #e8f5e9; padding: 0.35rem 0.85rem; border-radius: 6px;">
+            farmer@upi
+          </span>
+          <p style="color: #64748b; font-size: 0.875rem; margin-top: 1rem;">
+            This QR code is automatically displayed to buyers during checkout and shown by delivery boys for Cash on Delivery (COD) payments so money reaches your UPI account instantly!
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRODUCT ADD/EDIT MODAL -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="product-modal-title" data-i18n="add_product">Add Fresh Produce</h3>
+        <button class="modal-close" onclick="closeModal('product-modal')">&times;</button>
+      </div>
+      <form id="product-form">
+        <div class="modal-body">
+          <input type="hidden" id="prod-id">
+          <div class="form-group">
+            <label class="form-label" data-i18n="product_name">Produce Name</label>
+            <input type="text" id="prod-name" class="form-control" placeholder="e.g. Organic Country Tomatoes" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-i18n="category">Category</label>
+              <select id="prod-category" class="form-control" required>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Grains & Pulses">Grains & Pulses</option>
+                <option value="Spices">Spices</option>
+                <option value="Organic Goods">Organic Goods</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Measurement Unit</label>
+              <select id="prod-unit" class="form-control" required>
+                <option value="kg">kg (Kilogram)</option>
+                <option value="quintal">quintal</option>
+                <option value="bunch">bunch / pack</option>
+                <option value="bottle">bottle</option>
+                <option value="piece">piece</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-i18n="price">Price per Unit (₹)</label>
+              <input type="number" id="prod-price" class="form-control" placeholder="35.00" step="0.5" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="stock_qty">Available Stock Quantity</label>
+              <input type="number" id="prod-qty" class="form-control" placeholder="50.0" step="0.5" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="description">Produce Description</label>
+            <textarea id="prod-desc" class="form-control" rows="2" placeholder="Freshly harvested, organic methods, crisp and flavorful..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Produce Image URL</label>
+            <input type="url" id="prod-image" class="form-control" placeholder="https://images.unsplash.com/...">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('product-modal')" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" data-i18n="save_changes">Save Produce</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/farmer.js"></script>
+</body>
+</html>

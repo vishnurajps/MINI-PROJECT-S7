@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agricultural Advisory Panel - AgroMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="leaf-icon">🌾</div>
+        <span data-i18n="platform_name">AgroMarket</span>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-select-wrap">
+          <span>🌐</span>
+          <select id="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+          </select>
+        </div>
+
+        <div class="user-badge">
+          <span class="role-pill role-advisory" data-i18n="role_advisory">Advisor</span>
+          <span id="advisor-name-display" style="font-weight:700;">Advisor</span>
+          <button onclick="Auth.logout()" class="btn btn-outline btn-sm" data-i18n="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="dashboard-container">
+    
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h2 data-i18n="advisory_portal">Agricultural Advisory Panel</h2>
+        <p>Answer farmer & buyer questions, provide disease diagnosis, and monitor district microclimate.</p>
+      </div>
+      <div>
+        <span style="font-size:0.875rem; color:#64748b;">Specialization: <strong id="advisor-specialization-display" style="color:var(--dark);">Agronomist</strong></span>
+      </div>
+    </div>
+
+    <!-- Metrics Row -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Open Inquiries</h4>
+          <div class="metric-value" id="open-queries-count" style="color:#d97706;">0</div>
+          <div class="metric-subtext">Awaiting scientific reply</div>
+        </div>
+        <div class="metric-icon icon-amber">❓</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Resolved Queries</h4>
+          <div class="metric-value" id="answered-queries-count" style="color:#16a34a;">0</div>
+          <div class="metric-subtext">Guidance provided</div>
+        </div>
+        <div class="metric-icon icon-green">✓</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Target Crops</h4>
+          <div class="metric-value">All</div>
+          <div class="metric-subtext">Horticulture & field crops</div>
+        </div>
+        <div class="metric-icon icon-blue">🌱</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <h4>Advisory Status</h4>
+          <div class="metric-value" style="font-size:1.4rem; color:#16a34a;">Active</div>
+          <div class="metric-subtext">District Ag Expert</div>
+        </div>
+        <div class="metric-icon icon-purple">🎓</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-open-queries">Pending Queries (<span id="open-queries-badge">!</span>)</button>
+      <button class="tab-btn" data-tab="tab-answered-queries">Answered Guidance History</button>
+      <button class="tab-btn" data-tab="tab-advisory-weather" data-i18n="weather_widget_title">District Weather & Alerts</button>
+    </div>
+
+    <!-- 1. TAB: OPEN QUERIES -->
+    <div id="tab-open-queries" class="tab-content active">
+      <div id="open-queries-container">
+        <!-- Rendered open questions -->
+      </div>
+    </div>
+
+    <!-- 2. TAB: ANSWERED QUERIES -->
+    <div id="tab-answered-queries" class="tab-content">
+      <div id="answered-queries-container">
+        <!-- Rendered answered questions -->
+      </div>
+    </div>
+
+    <!-- 3. TAB: WEATHER -->
+    <div id="tab-advisory-weather" class="tab-content">
+      <div class="dashboard-grid">
+        <div id="advisory-weather-widget">
+          <!-- Weather card -->
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Climate Advisories for Farmers</h3>
+          </div>
+          <div class="panel-body" style="font-size:0.925rem; line-height:1.6; color:#334155;">
+            <p style="margin-bottom:1rem;">
+              🌧️ <strong>Monsoon & Precipitation:</strong> Ensure adequate drainage channels are cleared around root-sensitive crops such as tomatoes and chillies to prevent root rot (Phytophthora).
+            </p>
+            <p style="margin-bottom:1rem;">
+              🐛 <strong>Pest Forecast:</strong> High humidity conditions increase susceptibility to powdery mildew and aphid outbreaks. Recommend preventive sprays of 5% Neem Seed Kernel Extract (NSKE).
+            </p>
+            <p>
+              🌾 <strong>Harvesting Guidelines:</strong> Harvest pulses and grains during dry midday hours to ensure moisture content remains below 12% for safe storage.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- REPLY MODAL -->
+  <div class="modal-overlay" id="reply-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="answer_query">Provide Agricultural Solution</h3>
+        <button class="modal-close" onclick="closeModal('reply-modal')">&times;</button>
+      </div>
+      <form id="advisory-reply-form">
+        <div class="modal-body">
+          <div style="background:#f8fafc; padding:1rem; border-radius:8px; margin-bottom:1.25rem; border:1px solid #e2e8f0;">
+            <strong id="reply-query-subject" style="color:#1e293b; font-size:1.05rem; display:block; margin-bottom:0.25rem;">Subject</strong>
+            <span style="font-size:0.825rem; color:#64748b;">Question from <strong id="reply-query-asker">User</strong></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="write_reply">Your Expert Solution & Treatment:</label>
+            <textarea id="reply-text-input" class="form-control" rows="6" placeholder="Specify disease name, recommended organic spray/dosage (e.g. Neem oil 5ml/L), irrigation changes, or soil treatments..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('reply-modal')" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" data-i18n="send_reply">Submit Recommendation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/advisory.js"></script>
+</body>
+</html>
