@@ -100,40 +100,118 @@ function formatDate(dateStr) {
 }
 
 // Global initialization
+// Global initialization
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize language
-  const savedLang = getCurrentLang();
-  applyLanguage(savedLang);
 
+  // Force English language
+  const savedLang = 'en';
+
+  if (typeof applyLanguage === 'function') {
+    applyLanguage(savedLang);
+  }
+
+  // Language selector
   const langSelect = document.getElementById('lang-select');
+
   if (langSelect) {
-    langSelect.value = savedLang;
-    langSelect.addEventListener('change', (e) => {
-      applyLanguage(e.target.value);
+    langSelect.value = 'en';
+
+    // Keep the application in English
+    langSelect.addEventListener('change', () => {
+      langSelect.value = 'en';
+      applyLanguage('en');
     });
   }
 
-  // Update navbar user pill if user logged in
-  const user = Auth.getUser();
   const navAuthArea = document.getElementById('nav-auth-area');
-  if (navAuthArea) {
-    if (user) {
-      let roleClass = 'role-' + user.role.toLowerCase();
-      let dashboardUrl = "index.html";
-      if (user.role === 'FARMER') dashboardUrl = "farmer-dashboard.html";
-      else if (user.role === 'BUYER') dashboardUrl = "buyer-dashboard.html";
-      else if (user.role === 'DELIVERY') dashboardUrl = "delivery-dashboard.html";
-      else if (user.role === 'ADVISORY') dashboardUrl = "advisory-dashboard.html";
 
-      navAuthArea.innerHTML = `
-        <div class="user-badge">
-          <span class="role-pill ${roleClass}">${user.role}</span>
-          <span style="font-weight:600; font-size:0.9rem;">${user.fullName}</span>
-          <a href="${dashboardUrl}" class="btn btn-outline btn-sm" data-i18n="dashboard">Dashboard</a>
-          <button onclick="Auth.logout()" class="btn btn-danger btn-sm" data-i18n="logout">Logout</button>
-        </div>
-      `;
-      applyLanguage(savedLang);
-    }
+  if (!navAuthArea) return;
+
+  const currentPage = window.location.pathname
+    .split('/')
+    .pop()
+    .toLowerCase();
+
+  const user = Auth.getUser();
+
+  // Always show Login and Register on the Home page
+  if (currentPage === 'index.html' || currentPage === '') {
+
+    navAuthArea.innerHTML = `
+      <a href="auth.html" class="btn btn-outline btn-sm">
+        Login
+      </a>
+
+      <a href="auth.html" class="btn btn-primary btn-sm">
+        Register
+      </a>
+    `;
+
+    return;
   }
+
+  // Show user information only on dashboard pages
+  if (user) {
+
+    let roleClass = 'role-' + user.role.toLowerCase();
+
+    let dashboardUrl = 'index.html';
+
+    if (user.role === 'FARMER') {
+      dashboardUrl = 'farmer-dashboard.html';
+    } else if (user.role === 'BUYER') {
+      dashboardUrl = 'buyer-dashboard.html';
+    } else if (user.role === 'DELIVERY') {
+      dashboardUrl = 'delivery-dashboard.html';
+    } else if (user.role === 'ADVISORY') {
+      dashboardUrl = 'advisory-dashboard.html';
+    }
+
+    navAuthArea.innerHTML = `
+      <div class="user-badge">
+
+        <span class="role-pill ${roleClass}">
+          ${user.role}
+        </span>
+
+        <span style="font-weight:600; font-size:0.9rem;">
+          ${user.fullName}
+        </span>
+
+        <a href="${dashboardUrl}" class="btn btn-outline btn-sm">
+          Dashboard
+        </a>
+
+        <button
+          onclick="Auth.logout()"
+          class="btn btn-danger btn-sm">
+          Logout
+        </button>
+
+      </div>
+    `;
+
+  } else {
+
+    // Show Login and Register for users who are not logged in
+    navAuthArea.innerHTML = `
+      <a href="auth.html" class="btn btn-outline btn-sm">
+        Login
+      </a>
+
+      <a href="auth.html" class="btn btn-primary btn-sm">
+        Register
+      </a>
+    `;
+
+  }
+
+  
 });
+function toggleDetails(id) {
+    const details = document.getElementById(id);
+
+    if (details) {
+        details.classList.toggle("show");
+    }
+}

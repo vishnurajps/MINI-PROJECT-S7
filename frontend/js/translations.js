@@ -98,7 +98,34 @@ const translations = {
     status_delivering: "Out for Delivery",
     status_delivered: "Delivered",
     payment_completed: "Paid",
-    payment_pending: "Payment Pending"
+    payment_pending: "Payment Pending",
+
+    // Index Page
+features: "Features",
+
+hero_title: "Empowering Farmers, Connecting Communities",
+
+hero_description: "Sell your crops directly to buyers and receive expert agricultural advice for a better, sustainable future.",
+
+get_started: "Get Started",
+
+features_title: "Our Features",
+
+direct_marketplace: "Farmer Marketplace",
+
+direct_marketplace_desc: "List your crops, manage orders and receive payments directly from buyers.",
+
+buyer_services: "Buyer Services",
+
+buyer_services_desc: "Explore fresh produce, place orders and track deliveries with ease.",
+
+secure_delivery: "Secure Delivery",
+
+secure_delivery_desc: "Delivery agents can manage orders and verify deliveries using OTP.",
+
+agricultural_advisory: "Agricultural Advisory",
+
+agricultural_advisory_desc: "Farmers and buyers can receive expert agricultural guidance."
   },
 
   hi: {
@@ -195,7 +222,18 @@ const translations = {
     status_delivering: "डिलीवरी के लिए निकला",
     status_delivered: "डिलीवर हो गया",
     payment_completed: "भुगतान पूर्ण",
-    payment_pending: "भुगतान लंबित"
+    payment_pending: "भुगतान लंबित",
+
+    // Index Page
+features: "विशेषताएँ",
+hero_title: "किसानों को सशक्त बनाना, समुदायों को जोड़ना",
+hero_description: "अपनी फसल सीधे खरीदारों को बेचें और कृषि विशेषज्ञों से सलाह प्राप्त करें।",
+get_started: "शुरू करें",
+features_title: "हमारी विशेषताएँ",
+direct_marketplace: "सीधा बाज़ार",
+direct_marketplace_desc: "किसानों को सीधे खरीदारों से जोड़ें।",
+agricultural_advisory: "कृषि सलाह",
+agricultural_advisory_desc: "अपनी फसलों के लिए विशेषज्ञ सलाह प्राप्त करें।",
   },
 
   ta: {
@@ -292,7 +330,18 @@ const translations = {
     status_delivering: "டெலிவரிக்கு செல்கிறது",
     status_delivered: "டெலிவரி முடிந்தது",
     payment_completed: "செலுத்தப்பட்டது",
-    payment_pending: "நிலுவையில் உள்ளது"
+    payment_pending: "நிலுவையில் உள்ளது",
+
+    // Index Page
+features: "அம்சங்கள்",
+hero_title: "விவசாயிகளை மேம்படுத்தி, சமூகங்களை இணைத்தல்",
+hero_description: "உங்கள் விளைபொருட்களை நேரடியாக வாங்குபவர்களுக்கு விற்று, வேளாண் நிபுணர்களின் ஆலோசனையைப் பெறுங்கள்.",
+get_started: "தொடங்குங்கள்",
+features_title: "எங்கள் அம்சங்கள்",
+direct_marketplace: "நேரடி சந்தை",
+direct_marketplace_desc: "விவசாயிகளை நேரடியாக வாங்குபவர்களுடன் இணைக்கவும்.",
+agricultural_advisory: "வேளாண் ஆலோசனை",
+agricultural_advisory_desc: "உங்கள் பயிர்களுக்கு நிபுணர் ஆலோசனையைப் பெறுங்கள்.",
   },
 
   te: {
@@ -389,7 +438,18 @@ const translations = {
     status_delivering: "డెలివరీకి బయలుదేరింది",
     status_delivered: "డెలివరీ పూర్తయింది",
     payment_completed: "చెల్లింపు పూర్తయింది",
-    payment_pending: "చెల్లింపు పెండింగ్‌లో ఉంది"
+    payment_pending: "చెల్లింపు పెండింగ్‌లో ఉంది",
+
+    // Index Page
+features: "ఫీచర్లు",
+hero_title: "రైతులను సాధికారత చేయడం, సమాజాలను అనుసంధానించడం",
+hero_description: "మీ పంటలను నేరుగా కొనుగోలుదారులకు విక్రయించి వ్యవసాయ నిపుణుల సలహాలను పొందండి.",
+get_started: "ప్రారంభించండి",
+features_title: "మా ఫీచర్లు",
+direct_marketplace: "నేరుగా మార్కెట్",
+direct_marketplace_desc: "రైతులను నేరుగా కొనుగోలుదారులతో అనుసంధానించండి.",
+agricultural_advisory: "వ్యవసాయ సలహాలు",
+agricultural_advisory_desc: "మీ పంటలకు నిపుణుల సలహాలను పొందండి.",
   }
 };
 
