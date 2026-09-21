@@ -7,8 +7,12 @@ let earningsChartInstance = null;
 document.addEventListener('DOMContentLoaded', async () => {
   if (!Auth.requireRole('FARMER')) return;
 
-  const farmer = Auth.getUser();
-  document.getElementById('farmer-name-display').textContent = farmer.fullName;
+const farmer = Auth.getUser();
+
+console.log("Complete farmer data:", farmer);
+console.log("Farmer UPI ID:", farmer.upiId);
+
+document.getElementById('farmer-name-display').textContent = farmer.fullName;
   document.getElementById('farmer-district-display').textContent = farmer.district;
 
   // Initialize tabs
@@ -381,10 +385,50 @@ async function loadFarmerAdvisoryQueries(userId) {
 
 // ---------------- PROFILE & UPI QR ----------------
 function setupFarmerProfile(farmer) {
-  const upiEl = document.getElementById('farmer-profile-upi');
-  const qrImg = document.getElementById('farmer-profile-qr');
-  if (upiEl) upiEl.textContent = farmer.upiId || "Not registered";
-  if (qrImg && farmer.qrCodeUrl) qrImg.src = farmer.qrCodeUrl;
+
+    const upiEl = document.getElementById('farmer-profile-upi');
+    const qrImg = document.getElementById('farmer-profile-qr');
+
+    const upiId = farmer.upiId ? farmer.upiId.trim() : '';
+
+    console.log("Farmer UPI ID:", upiId);
+
+    // Display UPI ID
+    if (upiEl) {
+        upiEl.textContent = upiId || 'Not registered';
+    }
+
+    // Generate QR code using UPI ID
+    if (qrImg && upiId) {
+
+        const upiPaymentUrl =
+            `upi://pay?pa=${upiId}` +
+            `&pn=${encodeURIComponent(farmer.fullName || 'Farmer')}` +
+            `&cu=INR`;
+
+        console.log("UPI Payment URL:", upiPaymentUrl);
+
+        const qrApiUrl =
+            `https://quickchart.io/qr?text=${encodeURIComponent(upiPaymentUrl)}&size=250`;
+
+        console.log("QR Image URL:", qrApiUrl);
+
+        qrImg.src = qrApiUrl;
+
+        qrImg.onload = function () {
+            console.log("QR code loaded successfully");
+        };
+
+        qrImg.onerror = function () {
+            console.error("QR code failed to load");
+            qrImg.alt = "QR code unavailable";
+        };
+    } else {
+        console.error("UPI ID is missing");
+        if (qrImg) {
+            qrImg.alt = "UPI ID not registered";
+        }
+    }
 }
 
 // ---------------- NOTIFICATIONS ----------------

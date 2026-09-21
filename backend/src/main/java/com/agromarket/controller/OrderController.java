@@ -46,18 +46,57 @@ public class OrderController {
     }
 
     /**
-     * Confirms payment and generates the secure delivery OTP
+     * Confirms UPI payment only when UTR is provided
+     * and generates the secure delivery OTP.
      */
     @PostMapping("/{id}/confirm-payment")
     public ResponseEntity<?> confirmPayment(
             @PathVariable Long id,
-            @RequestParam(required = false, defaultValue = "UPI") String paymentMethod,
-            @RequestParam(required = false) String transactionRef) {
+            @RequestParam(required = false, defaultValue = "UPI")
+            String paymentMethod,
+            @RequestParam(required = false)
+            String transactionRef) {
+
         try {
-            Order order = orderService.confirmPaymentAndGenerateOtp(id, paymentMethod, transactionRef);
+
+            // UTR is mandatory for UPI payments
+            if ("UPI".equalsIgnoreCase(paymentMethod)) {
+
+                if (transactionRef == null ||
+                        transactionRef.trim().isEmpty()) {
+
+                    return ResponseEntity.badRequest()
+                            .body(Map.of(
+                                    "error",
+                                    "Unique Transaction Reference (UTR) is mandatory."
+                            ));
+                }
+
+                transactionRef = transactionRef.trim();
+
+                if (transactionRef.length() < 6 ||
+                        transactionRef.length() > 50) {
+
+                    return ResponseEntity.badRequest()
+                            .body(Map.of(
+                                    "error",
+                                    "Please enter a valid UTR number."
+                            ));
+                }
+            }
+
+            Order order = orderService.confirmPaymentAndGenerateOtp(
+                    id,
+                    paymentMethod,
+                    transactionRef
+            );
+
             return ResponseEntity.ok(order);
+
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", e.getMessage()));
         }
     }
 

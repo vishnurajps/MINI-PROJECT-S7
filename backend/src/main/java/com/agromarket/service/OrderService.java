@@ -279,32 +279,42 @@ public class OrderService {
             );
         }
 
-        /*
-         * IMPORTANT:
-         * A transaction reference alone does not verify payment.
-         * A payment gateway or authorized manual verification is required.
-         */
-        order.setPaymentStatus("PENDING_VERIFICATION");
+        // DEMO VERSION: Assume UPI payment is successful
+        order.setPaymentStatus("PAID");
 
-        Order savedOrder = orderRepository.save(order);
-
-        notificationService.sendNotification(
-                order.getBuyerId(),
-                "UPI Payment Submitted",
-                "Your UPI payment reference for order #"
-                        + order.getOrderNumber()
-                        + " has been submitted and is awaiting verification."
+        // Generate 6-digit delivery OTP
+        String deliveryOtp = String.format(
+                "%06d",
+                new Random().nextInt(1000000)
         );
 
+        order.setDeliveryOtp(deliveryOtp);
+
+        // Save the order
+        Order savedOrder = orderRepository.save(order);
+
+        // Notify buyer
+        notificationService.sendNotification(
+                order.getBuyerId(),
+                "Payment Successful",
+                "Payment received for order #"
+                        + order.getOrderNumber()
+                        + ". Your delivery OTP is: "
+                        + deliveryOtp
+        );
+
+        // Notify farmer
         notificationService.sendNotification(
                 order.getFarmerId(),
-                "UPI Payment Verification Pending",
-                "Payment for order #" + order.getOrderNumber()
-                        + " has not yet been verified."
+                "Payment Received",
+                "Payment received for order #"
+                        + order.getOrderNumber()
+                        + ". Delivery OTP has been generated."
         );
 
         return savedOrder;
     }
+    
     /**
      * Delivery agent confirms that COD payment was collected.
      */

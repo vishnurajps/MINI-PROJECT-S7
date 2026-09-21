@@ -43,7 +43,8 @@ public class User {
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String qrCodeUrl; // Can be a URL or base64 data URI
-
+    
+    
     private Double farmSizeAcres;
 
     // Delivery Agent specific attributes

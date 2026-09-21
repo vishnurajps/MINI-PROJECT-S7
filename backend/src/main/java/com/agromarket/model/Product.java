@@ -17,20 +17,30 @@ public class Product {
     @Column(nullable = false)
     private String farmerName;
 
+    @Column(name = "farmer_upi_id")
+    private String farmerUpiId;
+
+    @Lob
+    @Column(
+        name = "farmer_qr_code",
+        columnDefinition = "LONGTEXT"
+    )
+    private String farmerQrCode;
+
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String category; // 'Vegetables', 'Fruits', 'Grains & Pulses', 'Spices', 'Organic Goods'
+    private String category;
 
     @Column(nullable = false)
     private Double pricePerUnit;
 
     @Column(nullable = false)
-    private String unit = "kg"; // 'kg', 'quintal', 'liter', 'bunch', 'bottle'
+    private String unit = "kg";
 
     @Column(nullable = false)
-    private Double quantityAvailable; // e.g. 5.00 kg
+    private Double quantityAvailable;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -45,49 +55,166 @@ public class Product {
     private Boolean isActive = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public Product() {}
+    // Default constructor
+    public Product() {
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // ID
+    public Long getId() {
+        return id;
+    }
 
-    public Long getFarmerId() { return farmerId; }
-    public void setFarmerId(Long farmerId) { this.farmerId = farmerId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getFarmerName() { return farmerName; }
-    public void setFarmerName(String farmerName) { this.farmerName = farmerName; }
+    // Farmer ID
+    public Long getFarmerId() {
+        return farmerId;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setFarmerId(Long farmerId) {
+        this.farmerId = farmerId;
+    }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    // Farmer Name
+    public String getFarmerName() {
+        return farmerName;
+    }
 
-    public Double getPricePerUnit() { return pricePerUnit; }
-    public void setPricePerUnit(Double pricePerUnit) { this.pricePerUnit = pricePerUnit; }
+    public void setFarmerName(String farmerName) {
+        this.farmerName = farmerName;
+    }
 
-    public String getUnit() { return unit; }
-    public void setUnit(String unit) { this.unit = unit; }
+    // Farmer UPI ID
+    public String getFarmerUpiId() {
+        return farmerUpiId;
+    }
 
-    public Double getQuantityAvailable() { return quantityAvailable; }
-    public void setQuantityAvailable(Double quantityAvailable) { this.quantityAvailable = quantityAvailable; }
+    public void setFarmerUpiId(String farmerUpiId) {
+        this.farmerUpiId = farmerUpiId;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    // Farmer QR Code
+    public String getFarmerQrCode() {
+        return farmerQrCode;
+    }
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setFarmerQrCode(String farmerQrCode) {
+        this.farmerQrCode = farmerQrCode;
+    }
 
-    public String getDistrict() { return district; }
-    public void setDistrict(String district) { this.district = district; }
+    // Product Name
+    public String getName() {
+        return name;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean active) { isActive = active; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    // Category
+    public String getCategory() {
+        return category;
+    }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    // Price Per Unit
+    public Double getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(Double pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
+    }
+
+    // Unit
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    // Quantity Available
+    public Double getQuantityAvailable() {
+        return quantityAvailable;
+    }
+
+    public void setQuantityAvailable(Double quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
+    }
+
+    // Description
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // Product Image URL
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    // District
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    // Active Status
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean active) {
+        isActive = active;
+    }
+
+    // Created At
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    // Updated At
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    // Automatically update timestamps
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }

@@ -273,27 +273,120 @@ window.removeFromCart = function(index) {
   renderCartModal();
 };
 
-// ---------------- CHECKOUT & PAYMENT ----------------
-window.proceedToCheckout = function() {
+function setFarmerPaymentQR(upiId, farmerName, amount) {
+    const qrImg = document.getElementById("pay-qr-img");
+
+    if (!qrImg) {
+        console.error("QR image element not found!");
+        return;
+    }
+
+    if (!upiId || !upiId.includes("@")) {
+        console.error("Invalid farmer UPI ID:", upiId);
+        qrImg.style.display = "none";
+        return;
+    }
+
+    const numericAmount = Number(amount);
+
+    if (!numericAmount || numericAmount <= 0) {
+        console.error("Invalid payment amount:", amount);
+        qrImg.style.display = "none";
+        return;
+    }
+
+    const upiUri =
+        `upi://pay?pa=${encodeURIComponent(upiId)}` +
+        `&pn=${encodeURIComponent(farmerName || "Farmer")}` +
+        `&am=${numericAmount.toFixed(2)}` +
+        `&cu=INR`;
+
+    console.log("UPI ID:", upiId);
+    console.log("Payment Amount:", numericAmount);
+    console.log("UPI URI:", upiUri);
+
+  const qrUrl =
+    `https://quickchart.io/qr?size=250&text=${encodeURIComponent(upiUri)}`;
+
+    console.log("QR URL:", qrUrl);
+
+    qrImg.onload = function () {
+        console.log("QR image loaded successfully");
+        qrImg.style.display = "block";
+        qrImg.style.visibility = "visible";
+    };
+
+    qrImg.onerror = function () {
+        console.error("QR image failed to load:", qrUrl);
+        qrImg.style.display = "none";
+    };
+
+    // Reset and display image
+    qrImg.removeAttribute("hidden");
+    qrImg.src = "";
+    qrImg.src = qrUrl;
+
+    qrImg.style.width = "250px";
+    qrImg.style.height = "250px";
+    qrImg.style.display = "block";
+    qrImg.style.visibility = "visible";
+}
+
+window.proceedToCheckout = function () {
+
   if (cart.length === 0) return;
-  closeModal('cart-modal');
+
+  closeModal("cart-modal");
 
   const farmer = cart[0].product;
   const buyer = Auth.getUser();
 
-  // Populate Farmer UPI QR modal
-  document.getElementById('pay-farmer-name').textContent = farmer.farmerName;
-  document.getElementById('pay-farmer-upi').textContent = farmer.farmerUpiId || "farmer@upi";
+  // Display farmer information
+  document.getElementById("pay-farmer-name").textContent =
+    farmer.farmerName || "Farmer";
 
-  const qrImg = document.getElementById('pay-qr-img');
-  const upiUri = `upi://pay?pa=${encodeURIComponent(farmer.farmerUpiId || 'farmer@upi')}&pn=${encodeURIComponent(farmer.farmerName)}&cu=INR`;
-  qrImg.src = farmer.farmerQrCodeUrl || `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+const farmerUpi =
+  farmer.farmerUpiId ||
+  farmer.upiId ||
+  farmer.farmer?.upiId ||
+  "";
 
-  // Default address and phone from buyer profile
-  document.getElementById('checkout-address').value = buyer.address || "";
-  document.getElementById('checkout-phone').value = buyer.phone || "";
+console.log("Selected farmer data:", farmer);
+console.log("Farmer UPI ID:", farmerUpi);
 
-  openModal('checkout-modal');
+  document.getElementById("pay-farmer-upi").textContent =
+    farmerUpi || "UPI ID unavailable";
+
+  // Display the original QR code supplied by the farmer
+// Calculate the estimated total
+const subtotal = cart.reduce(
+  (sum, item) =>
+    sum + (item.product.pricePerUnit * item.quantity),
+  0
+);
+
+const gst = Math.round(subtotal * 0.05 * 100) / 100;
+const delivery = subtotal > 0 ? 40.00 : 0.00;
+const platform = subtotal > 0 ? 15.00 : 0.00;
+
+const estimatedTotal = subtotal + gst + delivery + platform;
+
+// Generate dynamic QR with actual checkout total
+setFarmerPaymentQR(
+  farmerUpi,
+  farmer.farmerName || "Farmer",
+  estimatedTotal
+);
+console.log("Farmer QR Code:", farmer.farmerQrCode);
+
+  // Buyer details
+  document.getElementById("checkout-address").value =
+    buyer.address || "";
+
+  document.getElementById("checkout-phone").value =
+    buyer.phone || "";
+
+  openModal("checkout-modal");
 };
 
 window.placeFinalOrder = async function () {
@@ -325,6 +418,30 @@ window.placeFinalOrder = async function () {
     );
     return;
   }
+
+  // Save farmer details before clearing cart
+const selectedFarmer = cart[0].product;
+
+console.log("COMPLETE FARMER PRODUCT DATA:", selectedFarmer);
+console.log("FARMER UPI:", selectedFarmer.farmerUpiId);
+console.log("FARMER QR:", selectedFarmer.farmerQrCodeUrl);
+
+const savedFarmerName =
+  selectedFarmer.farmerName || "Farmer";
+
+const savedFarmerUpi =
+  selectedFarmer.farmerUpiId ||
+  selectedFarmer.upiId ||
+  "";
+
+const savedFarmerQrCode =
+  selectedFarmer.farmerQrCode || "";
+
+const totalAmount = cart.reduce(
+  (sum, item) =>
+    sum + (item.product.pricePerUnit * item.quantity),
+  0
+);
 
   const payload = {
     buyerId: buyer.id,
@@ -358,43 +475,63 @@ window.placeFinalOrder = async function () {
     }
 
     const order = await response.json();
+// Generate QR before clearing cart
+if (payMethod.toUpperCase() === "UPI") {
 
-    // Clear cart after successful order creation
-    cart = [];
-    updateCartBadge();
-    closeModal("checkout-modal");
+setFarmerPaymentQR(
+  savedFarmerUpi,
+  savedFarmerName,
+  order.grandTotal || totalAmount
+);
 
-    // 2. UPI workflow
-    if (payMethod.toUpperCase() === "UPI") {
+  document.getElementById("pay-farmer-name").textContent =
+    savedFarmerName;
 
-      window.pendingPaymentOrderId = order.id;
+  document.getElementById("pay-farmer-upi").textContent =
+    savedFarmerUpi || "UPI ID unavailable";
+}
 
-      // Display farmer payment information
-      document.getElementById("pay-farmer-name").textContent =
-        order.farmerName || cart?.[0]?.product?.farmerName || "Farmer";
+// Clear cart only after saving farmer information
+cart = [];
+updateCartBadge();
+closeModal("checkout-modal");
 
-      document.getElementById("pay-farmer-upi").textContent =
-        order.farmerUpiId || "Farmer UPI";
+// UPI workflow
+if (payMethod.toUpperCase() === "UPI") {
 
-      // Open payment modal
-      openModal("online-payment-modal");
+  window.pendingPaymentOrderId = order.id;
 
-      showToast(
-        "Order created. Complete UPI payment and enter your UTR.",
-        "info"
-      );
+  // Use saved farmer details, not the cleared cart
+  document.getElementById("pay-farmer-name").textContent =
+    savedFarmerName;
 
-    } else {
+  document.getElementById("pay-farmer-upi").textContent =
+    savedFarmerUpi || "UPI ID unavailable";
 
-      // 3. COD workflow
-      showOrderConfirmationModal(order);
+// Generate dynamic QR using UPI ID and order total
+setFarmerPaymentQR(
+  savedFarmerUpi,
+  savedFarmerName,
+  order.grandTotal
+);
 
-      showToast(
-        "COD order placed. Payment will be collected at delivery.",
-        "success"
-      );
-    }
+  // Open payment modal
+  openModal("online-payment-modal");
 
+  showToast(
+    "Order created. Complete UPI payment and enter your UTR.",
+    "info"
+  );
+
+} else {
+
+  showOrderConfirmationModal(order);
+
+  showToast(
+    "COD order placed. Payment will be collected at delivery.",
+    "success"
+  );
+}
     await loadBuyerOrders(buyer.id);
     await loadBuyerProducts();
 
@@ -407,24 +544,67 @@ window.placeFinalOrder = async function () {
     );
   }
 };
-window.payOrderNow = async function(orderId, farmerUpi, farmerName, qrUrl, grandTotal) {
-  document.getElementById('pay-farmer-name').textContent = farmerName;
-  document.getElementById('pay-farmer-upi').textContent = farmerUpi || "farmer@upi";
-  const qrImg = document.getElementById('pay-qr-img');
-  const upiUri = `upi://pay?pa=${encodeURIComponent(farmerUpi || 'farmer@upi')}&pn=${encodeURIComponent(farmerName)}&cu=INR`;
-  qrImg.src = qrUrl || `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+window.payOrderNow = function (
+  orderId,
+  farmerUpi,
+  farmerName,
+  qrUrl,
+  grandTotal
+) {
 
-  // Store active order ID for payment
+  document.getElementById("pay-farmer-name").textContent =
+    farmerName || "Farmer";
+
+  document.getElementById("pay-farmer-upi").textContent =
+    farmerUpi || "UPI ID unavailable";
+
+// Generate dynamic QR using the actual order amount
+setFarmerPaymentQR(
+  farmerUpi,
+  farmerName,
+  grandTotal
+);
+
   window.pendingPaymentOrderId = orderId;
-  openModal('online-payment-modal');
+
+  openModal("online-payment-modal");
 };
 
 window.confirmOnlinePayment = async function() {
   const orderId = window.pendingPaymentOrderId;
-  const utrRef = document.getElementById('online-utr-input') ? document.getElementById('online-utr-input').value.trim() : "";
+const utrInput = document.getElementById('online-utr-input');
+
+const utrRef = utrInput
+  ? utrInput.value.trim()
+  : "";
+
+// UTR is mandatory
+if (!utrRef) {
+  showToast(
+    "Please enter the Unique Transaction Reference (UTR) after payment.",
+    "error"
+  );
+
+  if (utrInput) {
+    utrInput.focus();
+  }
+
+  return;
+}
+
+// Basic UTR validation
+if (utrRef.length < 6 || utrRef.length > 50) {
+  showToast(
+    "Please enter a valid UTR number.",
+    "error"
+  );
+
+  utrInput.focus();
+  return;
+}
 
   try {
-    const res = await fetch(`${API_BASE}/orders/${orderId}/confirm-payment?paymentMethod=UPI&transactionRef=${encodeURIComponent(utrRef || 'UPI-' + Date.now())}`, {
+    const res = await fetch(`${API_BASE}/orders/${orderId}/confirm-payment?paymentMethod=UPI&transactionRef=${encodeURIComponent(utrRef)}`, {
       method: 'POST'
     });
 
@@ -496,7 +676,7 @@ async function loadBuyerOrders(buyerId) {
         otpDisplay = `
           <div style="text-align:center;">
             <span style="font-size:0.75rem; color:#d97706; display:block; margin-bottom:0.35rem;">🔒 OTP generates after payment</span>
-            <button onclick="payOrderNow(${o.id}, '${o.farmerUpiId}', '${o.farmerName}', '${o.farmerQrCodeUrl}', ${o.grandTotal})" class="btn btn-primary btn-sm" style="font-size:0.78rem; padding:0.3rem 0.6rem;">
+            <button onclick="payOrderNow(${o.id}, '${o.farmerUpiId}', '${o.farmerName}', '${o.farmerQrCode}', ${o.grandTotal})" class="btn btn-primary btn-sm" style="font-size:0.78rem; padding:0.3rem 0.6rem;">
               💳 Pay via UPI & Get OTP
             </button>
           </div>
@@ -614,3 +794,60 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('active');
 }
 
+// ---------------- PAYMENT APP INTEGRATION ----------------
+
+window.openPaymentApp = function (appName) {
+
+  // Get farmer UPI ID
+  const upiElement = document.getElementById('pay-farmer-upi');
+
+  const farmerUpi = upiElement
+    ? upiElement.textContent.trim()
+    : 'farmer@upi';
+
+  // Get farmer name
+  const farmerNameElement =
+    document.getElementById('pay-farmer-name');
+
+  const farmerName = farmerNameElement
+    ? farmerNameElement.textContent.trim()
+    : 'Farmer';
+
+  // Create UPI payment URL
+  const upiUrl =
+    `upi://pay?pa=${encodeURIComponent(farmerUpi)}` +
+    `&pn=${encodeURIComponent(farmerName)}` +
+    `&cu=INR`;
+
+  let paymentUrl = upiUrl;
+
+  // App-specific UPI URLs
+  switch (appName) {
+
+    case 'gpay':
+      paymentUrl =
+        `tez://upi/pay?pa=${encodeURIComponent(farmerUpi)}` +
+        `&pn=${encodeURIComponent(farmerName)}` +
+        `&cu=INR`;
+      break;
+
+    case 'phonepe':
+      paymentUrl = upiUrl;
+      break;
+
+    case 'paytm':
+      paymentUrl = upiUrl;
+      break;
+
+    default:
+      paymentUrl = upiUrl;
+  }
+
+  // Attempt to open the payment app
+  window.location.href = paymentUrl;
+
+  showToast(
+    'Opening payment application...',
+    'info'
+  );
+};
