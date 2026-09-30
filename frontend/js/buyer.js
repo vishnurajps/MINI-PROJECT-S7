@@ -608,13 +608,24 @@ if (utrRef.length < 6 || utrRef.length > 50) {
       method: 'POST'
     });
 
-    if (res.ok) {
-      const order = await res.json();
-      closeModal('online-payment-modal');
-      showToast("Payment Successful! Delivery OTP has been generated.", "success");
-      showOrderConfirmationModal(order);
-      loadBuyerOrders(Auth.getUser().id);
-    } else {
+  if (res.ok) {
+  const order = await res.json();
+
+  // Save completed order and UTR for payment receipt
+  window.lastCompletedOrder = order;
+  window.lastPaymentUtr = utrRef;
+
+  closeModal('online-payment-modal');
+
+  showToast(
+    "Payment Successful! Delivery OTP has been generated.",
+    "success"
+  );
+
+  showOrderConfirmationModal(order);
+
+  loadBuyerOrders(Auth.getUser().id);
+} else {
       showToast("Failed to confirm payment", "error");
     }
   } catch (err) {
@@ -623,21 +634,44 @@ if (utrRef.length < 6 || utrRef.length > 50) {
 };
 
 function showOrderConfirmationModal(order) {
-  document.getElementById('confirm-order-num').textContent = order.orderNumber;
-  document.getElementById('confirm-order-total').textContent = formatCurrency(order.grandTotal);
 
-  const otpBox = document.getElementById('confirm-otp-container');
-  const codNotice = document.getElementById('confirm-cod-notice');
+  // Keep the latest order available for receipt download
+  window.lastCompletedOrder = order;
+
+  document.getElementById('confirm-order-num').textContent =
+    order.orderNumber;
+
+  document.getElementById('confirm-order-total').textContent =
+    formatCurrency(order.grandTotal);
+
+  const otpBox =
+    document.getElementById('confirm-otp-container');
+
+  const codNotice =
+    document.getElementById('confirm-cod-notice');
 
   if (order.deliveryOtp) {
-    // OTP generated after payment
-    if (otpBox) otpBox.style.display = 'block';
-    if (codNotice) codNotice.style.display = 'none';
-    document.getElementById('confirm-order-otp').textContent = order.deliveryOtp;
+
+    if (otpBox) {
+      otpBox.style.display = 'block';
+    }
+
+    if (codNotice) {
+      codNotice.style.display = 'none';
+    }
+
+    document.getElementById('confirm-order-otp').textContent =
+      order.deliveryOtp;
+
   } else {
-    // COD payment pending
-    if (otpBox) otpBox.style.display = 'none';
-    if (codNotice) codNotice.style.display = 'block';
+
+    if (otpBox) {
+      otpBox.style.display = 'none';
+    }
+
+    if (codNotice) {
+      codNotice.style.display = 'block';
+    }
   }
 
   openModal('order-success-modal');
@@ -851,3 +885,655 @@ window.openPaymentApp = function (appName) {
     'info'
   );
 };
+// =========================================================
+// PAYMENT RECEIPT PDF
+// =========================================================
+
+window.downloadPaymentReceipt = function () {
+
+  // Check whether a completed order exists
+  if (!window.lastCompletedOrder) {
+
+    showToast(
+      "Payment receipt is not available.",
+      "error"
+    );
+
+    return;
+  }
+
+  const order = window.lastCompletedOrder;
+  const utr = window.lastPaymentUtr || "Not available";
+  const buyer = Auth.getUser();
+
+  // Check jsPDF
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+
+    showToast(
+      "Receipt generator is not loaded. Please refresh the page.",
+      "error"
+    );
+
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+
+  // ---------------------------------------------------------
+  // PAGE SETTINGS
+  // ---------------------------------------------------------
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+
+  let y = 20;
+
+
+  // ---------------------------------------------------------
+  // HEADER
+  // ---------------------------------------------------------
+
+  doc.setFillColor(22, 101, 52);
+
+  doc.rect(
+    0,
+    0,
+    pageWidth,
+    35,
+    "F"
+  );
+
+  doc.setTextColor(255, 255, 255);
+
+  doc.setFontSize(20);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "AgroMarket",
+    20,
+    17
+  );
+
+  doc.setFontSize(10);
+
+  doc.setFont("helvetica", "normal");
+
+  doc.text(
+    "Integrated Farmer Marketplace",
+    20,
+    25
+  );
+
+  doc.text(
+    "PAYMENT RECEIPT",
+    pageWidth - 20,
+    20,
+    {
+      align: "right"
+    }
+  );
+
+
+  // Reset text color
+
+  doc.setTextColor(30, 41, 59);
+
+  y = 50;
+
+
+  // ---------------------------------------------------------
+  // PAYMENT STATUS
+  // ---------------------------------------------------------
+
+  doc.setFillColor(220, 252, 231);
+
+  doc.roundedRect(
+    20,
+    y - 7,
+    pageWidth - 40,
+    22,
+    4,
+    4,
+    "F"
+  );
+
+  doc.setTextColor(22, 101, 52);
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "✓ PAYMENT SUCCESSFUL",
+    30,
+    y + 7
+  );
+
+  y += 32;
+
+
+  // ---------------------------------------------------------
+  // ORDER DETAILS
+  // ---------------------------------------------------------
+
+  doc.setTextColor(30, 41, 59);
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "Order Details",
+    20,
+    y
+  );
+
+  y += 9;
+
+  doc.setFontSize(10);
+
+  doc.setFont("helvetica", "normal");
+
+  doc.text(
+    `Order Number: ${order.orderNumber || "-"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `Order Date: ${formatReceiptDate(order.createdAt)}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `Payment Method: ${order.paymentMethod || "UPI"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `Payment Status: ${order.paymentStatus || "PAID"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `UTR / Transaction Reference: ${utr}`,
+    20,
+    y
+  );
+
+  y += 15;
+
+
+  // ---------------------------------------------------------
+  // BUYER DETAILS
+  // ---------------------------------------------------------
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "Buyer Details",
+    20,
+    y
+  );
+
+  y += 9;
+
+  doc.setFontSize(10);
+
+  doc.setFont("helvetica", "normal");
+
+  doc.text(
+    `Name: ${buyer.fullName || order.buyerName || "-"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `Phone: ${buyer.phone || order.buyerPhone || "-"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+
+  // Address may be long
+  const address =
+    order.deliveryAddress ||
+    buyer.address ||
+    "-";
+
+  const addressLines =
+    doc.splitTextToSize(
+      `Delivery Address: ${address}`,
+      pageWidth - 40
+    );
+
+  doc.text(
+    addressLines,
+    20,
+    y
+  );
+
+  y += addressLines.length * 5 + 10;
+
+
+  // ---------------------------------------------------------
+  // FARMER DETAILS
+  // ---------------------------------------------------------
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "Farmer Details",
+    20,
+    y
+  );
+
+  y += 9;
+
+  doc.setFontSize(10);
+
+  doc.setFont("helvetica", "normal");
+
+  doc.text(
+    `Farmer: ${order.farmerName || "-"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `UPI ID: ${order.farmerUpiId || "-"}`,
+    20,
+    y
+  );
+
+  y += 7;
+
+  doc.text(
+    `District: ${order.farmerDistrict || "-"}`,
+    20,
+    y
+  );
+
+  y += 15;
+
+
+  // ---------------------------------------------------------
+  // ITEMS
+  // ---------------------------------------------------------
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "Items Purchased",
+    20,
+    y
+  );
+
+  y += 8;
+
+
+  // Table header
+
+  doc.setFillColor(241, 245, 249);
+
+  doc.rect(
+    20,
+    y,
+    pageWidth - 40,
+    9,
+    "F"
+  );
+
+  doc.setFontSize(9);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "Product",
+    23,
+    y + 6
+  );
+
+  doc.text(
+    "Qty",
+    115,
+    y + 6
+  );
+
+  doc.text(
+    "Price",
+    145,
+    y + 6
+  );
+
+  doc.text(
+    "Amount",
+    pageWidth - 23,
+    y + 6,
+    {
+      align: "right"
+    }
+  );
+
+  y += 15;
+
+
+  // Items
+
+  doc.setFont("helvetica", "normal");
+
+if (order.items && order.items.length > 0) {
+
+  order.items.forEach(item => {
+
+    const productName =
+      item.productName || "Product";
+
+    const quantity =
+      Number(item.quantity || 0);
+
+    const price =
+      Number(item.unitPrice || 0);
+
+    const itemTotal =
+      Number(item.subtotal || (price * quantity));
+
+    doc.text(
+      String(productName).substring(0, 35),
+      23,
+      y
+    );
+
+    doc.text(
+      String(quantity),
+      115,
+      y
+    );
+
+    doc.text(
+      formatReceiptCurrency(price),
+      145,
+      y
+    );
+
+    doc.text(
+      formatReceiptCurrency(itemTotal),
+      pageWidth - 23,
+      y,
+      {
+        align: "right"
+      }
+    );
+
+    y += 8;
+  });
+
+} else {
+
+  doc.text(
+    "No item details available",
+    23,
+    y
+  );
+
+  y += 8;
+}
+
+y += 7;
+
+
+  // ---------------------------------------------------------
+  // BILL SUMMARY
+  // ---------------------------------------------------------
+
+  doc.setDrawColor(203, 213, 225);
+
+  doc.line(
+    20,
+    y,
+    pageWidth - 20,
+    y
+  );
+
+  y += 10;
+
+  doc.setFontSize(10);
+
+  addReceiptAmountRow(
+    doc,
+    "Produce Subtotal",
+    order.productTotal,
+    y
+  );
+
+  y += 7;
+
+  addReceiptAmountRow(
+    doc,
+    "GST (5%)",
+    order.gstAmount,
+    y
+  );
+
+  y += 7;
+
+  addReceiptAmountRow(
+    doc,
+    "Delivery Charges",
+    order.deliveryCharge,
+    y
+  );
+
+  y += 7;
+
+  addReceiptAmountRow(
+    doc,
+    "Platform Fee",
+    order.platformCharge,
+    y
+  );
+
+  y += 10;
+
+
+  // ---------------------------------------------------------
+  // GRAND TOTAL
+  // ---------------------------------------------------------
+
+  doc.setFillColor(240, 253, 244);
+
+  doc.roundedRect(
+    20,
+    y - 6,
+    pageWidth - 40,
+    18,
+    3,
+    3,
+    "F"
+  );
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.setTextColor(22, 101, 52);
+
+  doc.text(
+    "TOTAL PAID",
+    27,
+    y + 5
+  );
+
+  doc.text(
+    formatReceiptCurrency(order.grandTotal),
+    pageWidth - 27,
+    y + 5,
+    {
+      align: "right"
+    }
+  );
+
+  y += 30;
+
+
+  // ---------------------------------------------------------
+  // SECURITY NOTE
+  // ---------------------------------------------------------
+
+  doc.setTextColor(100, 116, 139);
+
+  doc.setFontSize(8);
+
+  doc.setFont("helvetica", "normal");
+
+  const note =
+    "This receipt confirms the UPI payment submitted for the above order. " +
+    "The delivery OTP is not included in this receipt for security reasons.";
+
+  const noteLines =
+    doc.splitTextToSize(
+      note,
+      pageWidth - 40
+    );
+
+  doc.text(
+    noteLines,
+    20,
+    y
+  );
+
+
+  // ---------------------------------------------------------
+  // FOOTER
+  // ---------------------------------------------------------
+
+  const pageHeight =
+    doc.internal.pageSize.getHeight();
+
+  doc.setFontSize(8);
+
+  doc.setTextColor(148, 163, 184);
+
+  doc.text(
+    "AgroMarket • Integrated Farmer Marketplace",
+    pageWidth / 2,
+    pageHeight - 15,
+    {
+      align: "center"
+    }
+  );
+
+
+  // ---------------------------------------------------------
+  // DOWNLOAD
+  // ---------------------------------------------------------
+
+  const fileName =
+    `AgroMarket_Payment_Receipt_${order.orderNumber || "Order"}.pdf`;
+
+  doc.save(fileName);
+
+  showToast(
+    "Payment receipt downloaded successfully.",
+    "success"
+  );
+};
+
+
+// =========================================================
+// RECEIPT HELPER FUNCTIONS
+// =========================================================
+
+function formatReceiptCurrency(value) {
+
+  const amount = Number(value || 0);
+
+  return `Rs. ${amount.toFixed(2)}`;
+}
+
+
+function formatReceiptDate(dateValue) {
+
+  if (!dateValue) {
+    return "-";
+  }
+
+  try {
+
+    const date = new Date(dateValue);
+
+    return date.toLocaleString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+    );
+
+  } catch (error) {
+
+    return String(dateValue);
+  }
+}
+
+
+function addReceiptAmountRow(
+  doc,
+  label,
+  amount,
+  y
+) {
+
+  const pageWidth =
+    doc.internal.pageSize.getWidth();
+
+  doc.setTextColor(71, 85, 105);
+
+  doc.setFont(
+    "helvetica",
+    "normal"
+  );
+
+  doc.text(
+    label,
+    25,
+    y
+  );
+
+  doc.text(
+    formatReceiptCurrency(amount),
+    pageWidth - 25,
+    y,
+    {
+      align: "right"
+    }
+  );
+}
