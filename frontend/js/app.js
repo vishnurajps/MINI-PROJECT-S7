@@ -101,10 +101,12 @@ function formatDate(dateStr) {
 
 // Global initialization
 // Global initialization
+// Global initialization
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Force English language
-  const savedLang = 'en';
+  // Load the saved language
+  const savedLang =
+    localStorage.getItem('agromarket_lang') || 'en';
 
   if (typeof applyLanguage === 'function') {
     applyLanguage(savedLang);
@@ -114,13 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const langSelect = document.getElementById('lang-select');
 
   if (langSelect) {
-    langSelect.value = 'en';
-
-    // Keep the application in English
-    langSelect.addEventListener('change', () => {
-      langSelect.value = 'en';
-      applyLanguage('en');
-    });
+    langSelect.value = savedLang;
   }
 
   const navAuthArea = document.getElementById('nav-auth-area');

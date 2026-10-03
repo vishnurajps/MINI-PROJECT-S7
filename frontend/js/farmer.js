@@ -62,8 +62,12 @@ async function loadFarmerProducts(farmerId) {
     if (!products || products.length === 0) {
       container.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: white; border-radius: 12px; border: 1px dashed #cbd5e1;">
-          <p style="color:#64748b; font-size:1.05rem; margin-bottom:1rem;">You haven't listed any farm produce yet.</p>
-          <button onclick="openAddProductModal()" class="btn btn-primary">+ Add Your First Produce</button>
+<p style="color:#64748b; font-size:1.05rem; margin-bottom:1rem;">
+    ${t('no_products_listed')}
+</p>
+<button onclick="openAddProductModal()" class="btn btn-primary">
+    ${t('add_first_produce')}
+</button>
         </div>
       `;
       return;
@@ -84,11 +88,11 @@ async function loadFarmerProducts(farmerId) {
             <div>
               <div class="product-price">${formatCurrency(p.pricePerUnit)} <span style="font-size:0.8rem; font-weight:500; color:#64748b;">/ ${p.unit}</span></div>
               <div class="product-stock" style="color: ${p.quantityAvailable > 0 ? '#16a34a' : '#dc2626'}">
-                Stock: <strong>${p.quantityAvailable} ${p.unit}</strong>
+                ${t('stock')}: <strong>${p.quantityAvailable} ${p.unit}</strong>
               </div>
             </div>
             <div style="display:flex; gap:0.4rem;">
-              <button onclick='openEditProductModal(${JSON.stringify(p)})' class="btn btn-outline btn-sm">Edit</button>
+              <button onclick='openEditProductModal(${JSON.stringify(p)})' class="btn btn-outline btn-sm">${t('edit')}</button>
               <button onclick="deleteProduct(${p.id})" class="btn btn-danger btn-sm">✕</button>
             </div>
           </div>
@@ -131,15 +135,20 @@ function setupProductForm(farmer) {
       });
 
       if (res.ok) {
-        showToast(id ? "Product updated successfully!" : "New product added to marketplace!", "success");
+        showToast(
+    id
+        ? t('product_updated')
+        : t('product_added'),
+    "success"
+);
         closeModal('product-modal');
         loadFarmerProducts(farmer.id);
       } else {
-        showToast("Failed to save product", "error");
+        showToast(t('failed_save_product'), "error");
       }
     } catch (err) {
       console.error(err);
-      showToast("Server error saving product", "error");
+      showToast(t('server_error_saving_product'), "error");
     }
   });
 }
@@ -147,7 +156,8 @@ function setupProductForm(farmer) {
 window.openAddProductModal = function() {
   document.getElementById('product-form').reset();
   document.getElementById('prod-id').value = "";
-  document.getElementById('product-modal-title').textContent = "Add Fresh Produce";
+  document.getElementById('product-modal-title').textContent =
+    t('add_fresh_produce');
   openModal('product-modal');
 };
 
@@ -160,20 +170,21 @@ window.openEditProductModal = function(product) {
   document.getElementById('prod-qty').value = product.quantityAvailable;
   document.getElementById('prod-desc').value = product.description || '';
   document.getElementById('prod-image').value = product.imageUrl || '';
-  document.getElementById('product-modal-title').textContent = "Edit Produce Listing";
+  document.getElementById('product-modal-title').textContent =
+    t('edit_produce_listing');
   openModal('product-modal');
 };
 
 window.deleteProduct = async function(id) {
-  if (!confirm("Are you sure you want to remove this product from the marketplace?")) return;
+  if (!confirm(t('remove_product_confirm'))) return;
   try {
     const res = await fetch(`${API_BASE}/products/${id}`, { method: 'DELETE' });
     if (res.ok) {
-      showToast("Product deleted", "info");
+      showToast(t('product_deleted'), "info");
       loadFarmerProducts(Auth.getUser().id);
     }
   } catch (err) {
-    showToast("Failed to delete product", "error");
+    showToast(t('failed_delete_product'), "error");
   }
 };
 
@@ -188,7 +199,14 @@ async function loadFarmerOrders(farmerId) {
     if (countBadge) countBadge.textContent = orders.length;
 
     if (!orders || orders.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:2rem; color:#94a3b8;">No orders received yet.</td></tr>`;
+      tbody.innerHTML = `
+    <tr>
+        <td colspan="8"
+            style="text-align:center; padding:2rem; color:#94a3b8;">
+            ${t('no_orders_received')}
+        </td>
+    </tr>
+`;
       return;
     }
 
@@ -199,7 +217,7 @@ async function loadFarmerOrders(farmerId) {
       if (o.orderStatus === 'PLACED') {
         actionBtn = `
           <button onclick="acceptOrder(${o.id})" class="btn btn-success btn-sm">
-            ✓ Accept & Confirm
+            ${t('accept_confirm')}
           </button>
         `;
       } else {
@@ -215,7 +233,7 @@ async function loadFarmerOrders(farmerId) {
           <td>${itemsSummary}</td>
           <td>
             <strong>${formatCurrency(o.productTotal)}</strong><br>
-            <span style="color:#16a34a; font-weight:700; font-size:0.85rem;">Your Share (70%): ${formatCurrency(o.farmerEarnings)}</span>
+            <span style="color:#16a34a; font-weight:700; font-size:0.85rem;">${t('your_share_70')}: ${formatCurrency(o.farmerEarnings)}</span>
           </td>
           <td>${statusBadge}</td>
           <td>
@@ -223,10 +241,10 @@ async function loadFarmerOrders(farmerId) {
               <span style="background:#eff6ff; color:#1e40af; font-family:monospace; font-weight:700; padding:0.2rem 0.5rem; border-radius:4px;">
                 ${o.deliveryOtp}
               </span>
-            ` : `<span style="color:#d97706; font-size:0.75rem; font-style:italic;">Pending Payment</span>`}
+            ` : `<span style="color:#d97706; font-size:0.75rem; font-style:italic;">${t('pending_payment')}</span>`}
           </td>
           <td>
-            ${o.deliveryAgentName ? `<strong>${o.deliveryAgentName}</strong><br><small>📞 ${o.deliveryAgentPhone || 'N/A'}</small>` : '<span style="color:#94a3b8;">Searching agent...</span>'}
+            ${o.deliveryAgentName ? `<strong>${o.deliveryAgentName}</strong><br><small>📞 ${o.deliveryAgentPhone || 'N/A'}</small>` : `<span style="color:#94a3b8;">${t('searching_agent')}</span>`}
           </td>
           <td>${actionBtn}</td>
         </tr>
@@ -245,16 +263,16 @@ window.acceptOrder = async function(orderId) {
     });
 
     if (res.ok) {
-      showToast("Order accepted! Stock has been automatically reduced.", "success");
+      showToast(t('order_accepted_stock_reduced'), "success");
       await loadFarmerOrders(farmer.id);
       await loadFarmerProducts(farmer.id); // Refresh inventory
       await loadFarmerEarningsChart(farmer.id);
     } else {
       const err = await res.json();
-      showToast(err.error || "Failed to accept order", "error");
+      showToast(err.error || t('failed_accept_order'), "error");
     }
   } catch (err) {
-    showToast("Server error accepting order", "error");
+    showToast(t('server_error_accepting_order'), "error");
   }
 };
 
@@ -336,12 +354,12 @@ function setupAdvisoryForm(farmer) {
       });
 
       if (res.ok) {
-        showToast("Your query has been submitted to agricultural experts!", "success");
+        showToast(t('your_query_submitted'), "success");
         form.reset();
         loadFarmerAdvisoryQueries(farmer.id);
       }
     } catch (err) {
-      showToast("Failed to post advisory query", "error");
+      showToast(t('failed_post_advisory'), "error");
     }
   });
 }
@@ -354,7 +372,7 @@ async function loadFarmerAdvisoryQueries(userId) {
     if (!container) return;
 
     if (!list || list.length === 0) {
-      container.innerHTML = `<p style="color:#64748b; font-size:0.9rem;">You have not asked any advisory questions yet.</p>`;
+      container.innerHTML = `<p style="color:#64748b; font-size:0.9rem;">${t('no_advisory_questions')}</p>`;
       return;
     }
 
@@ -474,3 +492,27 @@ function openModal(id) {
 function closeModal(id) {
   document.getElementById(id).classList.remove('active');
 }
+
+// Re-render dynamic Farmer Dashboard content when language changes
+document.addEventListener('languageChanged', async () => {
+    const farmer = Auth.getUser();
+
+    if (!farmer || farmer.role !== 'FARMER') return;
+
+    await loadFarmerProducts(farmer.id);
+    await loadFarmerOrders(farmer.id);
+    await loadFarmerAdvisoryQueries(farmer.id);
+    await loadFarmerNotifications(farmer.id);
+    await loadFarmerEarningsChart(farmer.id);
+
+    // Update modal title if it is currently visible
+    const modalTitle = document.getElementById('product-modal-title');
+
+    if (modalTitle && document.getElementById('product-modal')?.classList.contains('active')) {
+        const productId = document.getElementById('prod-id')?.value;
+
+        modalTitle.textContent = productId
+            ? t('edit_produce_listing')
+            : t('add_fresh_produce');
+    }
+});

@@ -26,7 +26,7 @@
         <!-- Language Switcher -->
         <div class="lang-select-wrap">
           <span>🌐</span>
-          <select id="lang-select">
+      <select id="lang-select">
     <option value="en">English</option>
     <option value="hi">हिन्दी</option>
     <option value="ta">தமிழ்</option>
@@ -50,7 +50,9 @@
     <div class="dashboard-header">
       <div class="dashboard-title">
         <h2 data-i18n="farmer_portal">Farmer Portal</h2>
-        <p>Manage your harvest, accept buyer orders, track delivery logistics, and check weather.</p>
+        <p data-i18n="farmer_dashboard_description">
+    Manage your harvest, accept buyer orders, track delivery logistics, and check weather.
+</p>
       </div>
 
       <div class="dashboard-actions">
@@ -66,7 +68,9 @@
         <div class="metric-info">
           <h4 data-i18n="monthly_earnings">Total Net Revenue (70%)</h4>
           <div class="metric-value" id="farmer-total-earnings">₹0.00</div>
-          <div class="metric-subtext">Direct 70% share from delivered orders</div>
+          <div class="metric-subtext" data-i18n="direct_70_share">
+    Direct 70% share from delivered orders
+</div>
         </div>
         <div class="metric-icon icon-green">💰</div>
       </div>
@@ -75,7 +79,9 @@
         <div class="metric-info">
           <h4 data-i18n="my_products">Active Produce</h4>
           <div class="metric-value" id="farmer-product-count">0</div>
-          <div class="metric-subtext">Listed in marketplace</div>
+          <div class="metric-subtext" data-i18n="listed_in_marketplace">
+    Listed in marketplace
+</div>
         </div>
         <div class="metric-icon icon-blue">🥦</div>
       </div>
@@ -84,16 +90,20 @@
         <div class="metric-info">
           <h4 data-i18n="orders_received">Orders Received</h4>
           <div class="metric-value" id="farmer-order-count">0</div>
-          <div class="metric-subtext">From district buyers</div>
+          <div class="metric-subtext" data-i18n="from_district_buyers">
+    From district buyers
+</div>
         </div>
         <div class="metric-icon icon-amber">📦</div>
       </div>
 
       <div class="metric-card">
         <div class="metric-info">
-          <h4>Farm District</h4>
+          <h4 data-i18n="farm_district">Farm District</h4>
           <div class="metric-value" id="farmer-district-display" style="font-size: 1.35rem;">-</div>
-          <div class="metric-subtext">Local Hub</div>
+          <div class="metric-subtext" data-i18n="local_hub">
+    Local Hub
+</div>
         </div>
         <div class="metric-icon icon-purple">📍</div>
       </div>
@@ -103,32 +113,42 @@
 
   <button class="tab-btn active" data-tab="tab-products">
     <span class="tab-icon">🌾</span>
-    <span class="tab-label">My Products</span>
+<span class="tab-label" data-i18n="my_products">My Products</span>
   </button>
 
   <button class="tab-btn" data-tab="tab-orders">
     <span class="tab-icon">📦</span>
-    <span class="tab-label">Orders Received</span>
+<span class="tab-label" data-i18n="orders_received">
+    Orders Received
+</span>
   </button>
 
   <button class="tab-btn" data-tab="tab-weather">
     <span class="tab-icon">🌦️</span>
-    <span class="tab-label">Weather & Advisory</span>
+<span class="tab-label" data-i18n="weather_advisory">
+    Weather & Advisory
+</span>
   </button>
 
   <button class="tab-btn" data-tab="tab-queries">
     <span class="tab-icon">🧑‍🌾</span>
-    <span class="tab-label">Ask Agricultural Expert</span>
+<span class="tab-label" data-i18n="ask_agricultural_expert">
+    Ask Agricultural Expert
+</span>
   </button>
 
   <button class="tab-btn" data-tab="tab-earnings">
     <span class="tab-icon">💰</span>
-    <span class="tab-label">Earnings</span>
+<span class="tab-label" data-i18n="earnings">
+    Earnings
+</span>
   </button>
 
   <button class="tab-btn" data-tab="tab-profile">
     <span class="tab-icon">♟️</span>
-    <span class="tab-label">Profile & UPI QR</span>
+<span class="tab-label" data-i18n="profile_upi_qr">
+    Profile & UPI QR
+</span>
   </button>
 
 </div>
@@ -138,7 +158,9 @@
       <div class="panel">
         <div class="panel-header">
           <h3 data-i18n="my_products">My Listed Produce & Stock</h3>
-          <button onclick="openAddProductModal()" class="btn btn-primary btn-sm">+ Add New Item</button>
+<button onclick="openAddProductModal()" class="btn btn-primary btn-sm">
+    <span data-i18n="add_new_item">+ Add New Item</span>
+</button>
         </div>
         <div class="panel-body">
           <div class="product-grid" id="farmer-products-grid">
@@ -162,14 +184,14 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Order # / Date</th>
-                  <th>Buyer Info</th>
-                  <th>Ordered Produce</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Delivery OTP</th>
-                  <th>Assigned Agent</th>
-                  <th>Action</th>
+<th data-i18n="order_date">Order # / Date</th>
+<th data-i18n="buyer_info">Buyer Info</th>
+<th data-i18n="ordered_produce">Ordered Produce</th>
+<th data-i18n="amount">Amount</th>
+<th data-i18n="status">Status</th>
+<th data-i18n="delivery_otp">Delivery OTP</th>
+<th data-i18n="assigned_agent">Assigned Agent</th>
+<th data-i18n="action">Action</th>
                 </tr>
               </thead>
               <tbody id="farmer-orders-tbody">
@@ -186,8 +208,12 @@
       <div class="panel">
         <div class="panel-header">
           <div>
-            <h3 data-i18n="monthly_earnings">Monthly Revenue Bar Chart</h3>
-            <span style="font-size:0.85rem; color:#64748b;">Visualizing your 70% direct crop revenue month-by-month</span>
+<h3 data-i18n="revenue_chart">Monthly Revenue Bar Chart</h3>
+<span
+    style="font-size:0.85rem; color:#64748b;"
+    data-i18n="revenue_chart_description">
+    Visualizing your 70% direct crop revenue month-by-month
+</span>
           </div>
         </div>
         <div class="panel-body">
@@ -210,7 +236,9 @@
 
         <div class="panel">
           <div class="panel-header">
-            <h3>Recent Farm Alerts</h3>
+<h3 data-i18n="recent_farm_alerts">
+    Recent Farm Alerts
+</h3>
           </div>
           <div class="panel-body" id="farmer-notifs-container">
             <!-- Notifications list -->
@@ -224,23 +252,31 @@
       <div class="dashboard-grid">
         <div class="panel">
           <div class="panel-header">
-            <h3>Consult Agricultural Scientists</h3>
+<h3 data-i18n="consult_agricultural_scientists">
+    Consult Agricultural Scientists
+</h3>
           </div>
           <div class="panel-body">
             <form id="farmer-advisory-form">
               <div class="form-group">
-                <label class="form-label" data-i18n="crop_type">Crop Name</label>
+<label class="form-label" data-i18n="crop_name">Crop Name</label>
                 <input type="text" id="adv-crop" class="form-control" placeholder="e.g. Tomato, Chilli, Coconut" required>
               </div>
               <div class="form-group">
-                <label class="form-label" data-i18n="query_subject">Subject / Problem</label>
+<label class="form-label" data-i18n="subject_problem">
+    Subject / Problem
+</label>
                 <input type="text" id="adv-subject" class="form-control" placeholder="e.g. Leaf spot disease treatment" required>
               </div>
               <div class="form-group">
-                <label class="form-label" data-i18n="describe_issue">Detailed Symptoms & Questions</label>
+<label class="form-label" data-i18n="detailed_symptoms">
+    Detailed Symptoms & Questions
+</label>
                 <textarea id="adv-question" class="form-control" rows="4" placeholder="Describe the plant discoloration, soil condition, or pest attack..." required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" data-i18n="submit_question">Ask Agronomist</button>
+<button type="submit" class="btn btn-primary" data-i18n="ask_agronomist">
+    Ask Agronomist
+</button>
             </form>
           </div>
         </div>

@@ -1009,6 +1009,573 @@ const translations = {
     }
 };
 
+// ============================================================
+// Additional translations for all frontend pages
+// ============================================================
+
+Object.assign(translations.en, {
+
+    active_deliveries: "Active Deliveries",
+    advisory_portal: "Advisory Portal",
+    agricultural_advisory: "Agricultural Advisory",
+    agricultural_advisory_desc:
+        "Get agricultural guidance and connect with advisors.",
+    answer_query: "Answer Query",
+    available_pickups: "Available Pickups",
+    bank_details: "Bank Details",
+    buyer_services: "Buyer Services",
+    buyer_services_desc:
+        "Find fresh farm products directly from farmers.",
+    crop_type: "Crop Type",
+    delivery_fee: "Delivery Fee",
+    delivery_payout: "Delivery Payout",
+    delivery_portal: "Delivery Portal",
+    describe_issue: "Describe Issue",
+    description: "Description",
+    direct_marketplace: "Direct Marketplace",
+    direct_marketplace_desc:
+        "Buy and sell agricultural products directly.",
+    enter_buyer_otp: "Enter Buyer OTP",
+    farmer_portal: "Farmer Portal",
+    features: "Features",
+    features_title: "Our Features",
+    get_started: "Get Started",
+    give_otp_to_agent: "Give OTP to Agent",
+    gst_charges: "GST Charges",
+    hero_description:
+        "An integrated platform connecting farmers, buyers and agricultural advisors.",
+    item_subtotal: "Item Subtotal",
+    monthly_earnings: "Monthly Earnings",
+    my_products: "My Products",
+    orders_received: "Orders Received",
+    query_subject: "Query Subject",
+    role_advisory: "Agricultural Advisor",
+    role_delivery: "Delivery Agent",
+    save_changes: "Save Changes",
+    secure_delivery: "Secure Delivery",
+    secure_delivery_desc:
+        "Reliable and secure delivery of agricultural products.",
+    send_reply: "Send Reply",
+    stock_qty: "Stock Quantity",
+    upi_qr_code: "UPI QR Code",
+    verify_otp_deliver: "Verify OTP to Deliver",
+    weather_widget_title: "Weather"
+});
+
+
+Object.assign(translations.hi, {
+
+    active_deliveries: "सक्रिय डिलीवरी",
+    advisory_portal: "सलाहकार पोर्टल",
+    agricultural_advisory: "कृषि सलाह",
+    agricultural_advisory_desc:
+        "कृषि संबंधी मार्गदर्शन प्राप्त करें और सलाहकारों से जुड़ें।",
+    answer_query: "प्रश्न का उत्तर दें",
+    available_pickups: "उपलब्ध पिकअप",
+    bank_details: "बैंक विवरण",
+    buyer_services: "खरीदार सेवाएँ",
+    buyer_services_desc:
+        "किसानों से सीधे ताज़ा कृषि उत्पाद खोजें।",
+    crop_type: "फसल का प्रकार",
+    delivery_fee: "डिलीवरी शुल्क",
+    delivery_payout: "डिलीवरी भुगतान",
+    delivery_portal: "डिलीवरी पोर्टल",
+    describe_issue: "समस्या का विवरण दें",
+    description: "विवरण",
+    direct_marketplace: "प्रत्यक्ष मार्केटप्लेस",
+    direct_marketplace_desc:
+        "कृषि उत्पाद सीधे खरीदें और बेचें।",
+    enter_buyer_otp: "खरीदार OTP दर्ज करें",
+    farmer_portal: "किसान पोर्टल",
+    features: "विशेषताएँ",
+    features_title: "हमारी विशेषताएँ",
+    get_started: "शुरू करें",
+    give_otp_to_agent: "एजेंट को OTP दें",
+    gst_charges: "GST शुल्क",
+    hero_description:
+        "किसानों, खरीदारों और कृषि सलाहकारों को जोड़ने वाला एकीकृत प्लेटफ़ॉर्म।",
+    item_subtotal: "आइटम उप-योग",
+    monthly_earnings: "मासिक आय",
+    my_products: "मेरे उत्पाद",
+    orders_received: "प्राप्त ऑर्डर",
+    query_subject: "प्रश्न का विषय",
+    role_advisory: "कृषि सलाहकार",
+    role_delivery: "डिलीवरी एजेंट",
+    save_changes: "परिवर्तन सहेजें",
+    secure_delivery: "सुरक्षित डिलीवरी",
+    secure_delivery_desc:
+        "कृषि उत्पादों की विश्वसनीय और सुरक्षित डिलीवरी।",
+    send_reply: "उत्तर भेजें",
+    stock_qty: "स्टॉक मात्रा",
+    upi_qr_code: "UPI QR कोड",
+    verify_otp_deliver: "डिलीवरी के लिए OTP सत्यापित करें",
+    weather_widget_title: "मौसम"
+});
+
+
+Object.assign(translations.ta, {
+
+    active_deliveries: "செயலில் உள்ள விநியோகங்கள்",
+    advisory_portal: "ஆலோசனை தளம்",
+    agricultural_advisory: "வேளாண் ஆலோசனை",
+    agricultural_advisory_desc:
+        "வேளாண் வழிகாட்டுதலைப் பெற்று ஆலோசகர்களுடன் இணையுங்கள்.",
+    answer_query: "கேள்விக்கு பதிலளிக்கவும்",
+    available_pickups: "கிடைக்கும் பிக்கப்",
+    bank_details: "வங்கி விவரங்கள்",
+    buyer_services: "வாங்குபவர் சேவைகள்",
+    buyer_services_desc:
+        "விவசாயிகளிடமிருந்து நேரடியாக புதிய வேளாண் பொருட்களைத் தேடுங்கள்.",
+    crop_type: "பயிர் வகை",
+    delivery_fee: "விநியோகக் கட்டணம்",
+    delivery_payout: "விநியோகப் பணம்",
+    delivery_portal: "விநியோக தளம்",
+    describe_issue: "சிக்கலை விவரிக்கவும்",
+    description: "விளக்கம்",
+    direct_marketplace: "நேரடி சந்தை",
+    direct_marketplace_desc:
+        "வேளாண் பொருட்களை நேரடியாக வாங்கி விற்கவும்.",
+    enter_buyer_otp: "வாங்குபவர் OTP-ஐ உள்ளிடவும்",
+    farmer_portal: "விவசாயி தளம்",
+    features: "அம்சங்கள்",
+    features_title: "எங்கள் அம்சங்கள்",
+    get_started: "தொடங்குங்கள்",
+    give_otp_to_agent: "முகவரிடம் OTP-ஐ வழங்கவும்",
+    gst_charges: "GST கட்டணங்கள்",
+    hero_description:
+        "விவசாயிகள், வாங்குபவர்கள் மற்றும் வேளாண் ஆலோசகர்களை இணைக்கும் ஒருங்கிணைந்த தளம்.",
+    item_subtotal: "பொருள் இடைக்கூட்டுத்தொகை",
+    monthly_earnings: "மாதாந்திர வருமானம்",
+    my_products: "எனது பொருட்கள்",
+    orders_received: "பெறப்பட்ட ஆர்டர்கள்",
+    query_subject: "கேள்வியின் தலைப்பு",
+    role_advisory: "வேளாண் ஆலோசகர்",
+    role_delivery: "விநியோக முகவர்",
+    save_changes: "மாற்றங்களைச் சேமிக்கவும்",
+    secure_delivery: "பாதுகாப்பான விநியோகம்",
+    secure_delivery_desc:
+        "வேளாண் பொருட்களின் நம்பகமான மற்றும் பாதுகாப்பான விநியோகம்.",
+    send_reply: "பதிலை அனுப்பவும்",
+    stock_qty: "கையிருப்பு அளவு",
+    upi_qr_code: "UPI QR குறியீடு",
+    verify_otp_deliver: "விநியோகிக்க OTP-ஐ சரிபார்க்கவும்",
+    weather_widget_title: "வானிலை"
+});
+
+
+Object.assign(translations.te, {
+
+    active_deliveries: "క్రియాశీల డెలివరీలు",
+    advisory_portal: "సలహా పోర్టల్",
+    agricultural_advisory: "వ్యవసాయ సలహా",
+    agricultural_advisory_desc:
+        "వ్యవసాయ మార్గదర్శకత్వం పొందండి మరియు సలహాదారులతో కనెక్ట్ అవ్వండి.",
+    answer_query: "ప్రశ్నకు సమాధానం ఇవ్వండి",
+    available_pickups: "అందుబాటులో ఉన్న పికప్‌లు",
+    bank_details: "బ్యాంక్ వివరాలు",
+    buyer_services: "కొనుగోలుదారు సేవలు",
+    buyer_services_desc:
+        "రైతుల నుండి నేరుగా తాజా వ్యవసాయ ఉత్పత్తులను కనుగొనండి.",
+    crop_type: "పంట రకం",
+    delivery_fee: "డెలివరీ రుసుము",
+    delivery_payout: "డెలివరీ చెల్లింపు",
+    delivery_portal: "డెలివరీ పోర్టల్",
+    describe_issue: "సమస్యను వివరించండి",
+    description: "వివరణ",
+    direct_marketplace: "ప్రత్యక్ష మార్కెట్‌ప్లేస్",
+    direct_marketplace_desc:
+        "వ్యవసాయ ఉత్పత్తులను నేరుగా కొనుగోలు చేసి విక్రయించండి.",
+    enter_buyer_otp: "కొనుగోలుదారు OTP నమోదు చేయండి",
+    farmer_portal: "రైతు పోర్టల్",
+    features: "ఫీచర్లు",
+    features_title: "మా ఫీచర్లు",
+    get_started: "ప్రారంభించండి",
+    give_otp_to_agent: "ఏజెంట్‌కు OTP ఇవ్వండి",
+    gst_charges: "GST ఛార్జీలు",
+    hero_description:
+        "రైతులు, కొనుగోలుదారులు మరియు వ్యవసాయ సలహాదారులను కలిపే సమగ్ర వేదిక.",
+    item_subtotal: "ఐటమ్ ఉప మొత్తం",
+    monthly_earnings: "నెలవారీ ఆదాయం",
+    my_products: "నా ఉత్పత్తులు",
+    orders_received: "అందుకున్న ఆర్డర్లు",
+    query_subject: "ప్రశ్న విషయం",
+    role_advisory: "వ్యవసాయ సలహాదారు",
+    role_delivery: "డెలివరీ ఏజెంట్",
+    save_changes: "మార్పులను సేవ్ చేయండి",
+    secure_delivery: "సురక్షిత డెలివరీ",
+    secure_delivery_desc:
+        "వ్యవసాయ ఉత్పత్తుల నమ్మకమైన మరియు సురక్షితమైన డెలివరీ.",
+    send_reply: "ప్రత్యుత్తరం పంపండి",
+    stock_qty: "స్టాక్ పరిమాణం",
+    upi_qr_code: "UPI QR కోడ్",
+    verify_otp_deliver: "డెలివరీ కోసం OTPని ధృవీకరించండి",
+    weather_widget_title: "వాతావరణం"
+});
+
+// Farmer Dashboard translations
+
+Object.assign(translations.en, {
+    direct_70_share: "Direct 70% share from delivered orders",
+    listed_in_marketplace: "Listed in marketplace",
+    from_district_buyers: "From district buyers",
+    farm_district: "Farm District",
+    local_hub: "Local Hub",
+
+    weather_advisory: "Weather & Advisory",
+    ask_agricultural_expert: "Ask Agricultural Expert",
+    earnings: "Earnings",
+    profile_upi_qr: "Profile & UPI QR",
+
+    add_new_item: "+ Add New Item",
+    order_date: "Order # / Date",
+    buyer_info: "Buyer Info",
+    ordered_produce: "Ordered Produce",
+    amount: "Amount",
+    status: "Status",
+    delivery_otp: "Delivery OTP",
+    assigned_agent: "Assigned Agent",
+    action: "Action",
+
+    revenue_chart: "Monthly Revenue Bar Chart",
+    revenue_chart_description:
+        "Visualizing your 70% direct crop revenue month-by-month",
+
+    recent_farm_alerts: "Recent Farm Alerts",
+    consult_agricultural_scientists: "Consult Agricultural Scientists",
+    crop_name: "Crop Name",
+    subject_problem: "Subject / Problem",
+    detailed_symptoms: "Detailed Symptoms & Questions",
+    ask_agronomist: "Ask Agronomist",
+    my_questions_answers: "My Questions & Answers",
+    registered_upi_id: "Registered UPI ID"
+});
+
+Object.assign(translations.hi, {
+    direct_70_share: "डिलीवरी किए गए ऑर्डर से सीधे 70% हिस्सा",
+    listed_in_marketplace: "मार्केटप्लेस में सूचीबद्ध",
+    from_district_buyers: "जिले के खरीदारों से",
+    farm_district: "कृषि जिला",
+    local_hub: "स्थानीय केंद्र",
+
+    weather_advisory: "मौसम और सलाह",
+    ask_agricultural_expert: "कृषि विशेषज्ञ से पूछें",
+    earnings: "आय",
+    profile_upi_qr: "प्रोफ़ाइल और UPI QR",
+
+    add_new_item: "+ नया आइटम जोड़ें",
+    order_date: "ऑर्डर # / तारीख",
+    buyer_info: "खरीदार की जानकारी",
+    ordered_produce: "ऑर्डर किया गया उत्पाद",
+    amount: "राशि",
+    status: "स्थिति",
+    delivery_otp: "डिलीवरी OTP",
+    assigned_agent: "सौंपा गया एजेंट",
+    action: "कार्रवाई",
+
+    revenue_chart: "मासिक राजस्व बार चार्ट",
+    revenue_chart_description:
+        "महीने के अनुसार आपकी 70% प्रत्यक्ष फसल आय दिखाई जा रही है",
+
+    recent_farm_alerts: "हाल के कृषि अलर्ट",
+    consult_agricultural_scientists: "कृषि वैज्ञानिकों से परामर्श करें",
+    crop_name: "फसल का नाम",
+    subject_problem: "विषय / समस्या",
+    detailed_symptoms: "विस्तृत लक्षण और प्रश्न",
+    ask_agronomist: "कृषि विशेषज्ञ से पूछें",
+    my_questions_answers: "मेरे प्रश्न और उत्तर",
+    registered_upi_id: "पंजीकृत UPI ID"
+});
+
+Object.assign(translations.ta, {
+    direct_70_share: "விநியோகிக்கப்பட்ட ஆர்டர்களிலிருந்து நேரடி 70% பங்கு",
+    listed_in_marketplace: "சந்தையில் பட்டியலிடப்பட்டுள்ளது",
+    from_district_buyers: "மாவட்ட வாங்குபவர்களிடமிருந்து",
+    farm_district: "விவசாய மாவட்டம்",
+    local_hub: "உள்ளூர் மையம்",
+
+    weather_advisory: "வானிலை மற்றும் ஆலோசனை",
+    ask_agricultural_expert: "வேளாண் நிபுணரிடம் கேளுங்கள்",
+    earnings: "வருமானம்",
+    profile_upi_qr: "சுயவிவரம் மற்றும் UPI QR",
+
+    add_new_item: "+ புதிய பொருளைச் சேர்க்கவும்",
+    order_date: "ஆர்டர் # / தேதி",
+    buyer_info: "வாங்குபவர் தகவல்",
+    ordered_produce: "ஆர்டர் செய்யப்பட்ட விளைபொருள்",
+    amount: "தொகை",
+    status: "நிலை",
+    delivery_otp: "விநியோக OTP",
+    assigned_agent: "ஒதுக்கப்பட்ட முகவர்",
+    action: "செயல்",
+
+    revenue_chart: "மாதாந்திர வருவாய் பட்டை விளக்கப்படம்",
+    revenue_chart_description:
+        "மாதம் வாரியாக உங்கள் 70% நேரடி பயிர் வருவாய் காட்டப்படுகிறது",
+
+    recent_farm_alerts: "சமீபத்திய பண்ணை எச்சரிக்கைகள்",
+    consult_agricultural_scientists: "வேளாண் விஞ்ஞானிகளிடம் ஆலோசனை பெறுங்கள்",
+    crop_name: "பயிரின் பெயர்",
+    subject_problem: "தலைப்பு / பிரச்சினை",
+    detailed_symptoms: "விரிவான அறிகுறிகள் மற்றும் கேள்விகள்",
+    ask_agronomist: "வேளாண் நிபுணரிடம் கேளுங்கள்",
+    my_questions_answers: "எனது கேள்விகள் மற்றும் பதில்கள்",
+    registered_upi_id: "பதிவு செய்யப்பட்ட UPI ID"
+});
+
+Object.assign(translations.te, {
+    direct_70_share: "డెలివరీ చేసిన ఆర్డర్ల నుండి నేరుగా 70% వాటా",
+    listed_in_marketplace: "మార్కెట్‌ప్లేస్‌లో జాబితా చేయబడింది",
+    from_district_buyers: "జిల్లా కొనుగోలుదారుల నుండి",
+    farm_district: "వ్యవసాయ జిల్లా",
+    local_hub: "స్థానిక కేంద్రం",
+
+    weather_advisory: "వాతావరణం & సలహా",
+    ask_agricultural_expert: "వ్యవసాయ నిపుణుడిని అడగండి",
+    earnings: "ఆదాయం",
+    profile_upi_qr: "ప్రొఫైల్ & UPI QR",
+
+    add_new_item: "+ కొత్త వస్తువును జోడించండి",
+    order_date: "ఆర్డర్ # / తేదీ",
+    buyer_info: "కొనుగోలుదారు సమాచారం",
+    ordered_produce: "ఆర్డర్ చేసిన ఉత్పత్తి",
+    amount: "మొత్తం",
+    status: "స్థితి",
+    delivery_otp: "డెలివరీ OTP",
+    assigned_agent: "కేటాయించిన ఏజెంట్",
+    action: "చర్య",
+
+    revenue_chart: "నెలవారీ ఆదాయ బార్ చార్ట్",
+    revenue_chart_description:
+        "నెలవారీగా మీ 70% ప్రత్యక్ష పంట ఆదాయాన్ని చూపిస్తోంది",
+
+    recent_farm_alerts: "ఇటీవలి వ్యవసాయ హెచ్చరికలు",
+    consult_agricultural_scientists: "వ్యవసాయ శాస్త్రవేత్తలను సంప్రదించండి",
+    crop_name: "పంట పేరు",
+    subject_problem: "విషయం / సమస్య",
+    detailed_symptoms: "వివరణాత్మక లక్షణాలు & ప్రశ్నలు",
+    ask_agronomist: "వ్యవసాయ నిపుణుడిని అడగండి",
+    my_questions_answers: "నా ప్రశ్నలు & సమాధానాలు",
+    registered_upi_id: "నమోదు చేసిన UPI ID"
+});
+
+// ============================================================
+// Farmer Dashboard - Dynamic Text
+// ============================================================
+
+Object.assign(translations.en, {
+
+    no_products_listed: "You haven't listed any farm produce yet.",
+    add_first_produce: "+ Add Your First Produce",
+    stock: "Stock",
+    edit: "Edit",
+
+    failed_save_product: "Failed to save product",
+    server_error_saving_product: "Server error saving product",
+
+    add_fresh_produce: "Add Fresh Produce",
+    edit_produce_listing: "Edit Produce Listing",
+
+    remove_product_confirm:
+        "Are you sure you want to remove this product from the marketplace?",
+    product_deleted: "Product deleted",
+    failed_delete_product: "Failed to delete product",
+
+    no_orders_received: "No orders received yet.",
+    accept_confirm: "✓ Accept & Confirm",
+    pending_payment: "Pending Payment",
+    searching_agent: "Searching agent...",
+    your_share_70: "Your Share (70%)",
+
+    order_accepted_stock_reduced:
+        "Order accepted! Stock has been automatically reduced.",
+    failed_accept_order: "Failed to accept order",
+    server_error_accepting_order: "Server error accepting order",
+
+    farmer_net_revenue: "Farmer 70% Net Revenue (₹)",
+    revenue: "Revenue",
+
+    your_query_submitted:
+        "Your query has been submitted to agricultural experts!",
+    failed_post_advisory: "Failed to post advisory query",
+    no_advisory_questions:
+        "You have not asked any advisory questions yet.",
+
+    expert_response_from: "🌿 Expert Response from",
+    agronomist: "Agronomist",
+    replied_on: "Replied on",
+    awaiting_reply_certified:
+        "⏳ Awaiting reply from certified agricultural advisor...",
+
+    not_registered: "Not registered",
+    qr_code_unavailable: "QR code unavailable",
+    upi_id_not_registered: "UPI ID not registered",
+
+    no_new_notifications: "No new notifications"
+});
+
+
+Object.assign(translations.hi, {
+
+    no_products_listed: "आपने अभी तक कोई कृषि उत्पाद सूचीबद्ध नहीं किया है।",
+    add_first_produce: "+ अपना पहला उत्पाद जोड़ें",
+    stock: "स्टॉक",
+    edit: "संपादित करें",
+
+    failed_save_product: "उत्पाद सहेजने में विफल",
+    server_error_saving_product:
+        "उत्पाद सहेजते समय सर्वर त्रुटि हुई",
+
+    add_fresh_produce: "ताज़ा उत्पाद जोड़ें",
+    edit_produce_listing: "उत्पाद सूची संपादित करें",
+
+    remove_product_confirm:
+        "क्या आप वाकई इस उत्पाद को मार्केटप्लेस से हटाना चाहते हैं?",
+    product_deleted: "उत्पाद हटा दिया गया",
+    failed_delete_product: "उत्पाद हटाने में विफल",
+
+    no_orders_received: "अभी तक कोई ऑर्डर प्राप्त नहीं हुआ है।",
+    accept_confirm: "✓ स्वीकार करें और पुष्टि करें",
+    pending_payment: "भुगतान लंबित",
+    searching_agent: "एजेंट खोजा जा रहा है...",
+    your_share_70: "आपका हिस्सा (70%)",
+
+    order_accepted_stock_reduced:
+        "ऑर्डर स्वीकार किया गया! स्टॉक अपने आप कम कर दिया गया है।",
+    failed_accept_order: "ऑर्डर स्वीकार करने में विफल",
+    server_error_accepting_order:
+        "ऑर्डर स्वीकार करते समय सर्वर त्रुटि हुई",
+
+    farmer_net_revenue: "किसान 70% शुद्ध आय (₹)",
+    revenue: "आय",
+
+    your_query_submitted:
+        "आपका प्रश्न कृषि विशेषज्ञों को भेज दिया गया है!",
+    failed_post_advisory: "कृषि सलाह प्रश्न भेजने में विफल",
+    no_advisory_questions:
+        "आपने अभी तक कोई कृषि सलाह प्रश्न नहीं पूछा है।",
+
+    expert_response_from: "🌿 विशेषज्ञ का उत्तर:",
+    agronomist: "कृषि विशेषज्ञ",
+    replied_on: "उत्तर दिया गया",
+    awaiting_reply_certified:
+        "⏳ प्रमाणित कृषि सलाहकार के उत्तर की प्रतीक्षा है...",
+
+    not_registered: "पंजीकृत नहीं है",
+    qr_code_unavailable: "QR कोड उपलब्ध नहीं है",
+    upi_id_not_registered: "UPI ID पंजीकृत नहीं है",
+
+    no_new_notifications: "कोई नई सूचना नहीं"
+});
+
+
+Object.assign(translations.ta, {
+
+    no_products_listed:
+        "நீங்கள் இன்னும் எந்த வேளாண் பொருளையும் பட்டியலிடவில்லை.",
+    add_first_produce: "+ உங்கள் முதல் விளைபொருளைச் சேர்க்கவும்",
+    stock: "கையிருப்பு",
+    edit: "திருத்து",
+
+    failed_save_product: "பொருளைச் சேமிக்க முடியவில்லை",
+    server_error_saving_product:
+        "பொருளைச் சேமிக்கும் போது சேவையகப் பிழை ஏற்பட்டது",
+
+    add_fresh_produce: "புதிய விளைபொருளைச் சேர்க்கவும்",
+    edit_produce_listing: "விளைபொருள் பட்டியலைத் திருத்தவும்",
+
+    remove_product_confirm:
+        "இந்த பொருளை சந்தையிலிருந்து அகற்ற விரும்புகிறீர்களா?",
+    product_deleted: "பொருள் நீக்கப்பட்டது",
+    failed_delete_product: "பொருளை நீக்க முடியவில்லை",
+
+    no_orders_received: "இதுவரை ஆர்டர்கள் எதுவும் பெறப்படவில்லை.",
+    accept_confirm: "✓ ஏற்கவும் மற்றும் உறுதிப்படுத்தவும்",
+    pending_payment: "பணம் செலுத்துதல் நிலுவையில் உள்ளது",
+    searching_agent: "முகவர் தேடப்படுகிறது...",
+    your_share_70: "உங்கள் பங்கு (70%)",
+
+    order_accepted_stock_reduced:
+        "ஆர்டர் ஏற்கப்பட்டது! கையிருப்பு தானாகக் குறைக்கப்பட்டது.",
+    failed_accept_order: "ஆர்டரை ஏற்க முடியவில்லை",
+    server_error_accepting_order:
+        "ஆர்டரை ஏற்கும் போது சேவையகப் பிழை ஏற்பட்டது",
+
+    farmer_net_revenue: "விவசாயியின் 70% நிகர வருவாய் (₹)",
+    revenue: "வருவாய்",
+
+    your_query_submitted:
+        "உங்கள் கேள்வி வேளாண் நிபுணர்களுக்கு அனுப்பப்பட்டது!",
+    failed_post_advisory: "ஆலோசனை கேள்வியை அனுப்ப முடியவில்லை",
+    no_advisory_questions:
+        "நீங்கள் இன்னும் எந்த ஆலோசனை கேள்வியையும் கேட்கவில்லை.",
+
+    expert_response_from: "🌿 நிபுணரின் பதில்:",
+    agronomist: "வேளாண் நிபுணர்",
+    replied_on: "பதிலளிக்கப்பட்ட தேதி",
+    awaiting_reply_certified:
+        "⏳ சான்றளிக்கப்பட்ட வேளாண் ஆலோசகரின் பதிலுக்காக காத்திருக்கிறது...",
+
+    not_registered: "பதிவு செய்யப்படவில்லை",
+    qr_code_unavailable: "QR குறியீடு கிடைக்கவில்லை",
+    upi_id_not_registered: "UPI ID பதிவு செய்யப்படவில்லை",
+
+    no_new_notifications: "புதிய அறிவிப்புகள் இல்லை"
+});
+
+
+Object.assign(translations.te, {
+
+    no_products_listed:
+        "మీరు ఇంకా ఎలాంటి వ్యవసాయ ఉత్పత్తిని జాబితా చేయలేదు.",
+    add_first_produce: "+ మీ మొదటి ఉత్పత్తిని జోడించండి",
+    stock: "స్టాక్",
+    edit: "సవరించండి",
+
+    failed_save_product: "ఉత్పత్తిని సేవ్ చేయడం విఫలమైంది",
+    server_error_saving_product:
+        "ఉత్పత్తిని సేవ్ చేస్తున్నప్పుడు సర్వర్ లోపం",
+
+    add_fresh_produce: "తాజా ఉత్పత్తిని జోడించండి",
+    edit_produce_listing: "ఉత్పత్తి జాబితాను సవరించండి",
+
+    remove_product_confirm:
+        "ఈ ఉత్పత్తిని మార్కెట్‌ప్లేస్ నుండి తొలగించాలనుకుంటున్నారా?",
+    product_deleted: "ఉత్పత్తి తొలగించబడింది",
+    failed_delete_product: "ఉత్పత్తిని తొలగించడం విఫలమైంది",
+
+    no_orders_received: "ఇంకా ఎలాంటి ఆర్డర్లు అందలేదు.",
+    accept_confirm: "✓ అంగీకరించి నిర్ధారించండి",
+    pending_payment: "చెల్లింపు పెండింగ్‌లో ఉంది",
+    searching_agent: "ఏజెంట్ కోసం వెతుకుతోంది...",
+    your_share_70: "మీ వాటా (70%)",
+
+    order_accepted_stock_reduced:
+        "ఆర్డర్ అంగీకరించబడింది! స్టాక్ స్వయంచాలకంగా తగ్గించబడింది.",
+    failed_accept_order: "ఆర్డర్‌ను అంగీకరించడం విఫలమైంది",
+    server_error_accepting_order:
+        "ఆర్డర్‌ను అంగీకరించేటప్పుడు సర్వర్ లోపం",
+
+    farmer_net_revenue: "రైతు 70% నికర ఆదాయం (₹)",
+    revenue: "ఆదాయం",
+
+    your_query_submitted:
+        "మీ ప్రశ్న వ్యవసాయ నిపుణులకు పంపబడింది!",
+    failed_post_advisory: "వ్యవసాయ సలహా ప్రశ్నను పంపడం విఫలమైంది",
+    no_advisory_questions:
+        "మీరు ఇంకా ఎలాంటి వ్యవసాయ సలహా ప్రశ్నను అడగలేదు.",
+
+    expert_response_from: "🌿 నిపుణుల సమాధానం:",
+    agronomist: "వ్యవసాయ నిపుణుడు",
+    replied_on: "సమాధానం ఇచ్చిన తేదీ",
+    awaiting_reply_certified:
+        "⏳ ధృవీకరించబడిన వ్యవసాయ సలహాదారు సమాధానం కోసం వేచి ఉంది...",
+
+    not_registered: "నమోదు చేయబడలేదు",
+    qr_code_unavailable: "QR కోడ్ అందుబాటులో లేదు",
+    upi_id_not_registered: "UPI ID నమోదు చేయబడలేదు",
+
+    no_new_notifications: "కొత్త నోటిఫికేషన్లు లేవు"
+});
 
 // ============================================================
 // LANGUAGE FUNCTIONS
@@ -1058,88 +1625,66 @@ function t(key, params = {}) {
  * containing data-i18n.
  */
 function applyLanguage(langCode) {
-
-    // Check language
+    // Make sure the requested language exists
     if (!translations[langCode]) {
         langCode = "en";
     }
 
-    // Save language permanently for the browser session/site
+    // Save selected language
     localStorage.setItem("agromarket_lang", langCode);
 
-    const dict = translations[langCode];
-
-    // --------------------------------------------------------
-    // Normal text elements
-    // --------------------------------------------------------
-    document.querySelectorAll("[data-i18n]").forEach(element => {
-
+    // ------------------------------------------------------------
+    // Translate normal text elements
+    // Example:
+    // <span data-i18n="home">Home</span>
+    // ------------------------------------------------------------
+    document.querySelectorAll("[data-i18n]").forEach(function (element) {
         const key = element.getAttribute("data-i18n");
 
-        if (!dict[key]) {
-            return;
-        }
-
-        if (
-            element.tagName === "INPUT" ||
-            element.tagName === "TEXTAREA"
-        ) {
-            element.placeholder = dict[key];
-        } else {
-            element.textContent = dict[key];
+        if (key) {
+            element.textContent = t(key);
         }
     });
 
+    // ------------------------------------------------------------
+    // Translate placeholders
+    // Example:
+    // <input data-i18n-placeholder="enter_name">
+    // ------------------------------------------------------------
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (element) {
+        const key = element.getAttribute("data-i18n-placeholder");
 
-    // --------------------------------------------------------
-    // Placeholder translation
-    // data-i18n-placeholder="search_products"
-    // --------------------------------------------------------
-    document
-        .querySelectorAll("[data-i18n-placeholder]")
-        .forEach(element => {
+        if (key) {
+            element.setAttribute("placeholder", t(key));
+        }
+    });
 
-            const key =
-                element.getAttribute("data-i18n-placeholder");
+    // ------------------------------------------------------------
+    // Translate title attributes
+    // Example:
+    // <button data-i18n-title="delete">
+    // ------------------------------------------------------------
+    document.querySelectorAll("[data-i18n-title]").forEach(function (element) {
+        const key = element.getAttribute("data-i18n-title");
 
-            if (dict[key]) {
-                element.placeholder = dict[key];
-            }
-        });
+        if (key) {
+            element.setAttribute("title", t(key));
+        }
+    });
 
+    // ------------------------------------------------------------
+    // Update language selector
+    // ------------------------------------------------------------
+    const languageSelect = document.getElementById("lang-select");
 
-    // --------------------------------------------------------
-    // Title translation
-    // data-i18n-title="..."
-    // --------------------------------------------------------
-    document
-        .querySelectorAll("[data-i18n-title]")
-        .forEach(element => {
-
-            const key =
-                element.getAttribute("data-i18n-title");
-
-            if (dict[key]) {
-                element.title = dict[key];
-            }
-        });
-
-
-    // --------------------------------------------------------
-    // Select language dropdown
-    // --------------------------------------------------------
-    const langSelect =
-        document.getElementById("lang-select");
-
-    if (langSelect) {
-        langSelect.value = langCode;
+    if (languageSelect) {
+        languageSelect.value = langCode;
     }
 
-
-    // --------------------------------------------------------
-    // Notify dynamic JavaScript files
-    // --------------------------------------------------------
-    window.dispatchEvent(
+    // ------------------------------------------------------------
+    // Notify other JavaScript files
+    // ------------------------------------------------------------
+    document.dispatchEvent(
         new CustomEvent("languageChanged", {
             detail: {
                 language: langCode
@@ -1153,26 +1698,27 @@ function applyLanguage(langCode) {
 // AUTOMATIC LANGUAGE LOADING
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // Get previously selected language
+    // Load the previously selected language
     const savedLanguage = getCurrentLang();
-
-    // Apply it automatically
     applyLanguage(savedLanguage);
 
+    // Get language selector
+    const languageSelect = document.getElementById("lang-select");
 
-    // Language dropdown
-    const langSelect =
-        document.getElementById("lang-select");
+    if (languageSelect) {
 
-    if (langSelect) {
+        // Change language when user selects an option
+        languageSelect.addEventListener("change", function (event) {
+            const selectedLanguage = event.target.value;
 
-        langSelect.addEventListener("change", function () {
+            console.log("Language selected:", selectedLanguage);
 
-            applyLanguage(this.value);
-
+            applyLanguage(selectedLanguage);
         });
-    }
 
+    } else {
+        console.warn("Language selector #lang-select was not found.");
+    }
 });
