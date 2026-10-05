@@ -102,31 +102,81 @@ function renderProducts(products) {
         <img src="${p.imageUrl || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500'}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500'">
         <span class="product-badge">${p.category}</span>
       </div>
+      
+      
+      
+      
       <div class="product-info">
-        <div class="product-district">📍 ${p.district} • 👨‍🌾 ${p.farmerName}</div>
-        <h4 class="product-title">${p.name}</h4>
-        <p class="product-desc">${p.description || 'Farm-fresh harvest'}</p>
-        
-        <div class="product-price-row">
-          <div>
-            <div class="product-price">${formatCurrency(p.pricePerUnit)} <span style="font-size:0.8rem; color:#64748b; font-weight:500;">/ ${p.unit}</span></div>
-            <div class="product-stock" style="color: ${p.quantityAvailable > 0 ? '#16a34a' : '#dc2626'}; font-size:0.8rem;">
-              ${p.quantityAvailable > 0 ? `In Stock: ${p.quantityAvailable} ${p.unit}` : 'Out of Stock'}
-            </div>
-          </div>
-          
-          <div>
-            ${p.quantityAvailable > 0 ? `
-              <div style="display:flex; align-items:center; gap:0.4rem;">
-                <input type="number" id="qty-${p.id}" value="1" min="1" max="${p.quantityAvailable}" step="0.5" style="width:55px; padding:0.35rem; border:1px solid #cbd5e1; border-radius:6px; text-align:center;">
-                <button onclick="addToCart(${p.id})" class="btn btn-primary btn-sm">+ Add</button>
-              </div>
-            ` : `
-              <button class="btn btn-outline btn-sm" disabled style="opacity:0.5;">Sold Out</button>
-            `}
-          </div>
-        </div>
+  <div class="product-district">
+    📍 ${p.district} • 👨‍🌾 ${p.farmerName}
+  </div>
+
+  <h4 class="product-title">${p.name}</h4>
+
+  <p class="product-desc">
+    ${p.description || t('farm_fresh_harvest')}
+  </p>
+
+  <div class="product-price-row">
+    <div>
+      <div class="product-price">
+        ${formatCurrency(p.pricePerUnit)}
+        <span style="font-size:0.8rem; color:#64748b; font-weight:500;">
+          / ${p.unit}
+        </span>
       </div>
+
+      <div
+        class="product-stock"
+        style="color: ${p.quantityAvailable > 0 ? '#16a34a' : '#dc2626'}; font-size:0.8rem;"
+      >
+        ${
+          p.quantityAvailable > 0
+            ? t('in_stock', {
+                quantity: p.quantityAvailable,
+                unit: p.unit
+              })
+            : t('out_of_stock')
+        }
+      </div>
+    </div>
+
+    <div>
+      ${
+        p.quantityAvailable > 0
+          ? `
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <input
+                type="number"
+                id="qty-${p.id}"
+                value="1"
+                min="1"
+                max="${p.quantityAvailable}"
+                step="0.5"
+                style="width:55px; padding:0.35rem; border:1px solid #cbd5e1; border-radius:6px; text-align:center;"
+              >
+
+              <button
+                onclick="addToCart(${p.id})"
+                class="btn btn-primary btn-sm"
+              >
+                ${t('add_to_cart')}
+              </button>
+            </div>
+          `
+          : `
+            <button
+              class="btn btn-outline btn-sm"
+              disabled
+              style="opacity:0.5;"
+            >
+              ${t('sold_out')}
+            </button>
+          `
+      }
+    </div>
+  </div>
+</div>  
     </div>
   `).join('');
 }
@@ -571,13 +621,17 @@ setFarmerPaymentQR(
 };
 
 window.confirmOnlinePayment = async function() {
+
+  
   const orderId = window.pendingPaymentOrderId;
 const utrInput = document.getElementById('online-utr-input');
 
 const utrRef = utrInput
   ? utrInput.value.trim()
   : "";
-
+    if (!validateUtr("online-utr-input", true)) {
+        return;
+    }
 // UTR is mandatory
 if (!utrRef) {
   showToast(
@@ -889,7 +943,7 @@ window.openPaymentApp = function (appName) {
 // PAYMENT RECEIPT PDF
 // =========================================================
 
-window.downloadPaymentReceipt = function () {
+window.downloadPaymentReceipt = async function () {
 
   // Check whether a completed order exists
   if (!window.lastCompletedOrder) {
@@ -921,6 +975,8 @@ window.downloadPaymentReceipt = function () {
 
   const doc = new jsPDF();
 
+  const logoData = await loadIFMAPLogo();
+
   // ---------------------------------------------------------
   // PAGE SETTINGS
   // ---------------------------------------------------------
@@ -950,30 +1006,36 @@ window.downloadPaymentReceipt = function () {
 
   doc.setFont("helvetica", "bold");
 
-  doc.text(
-    "AgroMarket",
-    20,
-    17
-  );
+ doc.addImage(
+    logoData,
+    "PNG",
+    8,
+    3,
+    29,
+    29
+);
 
-  doc.setFontSize(10);
+doc.setFontSize(18);
+doc.setFont("helvetica", "bold");
 
-  doc.setFont("helvetica", "normal");
 
-  doc.text(
-    "Integrated Farmer Marketplace",
-    20,
-    25
-  );
+ doc.addImage(
+    logoData,
+    "PNG",
+    8,
+    3,
+    29,
+    29
+);
 
-  doc.text(
+doc.text(
     "PAYMENT RECEIPT",
     pageWidth - 20,
     20,
     {
-      align: "right"
+        align: "right"
     }
-  );
+);
 
 
   // Reset text color
@@ -1439,14 +1501,25 @@ y += 7;
 
   doc.setTextColor(148, 163, 184);
 
-  doc.text(
-    "AgroMarket • Integrated Farmer Marketplace",
+doc.addImage(
+    logoData,
+    "PNG",
+    pageWidth / 2 - 10,
+    pageHeight - 30,
+    20,
+    20
+);
+doc.setFontSize(8);
+doc.setTextColor(148, 163, 184);
+
+doc.text(
+    "IFMAP • Integrated Farmer Marketplace",
     pageWidth / 2,
-    pageHeight - 15,
+    pageHeight - 7,
     {
-      align: "center"
+        align: "center"
     }
-  );
+);
 
 
   // ---------------------------------------------------------
@@ -1536,4 +1609,97 @@ function addReceiptAmountRow(
       align: "right"
     }
   );
+}
+function validateUtr(inputId, required = true) {
+    const input = document.getElementById(inputId);
+
+    if (!input) {
+        return true;
+    }
+
+    const value = input.value.trim();
+
+    // If optional and empty, allow it
+    if (!required && value === "") {
+        input.setCustomValidity("");
+        return true;
+    }
+
+    // Must contain exactly 12 digits
+    if (!/^\d{12}$/.test(value)) {
+        input.setCustomValidity(
+            typeof t === "function"
+                ? t("invalid_utr_length")
+                : "UTR must contain exactly 12 digits."
+        );
+
+        input.reportValidity();
+        input.focus();
+
+        return false;
+    }
+
+    input.setCustomValidity("");
+    return true;
+}
+document.addEventListener("DOMContentLoaded", function () {
+
+    const onlineUtr = document.getElementById("online-utr-input");
+
+    if (onlineUtr) {
+        onlineUtr.addEventListener("input", function () {
+
+            // Allow digits only
+            this.value = this.value.replace(/\D/g, "");
+
+            if (this.value.length === 12) {
+                this.setCustomValidity("");
+            } else {
+                this.setCustomValidity(
+                    typeof t === "function"
+                        ? t("invalid_utr_length")
+                        : "UTR must contain exactly 12 digits."
+                );
+            }
+        });
+    }
+
+});
+
+/* =========================================================
+   IFMAP LOGO FOR PDF
+   ========================================================= */
+
+function loadIFMAPLogo() {
+
+    return new Promise((resolve, reject) => {
+
+        const img = new Image();
+
+        img.onload = function () {
+
+            const canvas = document.createElement("canvas");
+
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+
+            const ctx = canvas.getContext("2d");
+
+            ctx.drawImage(
+                img,
+                0,
+                0
+            );
+
+            resolve(
+                canvas.toDataURL("image/png")
+            );
+        };
+
+        img.onerror = function () {
+            reject(new Error("IFMAP logo could not be loaded"));
+        };
+
+        img.src = "images/ifmap-logo.png";
+    });
 }

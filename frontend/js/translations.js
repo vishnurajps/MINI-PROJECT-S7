@@ -155,7 +155,8 @@ const translations = {
         upi_id_unavailable: "UPI ID unavailable",
         enter_utr:
             "Please enter the Unique Transaction Reference (UTR) after payment.",
-        invalid_utr: "Please enter a valid UTR number.",
+        invalid_utr_length: "UTR must contain exactly 12 digits.",
+
         utr_reference: "UTR / Transaction Reference",
         transaction_reference: "Transaction Reference",
         confirm_payment: "Confirm Payment",
@@ -269,7 +270,27 @@ const translations = {
         english: "English",
         hindi: "Hindi",
         tamil: "Tamil",
-        telugu: "Telugu"
+        telugu: "Telugu",
+
+        in_stock: "In Stock: {quantity} {unit}",
+out_of_stock: "Out of Stock",
+
+plant_produce_placeholder:
+    "e.g. Tomato, Coriander, Balcony Garden",
+
+topic_question_placeholder:
+    "e.g. How to preserve fresh tomatoes?",
+
+advisory_details_placeholder:
+    "Explain your question in detail...",
+    edit_upi: "Edit UPI ID",
+upi_edit_description: "Update the UPI ID where you want to receive buyer payments.",
+enter_upi_id: "Enter UPI ID",
+upi_placeholder: "example@upi",
+upi_format_hint: "Enter a valid UPI ID, for example: yourname@upi",
+save_upi: "Save UPI ID",
+
+welcome_back: "WELCOME BACK",
     },
 
 
@@ -409,7 +430,7 @@ const translations = {
         upi_id_unavailable: "UPI ID उपलब्ध नहीं है",
         enter_utr:
             "भुगतान के बाद Unique Transaction Reference (UTR) दर्ज करें।",
-        invalid_utr: "कृपया मान्य UTR नंबर दर्ज करें।",
+        invalid_utr_length: "UTR में ठीक 12 अंक होने चाहिए।",
         utr_reference: "UTR / लेनदेन संदर्भ",
         transaction_reference: "लेनदेन संदर्भ",
         confirm_payment: "भुगतान की पुष्टि करें",
@@ -513,7 +534,26 @@ const translations = {
         english: "अंग्रेज़ी",
         hindi: "हिंदी",
         tamil: "तमिल",
-        telugu: "तेलुगु"
+        telugu: "तेलुगु",
+
+        in_stock: "स्टॉक में: {quantity} {unit}",
+out_of_stock: "स्टॉक में नहीं है",
+plant_produce_placeholder:
+    "उदा. टमाटर, धनिया, बालकनी गार्डन",
+
+topic_question_placeholder:
+    "उदा. ताजे टमाटर को कैसे सुरक्षित रखें?",
+
+advisory_details_placeholder:
+    "अपना प्रश्न विस्तार से बताएं...",
+    edit_upi: "UPI ID संपादित करें",
+upi_edit_description: "वह UPI ID अपडेट करें जहाँ आप खरीदारों से भुगतान प्राप्त करना चाहते हैं।",
+enter_upi_id: "UPI ID दर्ज करें",
+upi_placeholder: "example@upi",
+upi_format_hint: "मान्य UPI ID दर्ज करें, उदाहरण: yourname@upi",
+save_upi: "UPI ID सहेजें",
+
+welcome_back: "वापसी पर आपका स्वागत है",
     },
 
 
@@ -654,7 +694,7 @@ const translations = {
         upi_id_unavailable: "UPI ID கிடைக்கவில்லை",
         enter_utr:
             "பணம் செலுத்திய பிறகு Unique Transaction Reference (UTR)-ஐ உள்ளிடவும்.",
-        invalid_utr: "சரியான UTR எண்ணை உள்ளிடவும்.",
+        invalid_utr_length: "UTR-ல் சரியாக 12 இலக்கங்கள் இருக்க வேண்டும்.",
         utr_reference: "UTR / பரிவர்த்தனை குறிப்பு",
         transaction_reference: "பரிவர்த்தனை குறிப்பு",
         confirm_payment: "பணம் செலுத்தியதை உறுதிப்படுத்து",
@@ -759,7 +799,26 @@ const translations = {
         english: "ஆங்கிலம்",
         hindi: "இந்தி",
         tamil: "தமிழ்",
-        telugu: "தெலுங்கு"
+        telugu: "தெலுங்கு",
+        in_stock: "கையிருப்பில்: {quantity} {unit}",
+out_of_stock: "கையிருப்பில் இல்லை",
+plant_produce_placeholder:
+    "எ.கா. தக்காளி, கொத்தமல்லி, பால்கனி தோட்டம்",
+
+topic_question_placeholder:
+    "எ.கா. புதிய தக்காளியை எவ்வாறு பாதுகாப்பது?",
+
+advisory_details_placeholder:
+    "உங்கள் கேள்வியை விரிவாக விளக்கவும்...",
+
+    edit_upi: "UPI ID-ஐ திருத்தவும்",
+upi_edit_description: "வாங்குபவர்களிடமிருந்து பணம் பெற வேண்டிய UPI ID-ஐ புதுப்பிக்கவும்.",
+enter_upi_id: "UPI ID-ஐ உள்ளிடவும்",
+upi_placeholder: "example@upi",
+upi_format_hint: "சரியான UPI ID-ஐ உள்ளிடவும், உதாரணம்: yourname@upi",
+save_upi: "UPI ID-ஐ சேமிக்கவும்",
+
+welcome_back: "மீண்டும் வரவேற்கிறோம்",
     },
 
 
@@ -900,7 +959,7 @@ const translations = {
         upi_id_unavailable: "UPI ID అందుబాటులో లేదు",
         enter_utr:
             "చెల్లింపు చేసిన తర్వాత Unique Transaction Reference (UTR) నమోదు చేయండి.",
-        invalid_utr: "దయచేసి సరైన UTR నంబర్‌ను నమోదు చేయండి.",
+        invalid_utr_length: "UTRలో ఖచ్చితంగా 12 అంకెలు ఉండాలి.",
         utr_reference: "UTR / లావాదేవీ సూచన",
         transaction_reference: "లావాదేవీ సూచన",
         confirm_payment: "చెల్లింపును నిర్ధారించండి",
@@ -1005,7 +1064,28 @@ const translations = {
         english: "ఆంగ్లం",
         hindi: "హిందీ",
         tamil: "తమిళం",
-        telugu: "తెలుగు"
+        telugu: "తెలుగు",
+
+        in_stock: "అందుబాటులో ఉంది: {quantity} {unit}",
+out_of_stock: "అందుబాటులో లేదు",
+
+plant_produce_placeholder:
+    "ఉదా. టమాటా, కొత్తిమీర, బాల్కనీ తోట",
+
+topic_question_placeholder:
+    "ఉదా. తాజా టమాటాలను ఎలా నిల్వ చేయాలి?",
+
+advisory_details_placeholder:
+    "మీ ప్రశ్నను వివరంగా తెలియజేయండి...",
+
+    edit_upi: "UPI IDని సవరించండి",
+upi_edit_description: "కొనుగోలుదారుల నుండి చెల్లింపులు పొందే UPI IDని నవీకరించండి.",
+enter_upi_id: "UPI IDని నమోదు చేయండి",
+upi_placeholder: "example@upi",
+upi_format_hint: "చెల్లుబాటు అయ్యే UPI IDని నమోదు చేయండి, ఉదాహరణ: yourname@upi",
+save_upi: "UPI IDని సేవ్ చేయండి",
+
+welcome_back: "తిరిగి స్వాగతం",
     }
 };
 
@@ -1575,6 +1655,256 @@ Object.assign(translations.te, {
     upi_id_not_registered: "UPI ID నమోదు చేయబడలేదు",
 
     no_new_notifications: "కొత్త నోటిఫికేషన్లు లేవు"
+});
+
+// ============================================================
+// BUYER DASHBOARD - Additional Static Text
+// ============================================================
+
+Object.assign(translations.en, {
+    current_district: "Current District",
+    consult_plant_advisory: "Consult Plant Advisory",
+
+    all_districts: "All Districts",
+    vegetables: "Vegetables",
+    fruits: "Fruits",
+    grains_pulses: "Grains & Pulses",
+    spices: "Spices",
+    organic_goods: "Organic Goods",
+
+    order_date_farmer: "Order # / Date",
+    items_purchased: "Items Purchased",
+    total_bill: "Total Bill",
+
+    ask_agricultural_guidance: "Ask Agricultural Guidance",
+    plant_produce_area: "Plant / Produce Area",
+    topic_question_title: "Topic / Question Title",
+    details: "Details",
+    submit_to_advisory: "Submit to Advisory",
+    previous_answers: "Previous Answers",
+
+    checkout_payment: "Checkout & Payment",
+    choose_payment_method: "Choose Payment Method",
+    upi_qr_payment: "UPI QR Payment",
+    pay_directly_farmer_upi: "Pay directly to the farmer using UPI",
+    pay_delivery_agent: "Pay the delivery agent at your doorstep",
+    scan_farmer_upi: "Scan Farmer's UPI QR Code",
+    scan_using_apps: "✓ Scan using Google Pay, PhonePe, Paytm or BHIM",
+    contact_phone: "Contact Phone",
+    house_street_landmark: "House/Flat No, Street, Landmark",
+    enter_10_digit_phone: "Enter 10-digit phone number",
+    upi_reference_optional: "UPI Reference / UTR Number",
+    optional: "Optional",
+    enter_upi_reference: "Enter UPI reference after payment",
+    transaction_reference_after_payment:
+        "You can enter the transaction reference after completing the UPI payment.",
+    confirm_order_generate_otp: "Confirm Order & Generate OTP",
+
+    complete_upi_payment: "Complete UPI Payment",
+    upi_transaction_reference_optional: "UPI Transaction Reference (Optional)",
+    enter_12_digit_utr: "Enter 12-digit UTR number",
+    verify_payment_generate_otp: "Verify Payment & Generate OTP",
+
+    order_received: "Order Received!",
+    order_confirmed_with_farmer:
+        "has been confirmed with the farmer!",
+    secure_delivery_otp: "YOUR SECURE DELIVERY OTP:",
+    payment_verified_share_otp:
+        "✓ Payment verified. Share this OTP with the delivery agent only after receiving your items to confirm delivery!",
+    cash_on_delivery_order: "CASH ON DELIVERY ORDER",
+    cod_otp_message:
+        "Your secure Delivery OTP will be generated as soon as payment is made (Cash or UPI scan at your doorstep with the delivery agent).",
+    total_payable: "Total Payable",
+    view_my_orders: "View My Orders",
+
+    farmer: "Farmer",
+    buyer: "Buyer"
+});
+
+
+Object.assign(translations.hi, {
+    current_district: "वर्तमान जिला",
+    consult_plant_advisory: "पौध सलाह लें",
+
+    all_districts: "सभी जिले",
+    vegetables: "सब्ज़ियाँ",
+    fruits: "फल",
+    grains_pulses: "अनाज और दालें",
+    spices: "मसाले",
+    organic_goods: "जैविक उत्पाद",
+
+    order_date_farmer: "ऑर्डर # / तारीख",
+    items_purchased: "खरीदे गए उत्पाद",
+    total_bill: "कुल बिल",
+
+    ask_agricultural_guidance: "कृषि मार्गदर्शन पूछें",
+    plant_produce_area: "पौधा / उत्पाद क्षेत्र",
+    topic_question_title: "विषय / प्रश्न शीर्षक",
+    details: "विवरण",
+    submit_to_advisory: "सलाह के लिए भेजें",
+    previous_answers: "पिछले उत्तर",
+
+    checkout_payment: "चेकआउट और भुगतान",
+    choose_payment_method: "भुगतान विधि चुनें",
+    upi_qr_payment: "UPI QR भुगतान",
+    pay_directly_farmer_upi: "UPI का उपयोग करके सीधे किसान को भुगतान करें",
+    pay_delivery_agent: "अपने घर पर डिलीवरी एजेंट को भुगतान करें",
+    scan_farmer_upi: "किसान का UPI QR कोड स्कैन करें",
+    scan_using_apps: "✓ Google Pay, PhonePe, Paytm या BHIM से स्कैन करें",
+    contact_phone: "संपर्क फोन",
+    house_street_landmark: "घर/फ्लैट नंबर, सड़क, लैंडमार्क",
+    enter_10_digit_phone: "10 अंकों का फोन नंबर दर्ज करें",
+    upi_reference_optional: "UPI संदर्भ / UTR नंबर",
+    optional: "वैकल्पिक",
+    enter_upi_reference: "भुगतान के बाद UPI संदर्भ दर्ज करें",
+    transaction_reference_after_payment:
+        "UPI भुगतान पूरा करने के बाद लेनदेन संदर्भ दर्ज कर सकते हैं।",
+    confirm_order_generate_otp: "ऑर्डर की पुष्टि करें और OTP जनरेट करें",
+
+    complete_upi_payment: "UPI भुगतान पूरा करें",
+    upi_transaction_reference_optional: "UPI लेनदेन संदर्भ (वैकल्पिक)",
+    enter_12_digit_utr: "12 अंकों का UTR नंबर दर्ज करें",
+    verify_payment_generate_otp: "भुगतान सत्यापित करें और OTP जनरेट करें",
+
+    order_received: "ऑर्डर प्राप्त हुआ!",
+    order_confirmed_with_farmer: "किसान के साथ पुष्टि की गई है!",
+    secure_delivery_otp: "आपका सुरक्षित डिलीवरी OTP:",
+    payment_verified_share_otp:
+        "✓ भुगतान सत्यापित। सामान प्राप्त करने के बाद ही यह OTP डिलीवरी एजेंट के साथ साझा करें!",
+    cash_on_delivery_order: "कैश ऑन डिलीवरी ऑर्डर",
+    cod_otp_message:
+        "भुगतान किए जाने के बाद आपका सुरक्षित डिलीवरी OTP जनरेट होगा।",
+    total_payable: "कुल देय राशि",
+    view_my_orders: "मेरे ऑर्डर देखें",
+
+    farmer: "किसान",
+    buyer: "खरीदार"
+});
+
+
+Object.assign(translations.ta, {
+    current_district: "தற்போதைய மாவட்டம்",
+    consult_plant_advisory: "தாவர ஆலோசனையைப் பெறுங்கள்",
+
+    all_districts: "அனைத்து மாவட்டங்கள்",
+    vegetables: "காய்கறிகள்",
+    fruits: "பழங்கள்",
+    grains_pulses: "தானியங்கள் மற்றும் பருப்புகள்",
+    spices: "மசாலா பொருட்கள்",
+    organic_goods: "இயற்கை பொருட்கள்",
+
+    order_date_farmer: "ஆர்டர் # / தேதி",
+    items_purchased: "வாங்கிய பொருட்கள்",
+    total_bill: "மொத்த பில்",
+
+    ask_agricultural_guidance: "வேளாண் வழிகாட்டுதலைக் கேளுங்கள்",
+    plant_produce_area: "தாவரம் / விளைபொருள் பகுதி",
+    topic_question_title: "தலைப்பு / கேள்வி பெயர்",
+    details: "விவரங்கள்",
+    submit_to_advisory: "ஆலோசனைக்கு சமர்ப்பிக்கவும்",
+    previous_answers: "முந்தைய பதில்கள்",
+
+    checkout_payment: "செக்அவுட் மற்றும் பணம் செலுத்துதல்",
+    choose_payment_method: "பணம் செலுத்தும் முறையைத் தேர்ந்தெடுக்கவும்",
+    upi_qr_payment: "UPI QR பணம் செலுத்துதல்",
+    pay_directly_farmer_upi: "UPI மூலம் விவசாயிக்கு நேரடியாக பணம் செலுத்துங்கள்",
+    pay_delivery_agent: "உங்கள் வீட்டில் விநியோக முகவருக்கு பணம் செலுத்துங்கள்",
+    scan_farmer_upi: "விவசாயியின் UPI QR குறியீட்டை ஸ்கேன் செய்யவும்",
+    scan_using_apps: "✓ Google Pay, PhonePe, Paytm அல்லது BHIM மூலம் ஸ்கேன் செய்யவும்",
+    contact_phone: "தொடர்பு தொலைபேசி",
+    house_street_landmark: "வீடு/பிளாட் எண், தெரு, அடையாள இடம்",
+    enter_10_digit_phone: "10 இலக்க தொலைபேசி எண்ணை உள்ளிடவும்",
+    upi_reference_optional: "UPI குறிப்பு / UTR எண்",
+    optional: "விருப்பத்தேர்வு",
+    enter_upi_reference: "பணம் செலுத்திய பிறகு UPI குறிப்பை உள்ளிடவும்",
+    transaction_reference_after_payment:
+        "UPI பணம் செலுத்திய பிறகு பரிவர்த்தனை குறிப்பை உள்ளிடலாம்.",
+    confirm_order_generate_otp:
+        "ஆர்டரை உறுதிப்படுத்தி OTP உருவாக்கவும்",
+
+    complete_upi_payment: "UPI பணம் செலுத்துதலை முடிக்கவும்",
+    upi_transaction_reference_optional:
+        "UPI பரிவர்த்தனை குறிப்பு (விருப்பத்தேர்வு)",
+    enter_12_digit_utr: "12 இலக்க UTR எண்ணை உள்ளிடவும்",
+    verify_payment_generate_otp:
+        "பணத்தைச் சரிபார்த்து OTP உருவாக்கவும்",
+
+    order_received: "ஆர்டர் பெறப்பட்டது!",
+    order_confirmed_with_farmer: "விவசாயியுடன் உறுதிப்படுத்தப்பட்டுள்ளது!",
+    secure_delivery_otp: "உங்கள் பாதுகாப்பான விநியோக OTP:",
+    payment_verified_share_otp:
+        "✓ பணம் சரிபார்க்கப்பட்டது. பொருட்களைப் பெற்ற பிறகு மட்டுமே இந்த OTP-ஐ விநியோக முகவருடன் பகிரவும்!",
+    cash_on_delivery_order: "விநியோகத்தின் போது பணம் செலுத்தும் ஆர்டர்",
+    cod_otp_message:
+        "பணம் செலுத்தியவுடன் உங்கள் பாதுகாப்பான விநியோக OTP உருவாக்கப்படும்.",
+    total_payable: "செலுத்த வேண்டிய மொத்த தொகை",
+    view_my_orders: "எனது ஆர்டர்களைப் பார்க்கவும்",
+
+    farmer: "விவசாயி",
+    buyer: "வாங்குபவர்"
+});
+
+
+Object.assign(translations.te, {
+    current_district: "ప్రస్తుత జిల్లా",
+    consult_plant_advisory: "మొక్కల సలహా పొందండి",
+
+    all_districts: "అన్ని జిల్లాలు",
+    vegetables: "కూరగాయలు",
+    fruits: "పండ్లు",
+    grains_pulses: "ధాన్యాలు మరియు పప్పులు",
+    spices: "మసాలాలు",
+    organic_goods: "సేంద్రీయ ఉత్పత్తులు",
+
+    order_date_farmer: "ఆర్డర్ # / తేదీ",
+    items_purchased: "కొనుగోలు చేసిన వస్తువులు",
+    total_bill: "మొత్తం బిల్లు",
+
+    ask_agricultural_guidance: "వ్యవసాయ మార్గదర్శకత్వాన్ని అడగండి",
+    plant_produce_area: "మొక్క / ఉత్పత్తి ప్రాంతం",
+    topic_question_title: "విషయం / ప్రశ్న శీర్షిక",
+    details: "వివరాలు",
+    submit_to_advisory: "సలహాకు సమర్పించండి",
+    previous_answers: "మునుపటి సమాధానాలు",
+
+    checkout_payment: "చెక్అవుట్ & చెల్లింపు",
+    choose_payment_method: "చెల్లింపు పద్ధతిని ఎంచుకోండి",
+    upi_qr_payment: "UPI QR చెల్లింపు",
+    pay_directly_farmer_upi: "UPI ద్వారా రైతుకు నేరుగా చెల్లించండి",
+    pay_delivery_agent: "మీ ఇంటి వద్ద డెలివరీ ఏజెంట్‌కు చెల్లించండి",
+    scan_farmer_upi: "రైతు UPI QR కోడ్‌ను స్కాన్ చేయండి",
+    scan_using_apps: "✓ Google Pay, PhonePe, Paytm లేదా BHIM ఉపయోగించి స్కాన్ చేయండి",
+    contact_phone: "సంప్రదింపు ఫోన్",
+    house_street_landmark: "ఇల్లు/ఫ్లాట్ నంబర్, వీధి, ల్యాండ్‌మార్క్",
+    enter_10_digit_phone: "10 అంకెల ఫోన్ నంబర్ నమోదు చేయండి",
+    upi_reference_optional: "UPI రిఫరెన్స్ / UTR నంబర్",
+    optional: "ఐచ్ఛికం",
+    enter_upi_reference: "చెల్లింపు తర్వాత UPI రిఫరెన్స్ నమోదు చేయండి",
+    transaction_reference_after_payment:
+        "UPI చెల్లింపు పూర్తయిన తర్వాత లావాదేవీ రిఫరెన్స్ నమోదు చేయవచ్చు.",
+    confirm_order_generate_otp:
+        "ఆర్డర్‌ను నిర్ధారించి OTP రూపొందించండి",
+
+    complete_upi_payment: "UPI చెల్లింపును పూర్తి చేయండి",
+    upi_transaction_reference_optional:
+        "UPI లావాదేవీ రిఫరెన్స్ (ఐచ్ఛికం)",
+    enter_12_digit_utr: "12 అంకెల UTR నంబర్ నమోదు చేయండి",
+    verify_payment_generate_otp:
+        "చెల్లింపును ధృవీకరించి OTP రూపొందించండి",
+
+    order_received: "ఆర్డర్ అందుకుంది!",
+    order_confirmed_with_farmer: "రైతుతో నిర్ధారించబడింది!",
+    secure_delivery_otp: "మీ సురక్షిత డెలివరీ OTP:",
+    payment_verified_share_otp:
+        "✓ చెల్లింపు ధృవీకరించబడింది. వస్తువులు అందుకున్న తర్వాత మాత్రమే ఈ OTPని డెలివరీ ఏజెంట్‌తో పంచుకోండి!",
+    cash_on_delivery_order: "క్యాష్ ఆన్ డెలివరీ ఆర్డర్",
+    cod_otp_message:
+        "చెల్లింపు చేసిన వెంటనే మీ సురక్షిత డెలివరీ OTP రూపొందించబడుతుంది.",
+    total_payable: "చెల్లించాల్సిన మొత్తం",
+    view_my_orders: "నా ఆర్డర్లను చూడండి",
+
+    farmer: "రైతు",
+    buyer: "కొనుగోలుదారు"
 });
 
 // ============================================================

@@ -9,12 +9,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/ifmap-logo.png">
 </head>
 <body class="auth-page">
 
   <div class="auth-container">
     <div class="auth-header">
-      <div style="font-size: 2.2rem; margin-bottom: 0.3rem;">🌾</div>
+      <div class="auth-logo">
+    <img src="images/ifmap-logo.png" alt="IFMAP Logo">
+</div>
       <h2 data-i18n="platform_name">AgroMarket</h2>
       <p>Integrated Farmer Marketplace & Agricultural Advisory</p>
     </div>
@@ -26,7 +29,7 @@
     <option value="hi">हिन्दी</option>
     <option value="ta">தமிழ்</option>
     <option value="te">తెలుగు</option>
-</select>
+    </select>
         </div>
     <!-- Auth Tabs -->
     <div class="auth-tabs">
@@ -221,6 +224,26 @@
 
     </div>
   </div>
+
+  <!-- LOGIN WELCOME SPLASH -->
+<div id="welcome-splash">
+    <div class="welcome-content">
+
+        <img
+            src="images/ifmap-logo.png"
+            alt="IFMAP Logo"
+            class="welcome-logo">
+
+        <h1>WELCOME BACK</h1>
+
+        <h2 id="welcome-role">FARMER</h2>
+
+        <div class="welcome-line"></div>
+
+        <p>Integrated Farmer Marketplace</p>
+
+    </div>
+</div>
 
 <script src="js/translations.js"></script>
 <script src="js/app.js"></script>

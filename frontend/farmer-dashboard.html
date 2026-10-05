@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/ifmap-logo.png">
   <!-- Chart.js CDN for Monthly Earnings Bar Chart -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -18,9 +19,9 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="index.html" class="brand-logo">
-        <div class="leaf-icon">🌾</div>
-        <span data-i18n="platform_name">AgroMarket</span>
-      </a>
+    <img src="images/ifmap-logo.png" class="project-logo" alt="IFMAP Logo">
+    <span data-i18n="platform_name">AgroMarket</span>
+</a>
 
       <div class="nav-actions">
         <!-- Language Switcher -->
@@ -50,7 +51,7 @@
     <div class="dashboard-header">
       <div class="dashboard-title">
         <h2 data-i18n="farmer_portal">Farmer Portal</h2>
-        <p data-i18n="farmer_dashboard_description">
+        <p data-i18n="Manage your harvest, accept buyer orders, track delivery logistics, and check weather.">
     Manage your harvest, accept buyer orders, track delivery logistics, and check weather.
 </p>
       </div>
@@ -292,31 +293,158 @@
       </div>
     </div>
 
-    <!-- 6. TAB: PROFILE & UPI QR CODE -->
-    <div id="tab-profile" class="tab-content">
-      <div class="panel" style="max-width: 650px; margin: 0 auto;">
-        <div class="panel-header">
-          <h3 data-i18n="upi_qr_code">My Farmer Profile & Direct UPI QR Code</h3>
+<!-- 6. TAB: PROFILE & UPI QR -->
+<div id="tab-profile" class="tab-content">
+
+    <div class="upi-profile-section">
+
+    <div class="upi-profile-header">
+        <div>
+            <h3 data-i18n="upi_qr_code">
+                UPI QR Code
+            </h3>
+
+            <p class="upi-subtitle">
+                Receive payments directly from buyers
+            </p>
         </div>
-        <div class="panel-body" style="text-align: center;">
-          <div style="margin: 1.5rem auto; width: 220px; height: 220px; border: 2px dashed #16a34a; padding: 10px; border-radius: 16px; background: white;">
-<img
-    id="farmer-profile-qr"
-    src=""
-    alt="UPI QR Code"
-    style="width:100%; height:100%; object-fit:contain;"
->
-          </div>
-          <h4 style="color: #1e293b; margin-bottom: 0.25rem;">Registered UPI ID:</h4>
-          <span id="farmer-profile-upi" style="font-size: 1.15rem; font-weight: 800; color: #16a34a; font-family: monospace; background: #e8f5e9; padding: 0.35rem 0.85rem; border-radius: 6px;">
-            farmer@upi
-          </span>
-          <p style="color: #64748b; font-size: 0.875rem; margin-top: 1rem;">
-            This QR code is automatically displayed to buyers during checkout and shown by delivery boys for Cash on Delivery (COD) payments so money reaches your UPI account instantly!
-          </p>
-        </div>
-      </div>
+
+        <button
+            type="button"
+            id="edit-upi-btn"
+            class="btn btn-outline btn-sm"
+            onclick="openUpiEdit()">
+
+            ✏️
+            <span data-i18n="edit_upi">
+                Edit UPI ID
+            </span>
+
+        </button>
     </div>
+
+
+    <!-- QR Code -->
+
+    <div class="upi-qr-container">
+
+        <div id="farmer-profile-qr" class="farmer-upi-qr"></div>
+
+    </div>
+
+
+    <!-- Current UPI -->
+
+    <div class="upi-current-info">
+
+        <label data-i18n="registered_upi_id">
+            Registered UPI ID
+        </label>
+
+        <div class="upi-id-display">
+            <span id="farmer-profile-upi">
+                Not registered
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- Edit Form -->
+
+    <div
+    id="upi-edit-form"
+    class="upi-edit-form"
+    style="display:none;">
+
+    <div class="upi-edit-header">
+        <div class="upi-edit-icon">
+            ✏️
+        </div>
+
+        <div>
+            <h4 data-i18n="edit_upi">
+                Edit UPI ID
+            </h4>
+
+            <p data-i18n="upi_edit_description">
+                Update the UPI ID where you want to receive buyer payments.
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group upi-input-group">
+
+        <label
+            for="farmer-upi-input"
+            class="form-label"
+            data-i18n="enter_upi_id">
+
+            Enter UPI ID
+
+        </label>
+
+        <div class="upi-input-wrapper">
+
+            <span class="upi-input-icon">
+                💳
+            </span>
+
+            <input
+                type="text"
+                id="farmer-upi-input"
+                class="form-control"
+                data-i18n-placeholder="upi_placeholder"
+                placeholder="example@upi"
+                autocomplete="off">
+
+        </div>
+
+        <small
+            class="upi-input-hint"
+            data-i18n="upi_format_hint">
+
+            Enter a valid UPI ID, for example: yourname@upi
+
+        </small>
+
+    </div>
+
+    <div class="upi-edit-actions">
+
+        <button
+            type="button"
+            class="btn btn-outline"
+            onclick="cancelUpiEdit()"
+            data-i18n="cancel">
+
+            Cancel
+
+        </button>
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            onclick="saveFarmerUpi()">
+
+            💾
+
+            <span data-i18n="save_upi">
+                Save UPI ID
+            </span>
+
+        </button>
+
+    </div>
+     </div>
+
+        <p class="upi-info-text" data-i18n="upi_info_text">
+            🔐 This UPI ID and QR code will be shown to buyers
+            during checkout.
+        </p>
+
+    </div>
+</div>
 
   </div>
 
@@ -386,6 +514,7 @@
 <script src="js/translations.js"></script>
 <script src="js/app.js"></script>
   <script src="js/weather.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="js/farmer.js"></script>
 </body>
 </html>

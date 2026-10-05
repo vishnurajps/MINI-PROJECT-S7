@@ -73,10 +73,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = await res.json();
         if (data.success) {
-          Auth.setUser(data.user, data.token);
-          showToast(`Welcome back, ${data.user.fullName}!`, "success");
-          redirectToRoleDashboard(data.user.role);
-        } else {
+
+    Auth.setUser(data.user, data.token);
+
+    sessionStorage.setItem(
+        "ifmap_welcome",
+        JSON.stringify({
+            role: data.user.role,
+            name: data.user.fullName
+        })
+    );
+
+    redirectToRoleDashboard(data.user.role);
+
+}else {
           showToast(data.message || "Invalid login credentials", "error");
         }
       } catch (err) {
@@ -133,10 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = await res.json();
         if (data.success) {
-          Auth.setUser(data.user, data.token);
-          showToast("Account registered successfully!", "success");
-          redirectToRoleDashboard(data.user.role);
-        } else {
+
+    Auth.setUser(data.user, data.token);
+
+    sessionStorage.setItem(
+        "ifmap_welcome",
+        JSON.stringify({
+            role: data.user.role,
+            name: data.user.fullName
+        })
+    );
+
+    redirectToRoleDashboard(data.user.role);
+} else {
           showToast(data.message || "Registration failed", "error");
         }
       } catch (err) {
@@ -148,13 +167,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function redirectToRoleDashboard(role) {
-  setTimeout(() => {
-    if (role === 'FARMER') window.location.href = "farmer-dashboard.html";
-    else if (role === 'BUYER') window.location.href = "buyer-dashboard.html";
-    else if (role === 'DELIVERY') window.location.href = "delivery-dashboard.html";
-    else if (role === 'ADVISORY') window.location.href = "advisory-dashboard.html";
-    else window.location.href = "index.html";
-  }, 700);
+  if (role === 'FARMER') {
+    window.location.href = "farmer-dashboard.html";
+  }
+  else if (role === 'BUYER') {
+    window.location.href = "buyer-dashboard.html";
+  }
+  else if (role === 'DELIVERY') {
+    window.location.href = "delivery-dashboard.html";
+  }
+  else if (role === 'ADVISORY') {
+    window.location.href = "advisory-dashboard.html";
+  }
+  else {
+    window.location.href = "index.html";
+  }
 }
 
 // Quick Demo Login Helper
@@ -196,3 +223,53 @@ window.quickLogin = function(role) {
   // Submit login
   document.getElementById('login-form').requestSubmit();
 };
+
+function showWelcomeSplash(user) {
+
+    const splash = document.getElementById("welcome-splash");
+    const roleElement = document.getElementById("welcome-role");
+
+    if (!splash || !roleElement) {
+        return;
+    }
+
+    let roleKey = "buyer";
+
+    switch (user.role) {
+
+        case "FARMER":
+            roleKey = "farmer";
+            break;
+
+        case "BUYER":
+            roleKey = "buyer";
+            break;
+
+        case "ADVISORY":
+            roleKey = "advisor";
+            break;
+
+        case "DELIVERY":
+            roleKey = "delivery_boy";
+            break;
+
+        default:
+            roleKey = "buyer";
+    }
+
+    roleElement.textContent =
+        typeof t === "function"
+            ? t(roleKey)
+            : roleKey;
+
+    splash.classList.add("show");
+
+    return new Promise(resolve => {
+
+        setTimeout(() => {
+            splash.classList.remove("show");
+            resolve();
+        }, 2000);
+
+    });
+}

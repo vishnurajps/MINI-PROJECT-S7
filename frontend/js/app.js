@@ -211,3 +211,88 @@ function toggleDetails(id) {
         details.classList.toggle("show");
     }
 }
+
+/* =========================================================
+   IFMAP WELCOME SPLASH SCREEN
+   ========================================================= */
+
+function showWelcomeSplashScreen() {
+
+    const splashData = sessionStorage.getItem("ifmap_welcome");
+
+    if (!splashData) {
+        return;
+    }
+
+    sessionStorage.removeItem("ifmap_welcome");
+
+    let data;
+
+    try {
+        data = JSON.parse(splashData);
+    } catch (error) {
+        console.error("Invalid welcome splash data");
+        return;
+    }
+
+    const role = data.role || "USER";
+
+    const roleNames = {
+        FARMER: "FARMER",
+        BUYER: "BUYER",
+        DELIVERY: "DELIVERY BOY",
+        ADVISORY: "ADVISOR"
+    };
+
+    const roleName = roleNames[role] || "USER";
+
+    const splash = document.createElement("div");
+
+    splash.id = "ifmap-welcome-splash";
+
+    splash.innerHTML = `
+        <div class="ifmap-splash-content">
+
+            <img
+                src="images/ifmap-logo.png"
+                class="ifmap-splash-logo"
+                alt="IFMAP Logo">
+
+            <div class="ifmap-splash-title">
+                WELCOME BACK
+            </div>
+
+            <div class="ifmap-splash-role">
+                ${roleName}
+            </div>
+
+            <div class="ifmap-splash-line"></div>
+
+            <div class="ifmap-splash-subtitle">
+                Integrated Farmer Marketplace
+            </div>
+
+        </div>
+    `;
+
+    document.body.appendChild(splash);
+
+    requestAnimationFrame(() => {
+        splash.classList.add("show");
+    });
+
+    setTimeout(() => {
+
+        splash.classList.remove("show");
+
+        setTimeout(() => {
+            splash.remove();
+        }, 500);
+
+    }, 3000);
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    showWelcomeSplashScreen();
+});

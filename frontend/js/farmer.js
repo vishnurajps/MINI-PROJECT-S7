@@ -35,18 +35,51 @@ document.getElementById('farmer-name-display').textContent = farmer.fullName;
 });
 
 function setupFarmerTabs() {
-  const tabs = document.querySelectorAll('.tab-btn');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
 
-      tab.classList.add('active');
-      const targetId = tab.getAttribute('data-tab');
-      const targetContent = document.getElementById(targetId);
-      if (targetContent) targetContent.classList.add('active');
+    function activateTab(targetId) {
+        // Remove active state from all tabs
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Hide every tab content
+        contents.forEach(content => {
+            content.classList.remove('active');
+            content.style.display = 'none';
+        });
+
+        // Activate selected button
+        const selectedTab = document.querySelector(
+            `.tab-btn[data-tab="${targetId}"]`
+        );
+
+        if (selectedTab) {
+            selectedTab.classList.add('active');
+        }
+
+        // Show only selected content
+        const selectedContent = document.getElementById(targetId);
+
+        if (selectedContent) {
+            selectedContent.classList.add('active');
+            selectedContent.style.display = 'block';
+        }
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetId = tab.getAttribute('data-tab');
+
+            if (targetId) {
+                activateTab(targetId);
+            }
+        });
     });
-  });
+
+    // Show My Products when dashboard first opens
+    activateTab('tab-products');
 }
 
 // ---------------- PRODUCTS ----------------
@@ -404,50 +437,223 @@ async function loadFarmerAdvisoryQueries(userId) {
 // ---------------- PROFILE & UPI QR ----------------
 function setupFarmerProfile(farmer) {
 
-    const upiEl = document.getElementById('farmer-profile-upi');
-    const qrImg = document.getElementById('farmer-profile-qr');
+    const qrContainer = document.getElementById('farmer-profile-qr');
+    const upiDisplay = document.getElementById('farmer-profile-upi');
 
-    const upiId = farmer.upiId ? farmer.upiId.trim() : '';
-
-    console.log("Farmer UPI ID:", upiId);
-
+    // -----------------------------
     // Display UPI ID
-    if (upiEl) {
-        upiEl.textContent = upiId || 'Not registered';
+    // -----------------------------
+    if (upiDisplay) {
+        upiDisplay.textContent =
+            farmer.upiId || t('not_registered');
     }
 
-    // Generate QR code using UPI ID
-    if (qrImg && upiId) {
+    // -----------------------------
+    // Generate QR Code
+    // -----------------------------
+    if (qrContainer) {
 
-        const upiPaymentUrl =
-            `upi://pay?pa=${upiId}` +
-            `&pn=${encodeURIComponent(farmer.fullName || 'Farmer')}` +
-            `&cu=INR`;
+        // Clear previous QR
+        qrContainer.innerHTML = '';
 
-        console.log("UPI Payment URL:", upiPaymentUrl);
+        if (farmer.upiId) {
 
-        const qrApiUrl =
-            `https://quickchart.io/qr?text=${encodeURIComponent(upiPaymentUrl)}&size=250`;
+            const upiUri =
+                `upi://pay?pa=${encodeURIComponent(farmer.upiId)}` +
+                `&pn=${encodeURIComponent(farmer.fullName || 'Farmer')}` +
+                `&cu=INR`;
 
-        console.log("QR Image URL:", qrApiUrl);
+            if (typeof QRCode !== 'undefined') {
 
-        qrImg.src = qrApiUrl;
+                new QRCode(qrContainer, {
+                    text: upiUri,
+                    width: 250,
+                    height: 250,
+                    correctLevel: QRCode.CorrectLevel.H
+                });
 
-        qrImg.onload = function () {
-            console.log("QR code loaded successfully");
-        };
+            } else {
 
-        qrImg.onerror = function () {
-            console.error("QR code failed to load");
-            qrImg.alt = "QR code unavailable";
-        };
-    } else {
-        console.error("UPI ID is missing");
-        if (qrImg) {
-            qrImg.alt = "UPI ID not registered";
+                console.error('QRCode library not loaded.');
+
+                qrContainer.innerHTML = `
+                    <p style="color:#dc2626; text-align:center;">
+                        ${t('qr_code_unavailable')}
+                    </p>
+                `;
+            }
+
+        } else {
+
+            qrContainer.innerHTML = `
+                <p style="color:#94a3b8; text-align:center;">
+                    ${t('not_registered')}
+                </p>
+            `;
         }
     }
 }
+// =========================================================
+// FARMER UPI EDIT
+// =========================================================
+
+window.openUpiEdit = function () {
+
+    const farmer = Auth.getUser();
+
+    const input = document.getElementById('farmer-upi-input');
+    const form = document.getElementById('upi-edit-form');
+
+    if (!input || !form) return;
+
+    input.value = farmer.upiId || '';
+
+    form.style.display = 'block';
+
+    input.focus();
+};
+
+
+window.cancelUpiEdit = function () {
+
+    const form = document.getElementById('upi-edit-form');
+
+    if (form) {
+        form.style.display = 'none';
+    }
+};
+
+
+window.saveFarmerUpi = async function () {
+
+    const farmer = Auth.getUser();
+
+    const input = document.getElementById('farmer-upi-input');
+
+    if (!input || !farmer) {
+        return;
+    }
+
+    const newUpiId = input.value.trim();
+
+
+    // Check empty
+    if (!newUpiId) {
+
+        showToast(
+            'Please enter your UPI ID',
+            'error'
+        );
+
+        input.focus();
+
+        return;
+    }
+
+
+    // Basic UPI format validation
+    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$/.test(newUpiId)) {
+
+        showToast(
+            'Please enter a valid UPI ID',
+            'error'
+        );
+
+        input.focus();
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/auth/profile/${farmer.id}`,
+            {
+                method: 'PUT',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    upiId: newUpiId
+                })
+            }
+        );
+
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            console.error(
+                'UPI update failed:',
+                errorText
+            );
+
+            showToast(
+                'Failed to update UPI ID',
+                'error'
+            );
+
+            return;
+        }
+
+
+        // Get updated farmer from backend
+        const updatedFarmer = await response.json();
+
+
+        // Update local user
+        const currentUser = Auth.getUser();
+
+        currentUser.upiId =
+            updatedFarmer.upiId;
+
+        currentUser.qrCodeUrl =
+            updatedFarmer.qrCodeUrl;
+
+
+        // Save updated user locally
+        localStorage.setItem(
+            'agromarket_user',
+            JSON.stringify(currentUser)
+        );
+
+
+        // Refresh profile + QR
+        setupFarmerProfile(currentUser);
+
+
+        // Close edit form
+        const editForm =
+            document.getElementById('upi-edit-form');
+
+        if (editForm) {
+            editForm.style.display = 'none';
+        }
+
+
+        showToast(
+            'UPI ID updated successfully',
+            'success'
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            'UPI update error:',
+            error
+        );
+
+        showToast(
+            'Server error while updating UPI ID',
+            'error'
+        );
+    }
+};
 
 // ---------------- NOTIFICATIONS ----------------
 async function loadFarmerNotifications(userId) {

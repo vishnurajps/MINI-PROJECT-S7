@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/ifmap-logo.png">
 </head>
 <body>
 
@@ -16,9 +17,10 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="index.html" class="brand-logo">
-        <div class="leaf-icon">🌾</div>
-        <span data-i18n="platform_name">AgroMarket</span>
-      </a>
+    <img src="images/ifmap-logo.png"
+         alt="IFMAP"
+         class="dashboard-logo">
+</a>
 
       <div class="nav-actions">
         <!-- Cart Button -->
@@ -53,10 +55,13 @@
     <div class="dashboard-header">
       <div class="dashboard-title">
         <h2 data-i18n="buyer_portal">Buyer Marketplace</h2>
-        <p>Buy farm-fresh vegetables, fruits, and grains directly from farmers in your district.</p>
+        <p data-i18n="buyer_description">
+    Buy farm-fresh vegetables, fruits, and grains directly from farmers in your district.
+</p>
       </div>
       <div>
-        <span style="font-size:0.9rem; color:#64748b;">Current District: <strong id="buyer-district-display" style="color:var(--dark);">-</strong></span>
+        <span style="font-size:0.9rem; color:#64748b;">
+    <span data-i18n="current_district">Current District</span>: <strong id="buyer-district-display" style="color:var(--dark);">-</strong></span>
       </div>
     </div>
 
@@ -64,7 +69,11 @@
     <div class="tab-nav">
       <button class="tab-btn active" data-tab="tab-market" data-i18n="marketplace">Explore Produce</button>
       <button class="tab-btn" data-tab="tab-buyer-orders" data-i18n="my_orders">My Orders & Delivery OTP</button>
-      <button class="tab-btn" data-tab="tab-buyer-advisory">Consult Plant Advisory</button>
+      <button class="tab-btn"
+        data-tab="tab-buyer-advisory"
+        data-i18n="consult_plant_advisory">
+    Consult Plant Advisory
+</button>
     </div>
 
     <!-- 1. TAB: MARKETPLACE -->
@@ -78,12 +87,13 @@
       type="text"
       id="search-input"
       class="form-control"
-      placeholder="Search crops, produce, or farmer...">
+      data-i18n-placeholder="plant_produce_placeholder"
+placeholder="Search crops, produce, or farmer...">
   </div>
 
   <div>
     <select id="district-filter" class="form-control">
-  <option value="">All Districts</option>
+  <option value="" data-i18n="all_districts">All Districts</option>
   <option value="Erode">Erode</option>
   <option value="Coimbatore">Coimbatore</option>
   <option value="Madurai">Madurai</option>
@@ -95,12 +105,16 @@
 
   <div>
     <select id="category-filter" class="form-control">
-      <option value="">All Categories</option>
-      <option value="Vegetables">Vegetables</option>
-      <option value="Fruits">Fruits</option>
-      <option value="Grains & Pulses">Grains & Pulses</option>
-      <option value="Spices">Spices</option>
-      <option value="Organic Goods">Organic Goods</option>
+      <option value="" data-i18n="all_categories">All Categories</option>
+<option value="Vegetables" data-i18n="vegetables">Vegetables</option>
+<option value="Fruits" data-i18n="fruits">Fruits</option>
+<option value="Grains & Pulses" data-i18n="grains_pulses">
+    Grains & Pulses
+</option>
+<option value="Spices" data-i18n="spices">Spices</option>
+<option value="Organic Goods" data-i18n="organic_goods">
+    Organic Goods
+</option>
     </select>
   </div>
 
@@ -126,13 +140,13 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Order # / Date</th>
-                  <th>Farmer</th>
-                  <th>Items Purchased</th>
-                  <th>Total Bill</th>
-                  <th>Status</th>
-                  <th>Delivery Boy</th>
-                  <th>Delivery OTP</th>
+                  <th data-i18n="order_date_farmer">Order # / Date</th>
+<th data-i18n="farmer">Farmer</th>
+<th data-i18n="items_purchased">Items Purchased</th>
+<th data-i18n="total_bill">Total Bill</th>
+<th data-i18n="status">Status</th>
+<th data-i18n="delivery_boy_label">Delivery Boy</th>
+<th data-i18n="delivery_otp">Delivery OTP</th>
                 </tr>
               </thead>
               <tbody id="buyer-orders-tbody">
@@ -144,44 +158,175 @@
       </div>
     </div>
 
-    <!-- 3. TAB: ADVISORY -->
-    <div id="tab-buyer-advisory" class="tab-content">
-      <div class="dashboard-grid">
-        <div class="panel">
-          <div class="panel-header">
-            <h3>Ask Agricultural Guidance</h3>
-          </div>
-          <div class="panel-body">
-            <form id="buyer-advisory-form">
-              <div class="form-group">
-                <label class="form-label">Plant / Produce Area</label>
-                <input type="text" id="buyer-adv-crop" class="form-control" placeholder="e.g. Balcony garden, Coriander, Storage tips" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Topic / Question Title</label>
-                <input type="text" id="buyer-adv-subject" class="form-control" placeholder="e.g. How to preserve fresh tomatoes naturally?" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Details</label>
-                <textarea id="buyer-adv-question" class="form-control" rows="4" placeholder="Explain your inquiry for expert response..." required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit to Advisory</button>
-            </form>
-          </div>
+<!-- 3. TAB: ADVISORY -->
+<div id="tab-buyer-advisory" class="tab-content">
+
+    <div class="advisory-page">
+
+        <!-- Page Heading -->
+        <div class="advisory-intro">
+            <div class="advisory-intro-icon">🌱</div>
+
+            <div>
+                <h2 data-i18n="ask_agricultural_guidance">
+                    Ask Agricultural Guidance
+                </h2>
+
+                <p>
+                    Get expert agricultural advice for your crops,
+                    plants, gardening, and produce-related questions.
+                </p>
+            </div>
         </div>
 
-        <div class="panel">
-          <div class="panel-header">
-            <h3>Previous Answers</h3>
-          </div>
-          <div class="panel-body" id="buyer-queries-list">
-            <!-- Advisory list -->
-          </div>
+
+        <!-- Advisory Grid -->
+        <div class="advisory-grid">
+
+            <!-- Ask Expert Card -->
+            <div class="advisory-card">
+
+                <div class="advisory-card-header">
+                    <div class="advisory-card-icon">
+                        💬
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="ask_agricultural_guidance">
+                            Ask Agricultural Guidance
+                        </h3>
+
+                        <p>
+                            Submit your question to an agricultural expert.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="advisory-card-body">
+
+                    <form id="buyer-advisory-form">
+
+                        <!-- Plant / Produce -->
+                        <div class="advisory-form-group">
+
+                            <label
+                                for="buyer-adv-crop"
+                                class="advisory-label"
+                                data-i18n="plant_produce_area">
+                                Plant / Produce Area
+                            </label>
+
+                            <input
+                                type="text"
+                                id="buyer-adv-crop"
+                                class="advisory-input"
+                                data-i18n-placeholder="plant_produce_placeholder"
+                                placeholder="e.g. Tomato, Coriander, Balcony Garden"
+                                required>
+
+                        </div>
+
+
+                        <!-- Topic -->
+                        <div class="advisory-form-group">
+
+                            <label
+                                for="buyer-adv-subject"
+                                class="advisory-label"
+                                data-i18n="topic_question_title">
+                                Topic / Question Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="buyer-adv-subject"
+                                class="advisory-input"
+                                data-i18n-placeholder="topic_question_placeholder"
+                                placeholder="e.g. How to preserve fresh tomatoes?"
+                                required>
+
+                        </div>
+
+
+                        <!-- Details -->
+                        <div class="advisory-form-group">
+
+                            <label
+                                for="buyer-adv-question"
+                                class="advisory-label"
+                                data-i18n="details">
+                                Details
+                            </label>
+
+                            <textarea
+                                id="buyer-adv-question"
+                                class="advisory-input advisory-textarea"
+                                rows="6"
+                                data-i18n-placeholder="advisory_details_placeholder"
+                                placeholder="Explain your question in detail..."
+                                required></textarea>
+
+                        </div>
+
+
+                        <!-- Submit -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary advisory-submit-btn">
+
+                            <span>📨</span>
+
+                            <span data-i18n="submit_to_advisory">
+                                Submit to Advisory
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- Previous Answers Card -->
+            <div class="advisory-card">
+
+                <div class="advisory-card-header">
+
+                    <div class="advisory-card-icon">
+                        📚
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="previous_answers">
+                            Previous Answers
+                        </h3>
+
+                        <p>
+                            View your submitted questions and expert responses.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="advisory-card-body advisory-history"
+                    id="buyer-queries-list">
+
+                    <!-- Advisory list will be loaded dynamically -->
+
+                </div>
+
+            </div>
+
         </div>
-      </div>
+
     </div>
 
-  </div>
+</div>
 
   <!-- CART MODAL -->
   <div class="modal-overlay" id="cart-modal">
@@ -241,7 +386,9 @@
 
     <!-- Header -->
     <div class="modal-header">
-      <h3>🛒 Checkout & Payment</h3>
+      <h3 data-i18n="checkout_payment">
+    🛒 Checkout & Payment
+</h3>
 
       <button
         class="modal-close"
@@ -254,10 +401,13 @@
     <div class="modal-body">
 
       <!-- Payment Section -->
-      <div class="checkout-section-title">
-        <span>1</span>
+<div class="checkout-section-title">
+    <span>1</span>
+    <span data-i18n="choose_payment_method">
         Choose Payment Method
-      </div>
+    </span>
+</div>
+
 
       <div class="payment-method-grid">
 
@@ -275,8 +425,13 @@
             ">
 
           <div class="payment-method-content">
-            <strong>💳 UPI QR Payment</strong>
-            <small>Pay directly to the farmer using UPI</small>
+            <strong data-i18n="upi_qr_payment">
+    💳 UPI QR Payment
+</strong>
+
+<small data-i18n="pay_directly_farmer_upi">
+    Pay directly to the farmer using UPI
+</small>
           </div>
 
         </label>
@@ -294,8 +449,13 @@
             ">
 
           <div class="payment-method-content">
-            <strong>💵 Cash on Delivery</strong>
-            <small>Pay the delivery agent at your doorstep</small>
+            <strong data-i18n="cash_on_delivery">
+    💵 Cash on Delivery
+</strong>
+
+<small data-i18n="pay_delivery_agent">
+    Pay the delivery agent at your doorstep
+</small>
           </div>
 
         </label>
@@ -305,7 +465,9 @@
       <!-- UPI QR Payment -->
       <div id="upi-qr-display-box">
 
-        <h4>Scan Farmer's UPI QR Code</h4>
+        <h4 data-i18n="scan_farmer_upi">
+    Scan Farmer's UPI QR Code
+</h4>
 
         <p>
           Farmer:
@@ -325,34 +487,37 @@
           src=""
           alt="Farmer UPI QR Code">
 
-        <span>
-          ✓ Scan using Google Pay, PhonePe, Paytm or BHIM
-        </span>
+       <span data-i18n="scan_using_apps">
+    ✓ Scan using Google Pay, PhonePe, Paytm or BHIM
+</span>
 
       </div>
 
       <!-- Delivery Details -->
-      <div class="checkout-delivery-box">
+<div class="checkout-delivery-box">
 
-        <div class="checkout-section-title">
-          <span>2</span>
-          Delivery Details
-        </div>
-
+   <div class="checkout-section-title">
+    <span>2</span>
+    <span data-i18n="delivery_details">
+        Delivery Details
+    </span>
+</div>
         <!-- Address -->
         <div class="form-group">
 
           <label
-            class="form-label"
-            for="checkout-address">
-            📍 Delivery Address
-          </label>
+    class="form-label"
+    for="checkout-address"
+    data-i18n="delivery_address">
+    📍 Delivery Address
+</label>
 
           <textarea
             id="checkout-address"
             class="form-control"
             rows="3"
-            placeholder="House/Flat No, Street, Landmark"
+            data-i18n-placeholder="house_street_landmark"
+placeholder="House/Flat No, Street, Landmark"
             required></textarea>
 
         </div>
@@ -361,16 +526,18 @@
         <div class="form-group">
 
           <label
-            class="form-label"
-            for="checkout-phone">
-            📞 Contact Phone
-          </label>
+    class="form-label"
+    for="checkout-phone"
+    data-i18n="contact_phone">
+    📞 Contact Phone
+</label>
 
           <input
             type="tel"
             id="checkout-phone"
             class="form-control"
-            placeholder="Enter 10-digit phone number"
+            data-i18n-placeholder="enter_10_digit_phone"
+placeholder="Enter 10-digit phone number"
             maxlength="10"
             required>
 
@@ -382,24 +549,33 @@
           id="checkout-utr-group">
 
           <label
-            class="form-label"
-            for="checkout-utr">
-            🔐 UPI Reference / UTR Number
-            <span style="font-weight:400;color:#94a3b8;">
-              (Optional)
-            </span>
-          </label>
+    class="form-label"
+    for="checkout-utr"
+    data-i18n="upi_reference_optional">
+    🔐 UPI Reference / UTR Number
+    <span
+        style="font-weight:400;color:#94a3b8;"
+        data-i18n="optional">
+        (Optional)
+    </span>
+</label>
 
-          <input
-            type="text"
-            id="checkout-utr"
-            class="form-control"
-            placeholder="Enter UPI reference after payment">
+        <input
+    type="text"
+    id="checkout-utr"
+    class="form-control"
+    data-i18n-placeholder="enter_12_digit_utr"
+    placeholder="Enter 12-digit UTR number"
+    inputmode="numeric"
+    maxlength="12"
+    minlength="12"
+    pattern="[0-9]{12}">
 
           <small
-            style="display:block;margin-top:6px;color:#64748b;font-size:0.75rem;">
-            You can enter the transaction reference after completing the UPI payment.
-          </small>
+    style="display:block;margin-top:6px;color:#64748b;font-size:0.75rem;"
+    data-i18n="transaction_reference_after_payment">
+    You can enter the transaction reference after completing the UPI payment.
+</small>
 
         </div>
 
@@ -421,7 +597,9 @@
         type="button"
         class="btn btn-primary"
         onclick="placeFinalOrder()">
-        Confirm Order & Generate OTP
+        <span data-i18n="confirm_order_generate_otp">
+    Confirm Order & Generate OTP
+</span>
       </button>
 
     </div>
@@ -538,7 +716,11 @@
     <!-- HEADER -->
     <div class="modal-header order-success-header">
 
-      <h3>🎉 Order Received!</h3>
+      <h3
+    style="color:#16a34a;"
+    data-i18n="order_received">
+    🎉 Order Received!
+</h3>
 
       <button
         type="button"
@@ -561,13 +743,14 @@
         Payment Successful
       </h4>
 
-      <p class="success-order-text">
-        Order
-        <strong id="confirm-order-num">
-          #ORD-XXXX
-        </strong>
-        has been confirmed successfully.
-      </p>
+      <p
+    style="font-size:1.05rem; color:#1e293b; margin-bottom:1rem;">
+    <span data-i18n="order">Order</span>
+    <strong id="confirm-order-num">#ORD-XXXX</strong>
+    <span data-i18n="order_confirmed_with_farmer">
+        has been confirmed with the farmer!
+    </span>
+</p>
 
 
       <!-- OTP -->
@@ -576,7 +759,9 @@
         class="otp-success-card">
 
         <div class="otp-label">
-          🔑 YOUR DELIVERY OTP
+         <span data-i18n="secure_delivery_otp">
+    🔑 YOUR SECURE DELIVERY OTP:
+</span>
         </div>
 
         <div
@@ -585,10 +770,11 @@
           ------
         </div>
 
-        <p class="otp-instruction">
-          Share this OTP with the delivery agent
-          <strong>only after receiving your items.</strong>
-        </p>
+        <p
+    style="font-size:0.8rem; color:#475569; margin-top:0.75rem;"
+    data-i18n="payment_verified_share_otp">
+    ✓ Payment verified. Share this OTP with the delivery agent only after receiving your items to confirm delivery!
+</p>
 
       </div>
 
@@ -599,13 +785,18 @@
         class="cod-notice">
 
         <div class="cod-title">
-          💵 CASH ON DELIVERY
+          <div
+    style="font-size:0.9rem; font-weight:700; color:#b45309; margin-bottom:0.35rem;"
+    data-i18n="cash_on_delivery_order">
+    💵 CASH ON DELIVERY ORDER
+</div>
         </div>
 
-        <p>
-          Your delivery OTP will be used to confirm
-          the delivery after payment is collected.
-        </p>
+        <p
+    style="font-size:0.825rem; color:#78350f;"
+    data-i18n="cod_otp_message">
+    Your secure Delivery OTP will be generated as soon as payment is made.
+</p>
 
       </div>
 
@@ -613,9 +804,9 @@
       <!-- TOTAL -->
       <div class="success-total">
 
-        <span>
-          Total Payable
-        </span>
+        <span data-i18n="total_payable">
+    Total Payable
+</span>:
 
         <strong id="confirm-order-total">
           ₹0.00
@@ -640,12 +831,11 @@
 
   <button
     type="button"
-    class="btn btn-primary success-orders-btn"
-    onclick="closeModal('order-success-modal')">
-
-    View My Orders →
-
-  </button>
+    class="btn btn-primary"
+    onclick="closeModal('order-success-modal')"
+    data-i18n="view_my_orders">
+    View My Orders
+</button>
 
 </div>
 

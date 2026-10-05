@@ -235,3 +235,220 @@
   justify-content: center;
   gap: 0.5rem;
 }
+
+/* =========================================================
+   LOGIN WELCOME SPLASH SCREEN
+   ========================================================= */
+
+.welcome-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #166534 0%,
+        #15803d 50%,
+        #22c55e 100%
+    );
+
+    color: white;
+}
+
+.welcome-splash.show {
+    display: flex;
+    animation: welcomeFadeIn 0.35s ease;
+}
+
+.welcome-content {
+    text-align: center;
+    width: min(90%, 500px);
+}
+
+.welcome-logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+
+    animation: welcomeLogoPop 0.6s ease;
+}
+
+.welcome-content h1 {
+    margin: 0;
+
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    color: white;
+}
+
+.welcome-role {
+    margin-top: 0.75rem;
+
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 700;
+
+    color: #dcfce7;
+    text-transform: uppercase;
+}
+
+.welcome-loader {
+    width: 220px;
+    height: 5px;
+
+    margin: 2rem auto 0;
+
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.welcome-loader-bar {
+    width: 0%;
+    height: 100%;
+
+    background: white;
+    border-radius: 10px;
+
+    animation: welcomeLoading 3s linear forwards;
+}
+
+@keyframes welcomeFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes welcomeLogoPop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes welcomeLoading {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.auth-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.auth-logo img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+}
+
+#welcome-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        135deg,
+        #064e3b,
+        #15803d,
+        #22c55e
+    );
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#welcome-splash.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.welcome-content {
+    text-align: center;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    animation: welcomeZoom 0.7s ease;
+}
+
+.welcome-logo {
+    width: 190px;
+    height: 190px;
+    object-fit: contain;
+
+    margin-bottom: 25px;
+}
+
+.welcome-content h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.welcome-content h2 {
+    margin: 20px 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.welcome-line {
+    width: 120px;
+    height: 3px;
+    background: white;
+    border-radius: 5px;
+    margin-bottom: 22px;
+}
+
+.welcome-content p {
+    margin: 0;
+    font-size: 17px;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+@keyframes welcomeZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

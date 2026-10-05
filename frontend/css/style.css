@@ -1936,3 +1936,130 @@ select {
   gap: 10px !important;
   flex-wrap: wrap;
 }
+/* =========================================================
+   IFMAP PROJECT LOGO
+   ========================================================= */
+
+.project-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.brand-logo .project-logo {
+    width: 42px;
+    height: 42px;
+}
+/* =========================================================
+   IFMAP WELCOME SPLASH SCREEN
+   ========================================================= */
+
+#ifmap-welcome-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        135deg,
+        #064e3b,
+        #15803d,
+        #22c55e
+    );
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.5s ease,
+        visibility 0.5s ease;
+}
+
+#ifmap-welcome-splash.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ifmap-splash-content {
+    text-align: center;
+    color: white;
+
+    transform: scale(0.85);
+    opacity: 0;
+
+    animation: ifmapSplashEnter 0.8s ease forwards;
+}
+
+.ifmap-splash-logo {
+    width: 230px;
+    height: 230px;
+
+    object-fit: contain;
+
+    margin-bottom: 15px;
+
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.25));
+}
+
+.ifmap-splash-title {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.ifmap-splash-role {
+    margin-top: 8px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+.ifmap-splash-line {
+    width: 120px;
+    height: 3px;
+
+    margin: 20px auto;
+
+    background: white;
+    border-radius: 10px;
+}
+
+.ifmap-splash-subtitle {
+    font-size: 15px;
+    opacity: 0.9;
+    letter-spacing: 1px;
+}
+
+@keyframes ifmapSplashEnter {
+
+    from {
+        transform: scale(0.75);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+.project-logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+}

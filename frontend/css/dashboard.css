@@ -2403,3 +2403,913 @@
     position: static !important;
     background: #ffffff !important;
 }
+/* =========================================================
+   BUYER ADVISORY UI
+   ========================================================= */
+
+.advisory-page {
+    width: 100%;
+}
+
+
+/* Intro Header */
+
+.advisory-intro {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.25rem;
+
+    background: linear-gradient(
+        135deg,
+        #f0fdf4,
+        #ffffff
+    );
+
+    border: 1px solid #dcfce7;
+    border-radius: 14px;
+}
+
+.advisory-intro-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dcfce7;
+    border-radius: 12px;
+
+    font-size: 1.7rem;
+}
+
+.advisory-intro h2 {
+    margin: 0 0 0.3rem;
+    color: #166534;
+    font-size: 1.35rem;
+}
+
+.advisory-intro p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+
+/* Main Grid */
+
+.advisory-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+
+    gap: 1.25rem;
+
+    align-items: start;
+}
+
+
+/* Cards */
+
+.advisory-card {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+
+/* Card Header */
+
+.advisory-card-header {
+    display: flex;
+    align-items: center;
+
+    gap: 0.85rem;
+
+    padding: 1.25rem 1.4rem;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    background: #ffffff;
+}
+
+.advisory-card-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0fdf4;
+
+    border-radius: 10px;
+
+    font-size: 1.3rem;
+
+    flex-shrink: 0;
+}
+
+.advisory-card-header h3 {
+    margin: 0 0 0.2rem;
+
+    color: #1e293b;
+
+    font-size: 1.05rem;
+}
+
+.advisory-card-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 0.8rem;
+
+    line-height: 1.4;
+}
+
+
+/* Card Body */
+
+.advisory-card-body {
+    padding: 1.4rem;
+}
+
+
+/* Form */
+
+.advisory-form-group {
+    margin-bottom: 1.15rem;
+}
+
+.advisory-label {
+    display: block;
+
+    margin-bottom: 0.45rem;
+
+    color: #334155;
+
+    font-size: 0.88rem;
+
+    font-weight: 600;
+}
+
+.advisory-input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 0.75rem 0.85rem;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #1e293b;
+
+    font-family: inherit;
+
+    font-size: 0.9rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.advisory-input:focus {
+    outline: none;
+
+    border-color: #16a34a;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.advisory-input::placeholder {
+    color: #94a3b8;
+}
+
+.advisory-textarea {
+    min-height: 135px;
+
+    resize: vertical;
+}
+
+
+/* Submit Button */
+
+.advisory-submit-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 0.45rem;
+
+    min-width: 190px;
+}
+
+
+/* Previous Answers */
+
+.advisory-history {
+    min-height: 280px;
+}
+
+.advisory-history:empty::before {
+    content: "No questions submitted yet.";
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 240px;
+
+    color: #94a3b8;
+
+    font-size: 0.9rem;
+
+    text-align: center;
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .advisory-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .advisory-intro {
+        align-items: flex-start;
+
+        padding: 1rem;
+    }
+
+    .advisory-intro-icon {
+        width: 44px;
+        height: 44px;
+
+        font-size: 1.4rem;
+    }
+
+    .advisory-intro h2 {
+        font-size: 1.1rem;
+    }
+
+    .advisory-card-body {
+        padding: 1rem;
+    }
+
+    .advisory-card-header {
+        padding: 1rem;
+    }
+
+    .advisory-submit-btn {
+        width: 100%;
+    }
+
+}
+/* =========================================================
+   FARMER UPI PROFILE
+   ========================================================= */
+
+.upi-profile-section {
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+}
+
+.upi-profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.upi-profile-header h3 {
+    margin: 0;
+    color: #1e293b;
+}
+
+.upi-subtitle {
+    margin: 0.3rem 0 0;
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.upi-qr-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.farmer-upi-qr {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+
+    padding: 10px;
+
+    border: 2px dashed #16a34a;
+    border-radius: 14px;
+
+    background: #ffffff;
+}
+
+.upi-current-info {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.upi-current-info label {
+    display: block;
+
+    margin-bottom: 0.45rem;
+
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.upi-id-display {
+    display: inline-block;
+
+    padding: 0.55rem 1rem;
+
+    background: #f0fdf4;
+
+    border-radius: 8px;
+
+    color: #16a34a;
+
+    font-weight: 700;
+
+    font-family: monospace;
+}
+
+.upi-edit-form {
+    padding: 1.15rem;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 10px;
+
+    margin-top: 1rem;
+}
+
+.upi-edit-form label {
+    display: block;
+
+    margin-bottom: 0.45rem;
+
+    color: #334155;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+}
+
+.upi-edit-form small {
+    display: block;
+
+    margin-top: 0.4rem;
+
+    color: #64748b;
+
+    font-size: 0.75rem;
+}
+
+.upi-edit-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 0.6rem;
+
+    margin-top: 1rem;
+}
+
+.upi-info-text {
+    margin: 1rem 0 0;
+
+    color: #64748b;
+
+    font-size: 0.8rem;
+
+    text-align: center;
+
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+
+    .upi-profile-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .upi-profile-header button {
+        width: 100%;
+    }
+
+    .farmer-upi-qr {
+        width: 210px;
+        height: 210px;
+    }
+
+    .upi-edit-actions {
+        flex-direction: column;
+    }
+
+    .upi-edit-actions button {
+        width: 100%;
+    }
+}
+
+/* =========================================
+   FARMER UPI EDIT FORM
+   ========================================= */
+
+.upi-edit-form {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    animation: upiFormSlideDown 0.25s ease;
+}
+
+@keyframes upiFormSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+
+.upi-edit-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.4rem;
+}
+
+.upi-edit-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #dcfce7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.upi-edit-header h4 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.upi-edit-header p {
+    margin: 0.25rem 0 0;
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+/* Input */
+
+.upi-input-group {
+    margin-bottom: 1.2rem;
+}
+
+.upi-input-group .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #334155;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.upi-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.upi-input-icon {
+    position: absolute;
+    left: 13px;
+    z-index: 2;
+    font-size: 1rem;
+}
+
+.upi-input-wrapper .form-control {
+    width: 100%;
+    padding-left: 42px;
+    height: 46px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background: #ffffff;
+    font-size: 0.92rem;
+    color: #1e293b;
+    transition: all 0.2s ease;
+}
+
+.upi-input-wrapper .form-control:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+.upi-input-wrapper .form-control::placeholder {
+    color: #94a3b8;
+}
+
+/* Hint */
+
+.upi-input-hint {
+    display: block;
+    margin-top: 0.45rem;
+    color: #64748b;
+    font-size: 0.78rem;
+}
+
+/* Buttons */
+
+.upi-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.upi-edit-actions .btn {
+    min-width: 110px;
+    height: 42px;
+    border-radius: 8px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .upi-edit-form {
+        padding: 1rem;
+    }
+
+    .upi-edit-header {
+        align-items: flex-start;
+    }
+
+    .upi-edit-actions {
+        flex-direction: column;
+    }
+
+    .upi-edit-actions .btn {
+        width: 100%;
+    }
+}
+
+.dashboard-logo {
+    width: 145px;
+    height: 55px;
+    object-fit: contain;
+}
+/* =========================================================
+   FINAL FIX - BUYER CHECKOUT & PAYMENT LAYOUT
+   ========================================================= */
+
+/* Checkout modal */
+#checkout-modal .modal-box {
+    width: min(720px, 94vw) !important;
+    max-width: 720px !important;
+    max-height: 90vh !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Checkout body must NOT use a narrow grid column */
+#checkout-modal .modal-body {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    padding: 24px 28px !important;
+}
+
+/* Payment method section */
+#checkout-modal .payment-method-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    gap: 16px !important;
+    box-sizing: border-box !important;
+}
+
+#checkout-modal .payment-method-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* UPI QR section */
+#checkout-modal #upi-qr-display-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    margin: 20px 0 !important;
+    padding: 20px !important;
+}
+
+/* QR image */
+#checkout-modal #pay-qr-img {
+    display: block !important;
+    width: 180px !important;
+    height: 180px !important;
+    max-width: 180px !important;
+    object-fit: contain !important;
+    margin: 15px auto !important;
+}
+
+/* =========================================================
+   DELIVERY DETAILS - IMPORTANT FIX
+   ========================================================= */
+
+#checkout-modal .checkout-delivery-box {
+    display: block !important;
+
+    /* THIS IS THE IMPORTANT FIX */
+    grid-column: 1 / -1 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+
+    margin: 20px 0 0 0 !important;
+    padding: 0 !important;
+
+    float: none !important;
+}
+
+/* Delivery heading */
+#checkout-modal .checkout-delivery-box .checkout-section-title {
+    display: flex !important;
+    align-items: center !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 0 18px 0 !important;
+}
+
+/* Every delivery form group */
+#checkout-modal .checkout-delivery-box .form-group {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+
+    margin: 0 0 18px 0 !important;
+    padding: 0 !important;
+
+    float: none !important;
+}
+
+/* Delivery labels */
+#checkout-modal .checkout-delivery-box .form-label {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    margin: 0 0 7px 0 !important;
+    padding: 0 !important;
+
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+
+    float: none !important;
+}
+
+/* Address, phone and UTR */
+#checkout-modal #checkout-address,
+#checkout-modal #checkout-phone,
+#checkout-modal #checkout-utr {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+
+    margin: 0 !important;
+}
+
+/* Address */
+#checkout-modal #checkout-address {
+    min-height: 90px !important;
+    resize: vertical !important;
+}
+
+/* Phone */
+#checkout-modal #checkout-phone {
+    height: 46px !important;
+}
+
+/* UTR */
+#checkout-modal #checkout-utr {
+    height: 46px !important;
+}
+
+/* UTR helper text */
+#checkout-modal #checkout-utr-group small {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin-top: 6px !important;
+
+    line-height: 1.5 !important;
+    white-space: normal !important;
+}
+
+/* Footer */
+#checkout-modal .modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    #checkout-modal .modal-box {
+        width: 96vw !important;
+        max-width: 96vw !important;
+        max-height: 94vh !important;
+    }
+
+    #checkout-modal .modal-body {
+        padding: 18px !important;
+    }
+
+    #checkout-modal .payment-method-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #checkout-modal .modal-footer {
+        flex-direction: column !important;
+    }
+
+    #checkout-modal .modal-footer button {
+        width: 100% !important;
+    }
+
+    #checkout-modal #pay-qr-img {
+        width: 160px !important;
+        height: 160px !important;
+    }
+}
+
+/* ================================
+   CHECKOUT STEP ALIGNMENT FIX
+   ================================ */
+
+.checkout-step,
+.payment-step,
+.step-item,
+.checkout-step-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+
+.checkout-step .step-number,
+.payment-step .step-number,
+.step-item .step-number {
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+}
+
+.checkout-step .step-title,
+.payment-step .step-title,
+.step-item .step-title {
+    flex: 1 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    word-break: normal !important;
+}
+
+/* ================================
+   CHECKOUT SECTION TITLE ALIGNMENT
+   ================================ */
+
+.checkout-section-title {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 20px 0 12px !important;
+    text-align: left !important;
+}
+
+.checkout-section-title > span:first-child {
+    flex: 0 0 32px !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+}
+
+.checkout-section-title > span:last-child {
+    flex: 1 !important;
+    width: auto !important;
+    display: block !important;
+    white-space: nowrap !important;
+    text-align: left !important;
+    font-weight: 700 !important;
+    color: #166534 !important;
+    font-size: 16px !important;
+}
+.checkout-section .form-label,
+.checkout-section label {
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+    margin-bottom: 8px !important;
+}
