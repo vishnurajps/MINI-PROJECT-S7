@@ -21,7 +21,7 @@ public class DemoDataInitializer {
                     userRepository,
                     passwordEncoder,
                     "Demo Farmer",
-                    "demo.farmer@agromarket.com",
+                    "demo.farmer@gmail.com",
                     "FARMER"
             );
 
@@ -29,7 +29,7 @@ public class DemoDataInitializer {
                     userRepository,
                     passwordEncoder,
                     "Demo Buyer",
-                    "demo.buyer@agromarket.com",
+                    "demo.buyer@gmail.com",
                     "BUYER"
             );
 
@@ -37,7 +37,7 @@ public class DemoDataInitializer {
                     userRepository,
                     passwordEncoder,
                     "Demo Delivery Agent",
-                    "demo.delivery@agromarket.com",
+                    "demo.delivery@gmail.com",
                     "DELIVERY"
             );
 
@@ -45,7 +45,7 @@ public class DemoDataInitializer {
                     userRepository,
                     passwordEncoder,
                     "Demo Advisory Expert",
-                    "demo.advisor@agromarket.com",
+                    "demo.advisor@bitsathy.ac.in",
                     "ADVISORY"
             );
         };
@@ -67,7 +67,7 @@ public class DemoDataInitializer {
 
         user.setFullName(fullName);
         user.setEmail(email);
-        user.setPassword(passwordEncoder.encode("demo123"));
+        user.setPassword(passwordEncoder.encode("Demo@123"));
         user.setRole(role);
         user.setPhone("9876543210");
         user.setDistrict("Erode");

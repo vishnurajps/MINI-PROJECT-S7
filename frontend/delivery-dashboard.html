@@ -160,21 +160,103 @@
           <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1.5rem;">
             <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
               <span style="color:#64748b;">Bank Name:</span>
-              <strong id="agent-bank-name">State Bank of India</strong>
+              <strong id="delivery-bank-name">Not provided</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
               <span style="color:#64748b;">Account Number:</span>
-              <strong id="agent-bank-acc" style="font-family:monospace; font-size:1.05rem;">109823485721</strong>
+              <strong id="delivery-bank-account">Not provided</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
               <span style="color:#64748b;">Bank IFSC Code:</span>
-              <strong id="agent-bank-ifsc" style="font-family:monospace;">SBIN0001234</strong>
+              <strong id="delivery-bank-ifsc">Not provided</strong>
             </div>
             <div style="display:flex; justify-content:space-between;">
               <span style="color:#64748b;">Vehicle:</span>
               <strong id="agent-vehicle">Motorcycle (TN 38 BX 4412)</strong>
             </div>
           </div>
+          <div style="margin-top: 1rem; text-align: right;">
+    <button
+        type="button"
+        class="btn btn-primary"
+        onclick="openBankEdit()">
+        ✏️ Edit Bank Details
+    </button>
+</div>
+  <div id="bank-edit-form" class="bank-edit-card" style="display: none;">
+
+    <div class="bank-edit-header">
+        <div>
+            <h3>✏️ Edit Bank Details</h3>
+            <p>Update your bank account information</p>
+        </div>
+    </div>
+
+    <div class="bank-form-grid">
+
+        <!-- Bank Name -->
+        <div class="bank-form-group bank-full-width">
+            <label for="bank-name-input">
+                🏦 Bank Name
+            </label>
+
+            <input
+                type="text"
+                id="bank-name-input"
+                placeholder="Enter your bank name"
+                autocomplete="off">
+        </div>
+
+        <!-- Account Number -->
+        <div class="bank-form-group">
+            <label for="bank-account-input">
+                💳 Account Number
+            </label>
+
+            <input
+                type="text"
+                id="bank-account-input"
+                placeholder="Enter account number"
+                inputmode="numeric"
+                autocomplete="off">
+        </div>
+
+        <!-- IFSC -->
+        <div class="bank-form-group">
+            <label for="bank-ifsc-input">
+                🔐 IFSC Code
+            </label>
+
+            <input
+                type="text"
+                id="bank-ifsc-input"
+                placeholder="e.g. SBIN0000300"
+                maxlength="11"
+                style="text-transform:uppercase;"
+                autocomplete="off">
+        </div>
+
+    </div>
+
+    <div class="bank-edit-actions">
+
+        <button
+            type="button"
+            class="bank-save-btn"
+            onclick="saveBankDetails()">
+            💾 Save Changes
+        </button>
+
+        <button
+            type="button"
+            class="bank-cancel-btn"
+            onclick="closeBankEdit()">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
           <p style="color:#16a34a; font-size:0.875rem; background:#f0fdf4; padding:0.85rem; border-radius:6px; border-left:3px solid #16a34a;">
             ✓ Your 30% delivery share is automatically accumulated and settled to this bank account upon each successful OTP delivery confirmation.
           </p>
@@ -241,6 +323,7 @@
 
 <script src="js/translations.js"></script>
 <script src="js/app.js"></script>
+<script src="js/weather.js"></script>
   <script src="js/delivery.js"></script>
 </body>
 </html>

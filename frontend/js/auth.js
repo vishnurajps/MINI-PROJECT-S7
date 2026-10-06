@@ -273,3 +273,248 @@ function showWelcomeSplash(user) {
 
     });
 }
+
+// =========================================================
+// PASSWORD SHOW / HIDE + EMAIL & PASSWORD VALIDATION
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // -----------------------------------------------------
+    // 1. Add show/hide eye button to ALL password fields
+    // -----------------------------------------------------
+    document.querySelectorAll('input[type="password"]').forEach((input) => {
+
+        // Avoid adding the eye button twice
+        if (input.parentElement.classList.contains("password-wrapper")) {
+            return;
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "password-wrapper";
+
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+
+        const toggleButton = document.createElement("button");
+
+        toggleButton.type = "button";
+        toggleButton.className = "password-toggle";
+        toggleButton.innerHTML = "👁️";
+        toggleButton.setAttribute("aria-label", "Show password");
+
+        toggleButton.addEventListener("click", () => {
+
+            if (input.type === "password") {
+                input.type = "text";
+                toggleButton.innerHTML = "🙈";
+                toggleButton.setAttribute("aria-label", "Hide password");
+            } else {
+                input.type = "password";
+                toggleButton.innerHTML = "👁️";
+                toggleButton.setAttribute("aria-label", "Show password");
+            }
+
+        });
+
+        wrapper.appendChild(toggleButton);
+    });
+
+
+    // -----------------------------------------------------
+    // 2. Email validation
+    // Allowed:
+    // example@gmail.com
+    // example@bitsathy.ac.in
+    // -----------------------------------------------------
+    document.querySelectorAll('input[type="email"]').forEach((emailInput) => {
+
+        emailInput.setAttribute(
+            "pattern",
+            "[A-Za-z0-9._%+-]+@(gmail\\.com|bitsathy\\.ac\\.in)"
+        );
+
+        emailInput.setAttribute(
+            "title",
+            "Email must end with @gmail.com or @bitsathy.ac.in"
+        );
+
+        emailInput.addEventListener("input", () => {
+
+            const email = emailInput.value.trim();
+
+            if (email === "") {
+                emailInput.setCustomValidity("");
+                return;
+            }
+
+            const validEmail =
+                /^[A-Za-z0-9._%+-]+@(gmail\.com|bitsathy\.ac\.in)$/i.test(email);
+
+            if (!validEmail) {
+                emailInput.setCustomValidity(
+                    "Only @gmail.com or @bitsathy.ac.in email addresses are allowed."
+                );
+            } else {
+                emailInput.setCustomValidity("");
+            }
+        });
+    });
+
+
+    // -----------------------------------------------------
+    // 3. Password validation
+    // -----------------------------------------------------
+    document.querySelectorAll('input[type="password"]').forEach((passwordInput) => {
+
+        passwordInput.setAttribute(
+            "pattern",
+            "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}"
+        );
+
+        passwordInput.setAttribute(
+            "title",
+            "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one symbol."
+        );
+
+        passwordInput.addEventListener("input", () => {
+
+            const password = passwordInput.value;
+
+            if (password === "") {
+                passwordInput.setCustomValidity("");
+                return;
+            }
+
+            const validPassword =
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+
+            if (!validPassword) {
+                passwordInput.setCustomValidity(
+                    "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one symbol."
+                );
+            } else {
+                passwordInput.setCustomValidity("");
+            }
+        });
+    });
+
+});
+
+// =========================================================
+// PASSWORD SHOW / HIDE
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll('input[type="password"]').forEach((input) => {
+
+        // Prevent duplicate eye icons
+        if (input.parentElement.classList.contains("password-wrapper")) {
+            return;
+        }
+
+        // Create wrapper
+        const wrapper = document.createElement("div");
+        wrapper.className = "password-wrapper";
+
+        // Put wrapper around password input
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+
+        // Create eye button
+        const toggleButton = document.createElement("button");
+
+        toggleButton.type = "button";
+        toggleButton.className = "password-toggle";
+        toggleButton.innerHTML = "👁️";
+        toggleButton.setAttribute("aria-label", "Show password");
+
+        // Show / hide password
+        toggleButton.addEventListener("click", () => {
+
+            if (input.type === "password") {
+                input.type = "text";
+                toggleButton.innerHTML = "🙈";
+                toggleButton.setAttribute("aria-label", "Hide password");
+            } else {
+                input.type = "password";
+                toggleButton.innerHTML = "👁️";
+                toggleButton.setAttribute("aria-label", "Show password");
+            }
+
+        });
+
+        wrapper.appendChild(toggleButton);
+    });
+
+});
+
+// =========================================================
+// EMAIL VALIDATION
+// Only @gmail.com and @bitsathy.ac.in are allowed
+// =========================================================
+
+document.querySelectorAll('input[type="email"]').forEach((emailInput) => {
+
+    emailInput.addEventListener("input", () => {
+
+        const email = emailInput.value.trim();
+
+        // Empty field - let required validation handle it
+        if (email === "") {
+            emailInput.setCustomValidity("");
+            return;
+        }
+
+        const validEmail =
+            /^[A-Za-z0-9._%+-]+@(gmail\.com|bitsathy\.ac\.in)$/i.test(email);
+
+        if (!validEmail) {
+
+            emailInput.setCustomValidity(
+                "Only @gmail.com or @bitsathy.ac.in email addresses are allowed."
+            );
+
+        } else {
+
+            emailInput.setCustomValidity("");
+        }
+    });
+
+});
+
+// =========================================================
+// PASSWORD VALIDATION
+// Minimum 8 characters
+// 1 uppercase + 1 lowercase + 1 number + 1 symbol
+// =========================================================
+
+document.querySelectorAll('input[type="password"]').forEach((passwordInput) => {
+
+    passwordInput.addEventListener("input", () => {
+
+        const password = passwordInput.value;
+
+        // Empty field - let required validation handle it
+        if (password === "") {
+            passwordInput.setCustomValidity("");
+            return;
+        }
+
+        const validPassword =
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+
+        if (!validPassword) {
+
+            passwordInput.setCustomValidity(
+                "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one symbol."
+            );
+
+        } else {
+
+            passwordInput.setCustomValidity("");
+        }
+    });
+
+});

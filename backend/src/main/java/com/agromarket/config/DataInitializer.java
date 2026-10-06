@@ -35,7 +35,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         // 1. Create Farmer
-        User farmer = new User("Ramesh Kumar", "farmer@agromarket.com", "password123", "FARMER", "9876543210", "Coimbatore", "Tamil Nadu");
+        User farmer = new User("Ramesh Kumar", "farmer@gmail.com", "Farmer@123", "FARMER", "9876543210", "Coimbatore", "Tamil Nadu");
         farmer.setAddress("Green Acres Farm, Pollachi Road, Coimbatore");
         farmer.setUpiId("rameshfarmer@okaxis");
         farmer.setQrCodeUrl("https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=rameshfarmer@okaxis%26pn=Ramesh%20Kumar%26cu=INR");
@@ -43,12 +43,12 @@ public class DataInitializer implements CommandLineRunner {
         User savedFarmer = userRepository.save(farmer);
 
         // 2. Create Buyer
-        User buyer = new User("Priya Sharma", "buyer@agromarket.com", "password123", "BUYER", "9876543211", "Coimbatore", "Tamil Nadu");
+        User buyer = new User("Priya Sharma", "buyer@gmail.com", "Buyer@123", "BUYER", "9876543211", "Coimbatore", "Tamil Nadu");
         buyer.setAddress("Flat 4B, Emerald Heights, RS Puram, Coimbatore");
         User savedBuyer = userRepository.save(buyer);
 
         // 3. Create Delivery Agent
-        User deliveryAgent = new User("Suresh Verma", "delivery@agromarket.com", "password123", "DELIVERY", "9876543212", "Coimbatore", "Tamil Nadu");
+        User deliveryAgent = new User("Suresh Verma", "delivery@gmail.com", "Delivery@123", "DELIVERY", "9876543212", "Coimbatore", "Tamil Nadu");
         deliveryAgent.setAddress("Shop 12, Gandhipuram Cross Cut, Coimbatore");
         deliveryAgent.setVehicleType("Motorcycle");
         deliveryAgent.setVehicleNumber("TN 38 BX 4412");
@@ -59,7 +59,7 @@ public class DataInitializer implements CommandLineRunner {
         User savedDelivery = userRepository.save(deliveryAgent);
 
         // 4. Create Agricultural Advisory Expert
-        User advisor = new User("Dr. Ananya Swaminathan", "advisor@agromarket.com", "password123", "ADVISORY", "9876543213", "Coimbatore", "Tamil Nadu");
+        User advisor = new User("Dr. Ananya Swaminathan", "advisor@bitsathy.ac.in", "Advisor@123", "ADVISORY", "9876543213", "Coimbatore", "Tamil Nadu");
         advisor.setAddress("Faculty of Agriculture, TNAU Campus, Coimbatore");
         advisor.setSpecialization("Crop Pathology & Organic Horticulture");
         advisor.setQualification("Ph.D. in Agronomy");

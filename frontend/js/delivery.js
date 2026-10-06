@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupDeliveryTabs();
   setupAgentProfile(agent);
 
+  // Load latest bank details from database
+  await loadBankDetails();
+
   await loadDeliveryOrders(agent);
   await loadDeliveryEarningsSummary(agent.id);
 
@@ -354,4 +357,188 @@ function openModal(id) {
 
 function closeModal(id) {
   document.getElementById(id).classList.remove('active');
+}
+
+function openBankEdit() {
+    const user = Auth.getUser();
+
+    if (!user || !user.id) {
+        showToast("User information not available", "error");
+        return;
+    }
+
+    // Load current bank details
+    document.getElementById("bank-name-input").value =
+        user.bankName || "";
+
+    document.getElementById("bank-account-input").value =
+        user.bankAccountNo || "";
+
+    document.getElementById("bank-ifsc-input").value =
+        user.bankIfsc || "";
+
+    // Show edit form
+    document.getElementById("bank-edit-form").style.display = "block";
+}
+function closeBankEdit() {
+    document.getElementById("bank-edit-form").style.display = "none";
+}
+async function saveBankDetails() {
+
+    const user = Auth.getUser();
+
+    if (!user || !user.id) {
+        showToast("User information not available", "error");
+        return;
+    }
+
+    const bankName =
+        document.getElementById("bank-name-input").value.trim();
+
+    const bankAccountNo =
+        document.getElementById("bank-account-input").value.trim();
+
+    const bankIfsc =
+        document.getElementById("bank-ifsc-input").value.trim().toUpperCase();
+
+    // Validation
+    if (!bankName) {
+        showToast("Please enter bank name", "error");
+        return;
+    }
+
+    if (!bankAccountNo) {
+        showToast("Please enter account number", "error");
+        return;
+    }
+
+    if (!bankIfsc) {
+        showToast("Please enter IFSC code", "error");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/users/${user.id}/bank-details`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    bankName: bankName,
+                    bankAccountNo: bankAccountNo,
+                    bankIfsc: bankIfsc
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            showToast(
+                data.error || "Failed to update bank details",
+                "error"
+            );
+            return;
+        }
+
+        // Update locally stored user information
+        user.bankName = data.bankName;
+        user.bankAccountNo = data.bankAccountNo;
+        user.bankIfsc = data.bankIfsc;
+
+        // Save updated user in local storage
+        if (typeof Auth.setUser === "function") {
+            Auth.setUser(user, Auth.getToken());
+        } else {
+            localStorage.setItem("agromarket_user", JSON.stringify(user));
+        }
+
+        // Update displayed values
+        loadBankDetails();
+
+        // Close edit form
+        closeBankEdit();
+
+        showToast(
+            "Bank details updated successfully",
+            "success"
+        );
+
+    } catch (error) {
+
+        console.error("Bank details update error:", error);
+
+        showToast(
+            "Server error while updating bank details",
+            "error"
+        );
+    }
+}
+
+async function loadBankDetails() {
+
+    const user = Auth.getUser();
+
+    if (!user || !user.id) {
+        console.error("Delivery boy user information not available");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/users/${user.id}/bank-details`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Failed to load bank details:", data);
+            return;
+        }
+
+        // Update displayed bank details
+        const bankNameElement =
+            document.getElementById("delivery-bank-name");
+
+        const accountElement =
+            document.getElementById("delivery-bank-account");
+
+        const ifscElement =
+            document.getElementById("delivery-bank-ifsc");
+
+        if (bankNameElement) {
+            bankNameElement.textContent =
+                data.bankName || "Not provided";
+        }
+
+        if (accountElement) {
+            accountElement.textContent =
+                data.bankAccountNo || "Not provided";
+        }
+
+        if (ifscElement) {
+            ifscElement.textContent =
+                data.bankIfsc || "Not provided";
+        }
+
+        // Also update the locally stored user
+        user.bankName = data.bankName;
+        user.bankAccountNo = data.bankAccountNo;
+        user.bankIfsc = data.bankIfsc;
+
+        if (typeof Auth.setUser === "function") {
+            Auth.setUser(user, Auth.getToken());
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Error loading bank details:",
+            error
+        );
+    }
 }

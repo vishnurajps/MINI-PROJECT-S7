@@ -99,8 +99,16 @@ function renderProducts(products) {
   grid.innerHTML = products.map(p => `
     <div class="product-card">
       <div class="product-img-wrap">
-        <img src="${p.imageUrl || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500'}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500'">
-        <span class="product-badge">${p.category}</span>
+${p.imageUrl
+  ? `<img src="${p.imageUrl}" alt="${p.name}"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+  : ''
+}
+
+<div class="no-product-image" style="${p.imageUrl ? 'display:none;' : 'display:flex;'}">
+    <span>📷</span>
+    <span>No image available</span>
+</div>        <span class="product-badge">${p.category}</span>
       </div>
       
       

@@ -55,24 +55,60 @@ public class ProductService {
     }
 
     public Optional<Product> getProductById(Long productId) {
-        return productRepository.findById(productId);
+        return productRepository.findById(productId)
+                .map(this::refreshFarmerPaymentDetails);
     }
 
     public List<Product> getProductsByFarmer(Long farmerId) {
-        return productRepository.findByFarmerId(farmerId);
+        List<Product> products = productRepository.findByFarmerId(farmerId);
+
+        products.forEach(this::refreshFarmerPaymentDetails);
+
+        return products;
     }
 
-    public List<Product> getAllActiveProducts(String district, String category) {
-        if (district != null && !district.trim().isEmpty() && category != null && !category.trim().isEmpty()) {
-            return productRepository.findByDistrictIgnoreCaseAndCategoryIgnoreCaseAndIsActiveTrue(district.trim(), category.trim());
-        } else if (district != null && !district.trim().isEmpty()) {
-            return productRepository.findByDistrictIgnoreCaseAndIsActiveTrue(district.trim());
-        } else if (category != null && !category.trim().isEmpty()) {
-            return productRepository.findByCategoryIgnoreCaseAndIsActiveTrue(category.trim());
-        } else {
-            return productRepository.findByIsActiveTrue();
-        }
+private Product refreshFarmerPaymentDetails(Product product) {
+    if (product.getFarmerId() != null) {
+        userRepository.findById(product.getFarmerId()).ifPresent(farmer -> {
+            product.setFarmerName(farmer.getFullName());
+            product.setFarmerUpiId(farmer.getUpiId());
+            product.setFarmerQrCode(farmer.getQrCodeUrl());
+        });
     }
+
+    return product;
+}
+public List<Product> getAllActiveProducts(String district, String category) {
+
+    List<Product> products;
+
+    if (district != null && !district.trim().isEmpty()
+            && category != null && !category.trim().isEmpty()) {
+
+        products = productRepository
+                .findByDistrictIgnoreCaseAndCategoryIgnoreCaseAndIsActiveTrue(
+                        district.trim(), category.trim());
+
+    } else if (district != null && !district.trim().isEmpty()) {
+
+        products = productRepository
+                .findByDistrictIgnoreCaseAndIsActiveTrue(district.trim());
+
+    } else if (category != null && !category.trim().isEmpty()) {
+
+        products = productRepository
+                .findByCategoryIgnoreCaseAndIsActiveTrue(category.trim());
+
+    } else {
+
+        products = productRepository.findByIsActiveTrue();
+    }
+
+    // Refresh UPI and QR from the farmer's current profile
+    products.forEach(this::refreshFarmerPaymentDetails);
+
+    return products;
+}
 
     public void reduceStock(Long productId, Double orderedQuantity) {
         productRepository.findById(productId).ifPresent(p -> {

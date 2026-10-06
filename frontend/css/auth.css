@@ -452,3 +452,120 @@
         transform: scale(1);
     }
 }
+
+/* FINAL IFMAP SPLASH LOGO ALIGNMENT */
+#welcome-splash .welcome-content {
+    position: relative;
+    left: 0;
+    right: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#welcome-splash .welcome-logo {
+    position: relative !important;
+    left: 55px !important;
+    transform: none !important;
+}
+
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+   ========================================================= */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 50px !important;
+    box-sizing: border-box;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    z-index: 5;
+}
+
+.password-toggle:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.password-requirements {
+    margin-top: 7px;
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.password-requirements ul {
+    margin: 4px 0 0 18px;
+    padding: 0;
+}
+
+.password-requirements li {
+    margin-bottom: 2px;
+}
+/* =========================================================
+   PASSWORD SHOW / HIDE
+   ========================================================= */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 50px !important;
+    box-sizing: border-box;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+    font-size: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    z-index: 5;
+}
+
+.password-toggle:hover {
+    transform: translateY(-50%) scale(1.1);
+}
