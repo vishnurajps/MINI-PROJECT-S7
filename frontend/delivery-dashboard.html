@@ -267,59 +267,285 @@
   </div>
 
   <!-- OTP VERIFICATION MODAL -->
-  <div class="modal-overlay" id="otp-verification-modal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 data-i18n="verify_otp_deliver">Verify Delivery OTP</h3>
-        <button class="modal-close" onclick="closeModal('otp-verification-modal')">&times;</button>
-      </div>
-      <form id="otp-verify-form">
-        <div class="modal-body">
-          <p style="color:#475569; font-size:0.95rem; margin-bottom:1.25rem;">
-            Ask the buyer for the 6-digit OTP code displayed on their AgroMarket order screen for Order <strong id="otp-modal-order-num">#ORD-XXXX</strong>.
-          </p>
+<!-- OTP VERIFICATION MODAL -->
+<div class="modal-overlay" id="otp-verification-modal">
 
-          <!-- COD CASH / QR INSTRUCTIONS IF CASH ON DELIVERY -->
-          <div id="otp-cod-notice" style="display:none; background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:1.25rem; margin-bottom:1.5rem;">
-            <h4 style="color:#92400e; font-size:0.95rem; margin-bottom:0.5rem;">💵 Cash on Delivery (COD) Collection Notice</h4>
-            <div style="font-size:0.9rem; color:#78350f; margin-bottom:0.75rem;">
-              Amount to collect from buyer: <strong id="cod-amount-to-collect" style="font-size:1.15rem; color:#92400e;">₹0.00</strong>
-            </div>
-            
-            <div style="background:white; padding:0.75rem; border-radius:6px; border:1px solid #fed7aa; margin-bottom:0.75rem; font-size:0.85rem; color:#451a03;">
-              <div>• Farmer Share (70%): <strong id="cod-farmer-share">₹0.00</strong></div>
-              <div>• Delivery Agent Share (30%): <strong id="cod-agent-share" style="color:#16a34a;">₹0.00</strong></div>
-            </div>
+    <div class="modal-box delivery-otp-modal">
 
-            <p style="font-size:0.8rem; color:#78350f; margin-bottom:0.5rem;">
-              If the buyer prefers cashless UPI for COD, show them the farmer's registered QR code below:
-            </p>
-            <div style="width:140px; height:140px; margin:0 auto; background:white; padding:6px; border-radius:8px; border:1px solid #ddd;">
-              <img id="cod-farmer-qr" src="" alt="Farmer UPI QR" style="width:100%; height:100%; object-fit:contain;">
+        <!-- HEADER -->
+        <div class="delivery-otp-header">
+
+            <div class="delivery-otp-title">
+                <div class="delivery-otp-icon">
+                    🚚
+                </div>
+
+                <div>
+                    <h3 data-i18n="verify_otp_deliver">
+                        Verify Delivery OTP
+                    </h3>
+
+                    <span>
+                        Complete delivery securely
+                    </span>
+                </div>
             </div>
 
-            <button type="button" onclick="collectCodPayment()" class="btn btn-warning btn-sm" style="width:100%; margin-top:0.85rem; font-weight:700;">
-              💰 Payment Received &rarr; Generate Buyer OTP
+            <button
+                type="button"
+                class="modal-close delivery-otp-close"
+                onclick="closeModal('otp-verification-modal')">
+                &times;
             </button>
-          </div>
 
-          <div style="text-align:center; margin-bottom:1rem;">
-            <label class="form-label" data-i18n="enter_buyer_otp" style="font-weight:700;">Enter 6-Digit Buyer OTP:</label>
-            <input type="text" id="otp-input" class="form-control otp-input-field" maxlength="6" placeholder="••••••" required autofocus>
-          </div>
-
-          <div style="background:#eff6ff; border-radius:6px; padding:0.75rem; font-size:0.8rem; color:#1e40af; text-align:center;">
-            Entering the correct OTP immediately updates status to <strong>DELIVERED</strong> across Farmer, Buyer and Delivery dashboards!
-          </div>
         </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" onclick="closeModal('otp-verification-modal')" data-i18n="cancel">Cancel</button>
-          <button type="submit" class="btn btn-success" data-i18n="confirm">Confirm OTP & Finish Delivery</button>
-        </div>
-      </form>
+
+        <form id="otp-verify-form">
+
+            <div class="delivery-otp-body">
+
+                <!-- ORDER INFORMATION -->
+                <div class="delivery-order-info">
+
+                    <div class="delivery-order-icon">
+                        📦
+                    </div>
+
+                    <div>
+                        <span class="delivery-order-label">
+                            Order Number
+                        </span>
+
+                        <strong id="otp-modal-order-num">
+                            #ORD-XXXX
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <!-- BUYER INSTRUCTION -->
+                <div class="delivery-otp-instruction">
+
+                    <div class="instruction-icon">
+                        🔐
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Enter Buyer OTP
+                        </h4>
+
+                        <p>
+                            Ask the buyer for the 6-digit OTP displayed
+                            on their AgroMarket order screen.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COD CASH / QR INSTRUCTIONS -->
+                <div
+                    id="otp-cod-notice"
+                    class="delivery-cod-card"
+                    style="display:none;">
+
+                    <div class="cod-card-header">
+
+                        <div class="cod-card-icon">
+                            💵
+                        </div>
+
+                        <div>
+                            <h4>
+                                Cash on Delivery
+                            </h4>
+
+                            <span>
+                                Payment collection required
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="cod-amount-box">
+
+                        <span>
+                            Amount to collect
+                        </span>
+
+                        <strong id="cod-amount-to-collect">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="cod-share-grid">
+
+                        <div class="cod-share-item">
+
+                            <span>
+                                Farmer Share
+                            </span>
+
+                            <strong id="cod-farmer-share">
+                                ₹0.00
+                            </strong>
+
+                            <small>
+                                70%
+                            </small>
+
+                        </div>
+
+
+                        <div class="cod-share-item agent-share">
+
+                            <span>
+                                Agent Share
+                            </span>
+
+                            <strong id="cod-agent-share">
+                                ₹0.00
+                            </strong>
+
+                            <small>
+                                30%
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="cod-qr-text">
+                        For cashless payment, show the buyer the
+                        farmer's registered UPI QR code.
+                    </p>
+
+
+                    <div class="cod-qr-container">
+
+                        <img
+                            id="cod-farmer-qr"
+                            src=""
+                            alt="Farmer UPI QR">
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        onclick="collectCodPayment()"
+                        class="delivery-payment-btn">
+
+                        💰 Payment Received
+                        <span>→ Generate Buyer OTP</span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- OTP INPUT -->
+                <div class="otp-entry-section">
+
+                    <label
+                        class="otp-entry-label"
+                        for="otp-input"
+                        data-i18n="enter_buyer_otp">
+
+                        Enter 6-Digit Buyer OTP
+                    </label>
+
+
+                    <div class="otp-input-wrapper">
+
+                        <div class="otp-lock-icon">
+                            🔒
+                        </div>
+
+                        <input
+                            type="text"
+                            id="otp-input"
+                            class="delivery-otp-input"
+                            maxlength="6"
+                            inputmode="numeric"
+                            pattern="[0-9]{6}"
+                            placeholder="••••••"
+                            autocomplete="one-time-code"
+                            required
+                            autofocus>
+
+                    </div>
+
+                    <p class="otp-helper-text">
+                        Ask the buyer to provide the OTP shown
+                        on their order screen.
+                    </p>
+
+                </div>
+
+
+                <!-- SECURITY MESSAGE -->
+                <div class="delivery-security-note">
+
+                    <div class="security-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>
+                            Secure Delivery Verification
+                        </strong>
+
+                        <p>
+                            Correct OTP verification marks the order
+                            as <strong>DELIVERED</strong> across all dashboards.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <div class="delivery-otp-footer">
+
+                <button
+                    type="button"
+                    class="delivery-cancel-btn"
+                    onclick="closeModal('otp-verification-modal')"
+                    data-i18n="cancel">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="delivery-confirm-btn"
+                    data-i18n="confirm">
+
+                    ✓ Confirm Delivery
+
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
-  </div>
+
+</div>
 
 <script src="js/translations.js"></script>
 <script src="js/app.js"></script>

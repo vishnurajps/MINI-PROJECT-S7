@@ -3502,3 +3502,505 @@
     font-size: 32px;
     opacity: 0.7;
 }
+
+/* =========================================================
+   DELIVERY BOY - OTP VERIFICATION MODAL
+   ========================================================= */
+
+.delivery-otp-modal {
+    width: min(560px, 94vw);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 0;
+    border-radius: 18px;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.delivery-otp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, #064e3b, #15803d);
+    color: white;
+}
+
+.delivery-otp-title {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.delivery-otp-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.delivery-otp-title h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+.delivery-otp-title span {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.delivery-otp-close {
+    color: white !important;
+    background: rgba(255,255,255,0.12) !important;
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+}
+
+.delivery-otp-close:hover {
+    background: rgba(255,255,255,0.22) !important;
+}
+
+
+/* =========================
+   BODY
+   ========================= */
+
+.delivery-otp-body {
+    padding: 1.5rem;
+    background: #ffffff;
+}
+
+
+/* =========================
+   ORDER INFORMATION
+   ========================= */
+
+.delivery-order-info {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+}
+
+.delivery-order-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #ecfdf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.delivery-order-label {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-bottom: 3px;
+}
+
+.delivery-order-info strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #0f172a;
+}
+
+
+/* =========================
+   OTP INSTRUCTION
+   ========================= */
+
+.delivery-otp-instruction {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.instruction-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.delivery-otp-instruction h4 {
+    margin: 0 0 4px;
+    color: #1e3a8a;
+    font-size: 0.95rem;
+}
+
+.delivery-otp-instruction p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   COD CARD
+   ========================= */
+
+.delivery-cod-card {
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 14px;
+    padding: 1.1rem;
+    margin-bottom: 1.25rem;
+}
+
+.cod-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.cod-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fef3c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.cod-card-header h4 {
+    margin: 0;
+    color: #92400e;
+    font-size: 0.95rem;
+}
+
+.cod-card-header span {
+    display: block;
+    margin-top: 2px;
+    color: #a16207;
+    font-size: 0.75rem;
+}
+
+
+/* COD amount */
+
+.cod-amount-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.cod-amount-box span {
+    color: #78350f;
+    font-size: 0.8rem;
+}
+
+.cod-amount-box strong {
+    color: #92400e;
+    font-size: 1.25rem;
+}
+
+
+/* COD shares */
+
+.cod-share-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-bottom: 0.9rem;
+}
+
+.cod-share-item {
+    background: white;
+    border: 1px solid #fed7aa;
+    border-radius: 9px;
+    padding: 0.7rem;
+}
+
+.cod-share-item span {
+    display: block;
+    color: #78350f;
+    font-size: 0.72rem;
+}
+
+.cod-share-item strong {
+    display: block;
+    color: #92400e;
+    font-size: 0.95rem;
+    margin-top: 3px;
+}
+
+.cod-share-item small {
+    color: #a16207;
+    font-size: 0.7rem;
+}
+
+.cod-share-item.agent-share strong {
+    color: #16a34a;
+}
+
+
+/* COD QR */
+
+.cod-qr-text {
+    margin: 0 0 0.7rem;
+    text-align: center;
+    color: #78350f;
+    font-size: 0.76rem;
+    line-height: 1.45;
+}
+
+.cod-qr-container {
+    width: 135px;
+    height: 135px;
+    margin: 0 auto 0.9rem;
+    padding: 7px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.cod-qr-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* Payment button */
+
+.delivery-payment-btn {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 0.75rem 1rem;
+    background: #f59e0b;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.delivery-payment-btn:hover {
+    background: #d97706;
+    transform: translateY(-1px);
+}
+
+.delivery-payment-btn span {
+    font-weight: 600;
+}
+
+
+/* =========================
+   OTP ENTRY
+   ========================= */
+
+.otp-entry-section {
+    text-align: center;
+    margin: 1.4rem 0;
+}
+
+.otp-entry-label {
+    display: block;
+    color: #0f172a;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+}
+
+.otp-input-wrapper {
+    position: relative;
+    width: 250px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.otp-lock-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    z-index: 2;
+}
+
+.delivery-otp-input {
+    width: 100%;
+    height: 58px;
+    box-sizing: border-box;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 0 15px 0 43px;
+    text-align: center;
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: 8px;
+    color: #0f172a;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.delivery-otp-input:focus {
+    border-color: #16a34a;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(22,163,74,0.12);
+}
+
+.delivery-otp-input::placeholder {
+    color: #94a3b8;
+    letter-spacing: 8px;
+}
+
+.otp-helper-text {
+    margin: 0.55rem 0 0;
+    color: #64748b;
+    font-size: 0.74rem;
+}
+
+
+/* =========================
+   SECURITY MESSAGE
+   ========================= */
+
+.delivery-security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 0.8rem 0.9rem;
+}
+
+.security-icon {
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #16a34a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.delivery-security-note strong {
+    display: block;
+    color: #166534;
+    font-size: 0.78rem;
+    margin-bottom: 2px;
+}
+
+.delivery-security-note p {
+    margin: 0;
+    color: #166534;
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+.delivery-otp-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.delivery-cancel-btn,
+.delivery-confirm-btn {
+    min-width: 145px;
+    padding: 0.75rem 1.1rem;
+    border-radius: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.delivery-cancel-btn {
+    background: white;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+.delivery-cancel-btn:hover {
+    background: #f1f5f9;
+}
+
+.delivery-confirm-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+}
+
+.delivery-confirm-btn:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .delivery-otp-body {
+        padding: 1rem;
+    }
+
+    .delivery-otp-header {
+        padding: 1rem;
+    }
+
+    .delivery-otp-footer {
+        padding: 0.85rem 1rem;
+        flex-direction: column-reverse;
+    }
+
+    .delivery-cancel-btn,
+    .delivery-confirm-btn {
+        width: 100%;
+    }
+
+    .cod-share-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .delivery-otp-input {
+        height: 54px;
+        font-size: 1.35rem;
+    }
+}

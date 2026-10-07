@@ -291,6 +291,12 @@ upi_format_hint: "Enter a valid UPI ID, for example: yourname@upi",
 save_upi: "Save UPI ID",
 
 welcome_back: "WELCOME BACK",
+
+unit_kg: "kg (Kilogram)",
+unit_quintal: "quintal",
+unit_bunch_pack: "bunch / pack",
+unit_bottle: "bottle / litre",
+unit_piece: "piece",
     },
 
 
@@ -554,6 +560,12 @@ upi_format_hint: "मान्य UPI ID दर्ज करें, उदाह
 save_upi: "UPI ID सहेजें",
 
 welcome_back: "वापसी पर आपका स्वागत है",
+
+unit_kg: "किग्रा (किलोग्राम)",
+unit_quintal: "क्विंटल",
+unit_bunch_pack: "गुच्छा / पैक",
+unit_bottle: "बोतल",
+unit_piece: "टुकड़ा",
     },
 
 
@@ -819,6 +831,12 @@ upi_format_hint: "சரியான UPI ID-ஐ உள்ளிடவும், 
 save_upi: "UPI ID-ஐ சேமிக்கவும்",
 
 welcome_back: "மீண்டும் வரவேற்கிறோம்",
+
+unit_kg: "கிலோ (கிலோகிராம்)",
+unit_quintal: "குவிண்டால்",
+unit_bunch_pack: "கொத்து / பேக்",
+unit_bottle: "பாட்டில் / litre",
+unit_piece: "துண்டு",
     },
 
 
@@ -1086,6 +1104,14 @@ upi_format_hint: "చెల్లుబాటు అయ్యే UPI IDని �
 save_upi: "UPI IDని సేవ్ చేయండి",
 
 welcome_back: "తిరిగి స్వాగతం",
+
+unit_kg: "కిలో (కిలోగ్రామ్)",
+unit_quintal: "క్వింటాల్",
+unit_bunch_pack: "కట్ట / ప్యాక్",
+unit_bottle: "బాటిల్",
+unit_piece: "ముక్క",
+
+
     }
 };
 
@@ -1670,7 +1696,7 @@ Object.assign(translations.en, {
     fruits: "Fruits",
     grains_pulses: "Grains & Pulses",
     spices: "Spices",
-    organic_goods: "Organic Goods",
+    organic_goods: "Organic Foods",
 
     order_date_farmer: "Order # / Date",
     items_purchased: "Items Purchased",

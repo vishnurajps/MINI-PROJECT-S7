@@ -184,44 +184,65 @@ function redirectToRoleDashboard(role) {
   }
 }
 
-// Quick Demo Login Helper
-window.quickLogin = function(role) {
-
-  const demoAccounts = {
+const demoAccounts = {
     FARMER: {
-      email: "demo.farmer@agromarket.com",
-      password: "demo123"
+        email: "demo.farmer@gmail.com",
+        password: "Demo@123"
     },
 
     BUYER: {
-      email: "demo.buyer@agromarket.com",
-      password: "demo123"
+        email: "demo.buyer@gmail.com",
+        password: "Demo@123"
     },
 
     DELIVERY: {
-      email: "demo.delivery@agromarket.com",
-      password: "demo123"
+        email: "demo.delivery@gmail.com",
+        password: "Demo@123"
     },
 
     ADVISORY: {
-      email: "demo.advisor@agromarket.com",
-      password: "demo123"
+        email: "demo.advisor@bitsathy.ac.in",
+        password: "Demo@123"
     }
-  };
+};
 
-  const account = demoAccounts[role];
+// =========================================================
+// QUICK DEMO LOGIN
+// =========================================================
 
-  if (!account) {
-    showToast("Invalid demo role", "error");
-    return;
-  }
+window.quickLogin = function(role) {
 
-  // Fill login form
-  document.getElementById('login-email').value = account.email;
-  document.getElementById('login-password').value = account.password;
+    const account = demoAccounts[role];
 
-  // Submit login
-  document.getElementById('login-form').requestSubmit();
+    if (!account) {
+        showToast("Invalid demo role", "error");
+        return;
+    }
+
+    // Fill login form
+    const emailInput = document.getElementById("login-email");
+    const passwordInput = document.getElementById("login-password");
+
+    if (!emailInput || !passwordInput) {
+        console.error("Login form fields not found.");
+        return;
+    }
+
+    emailInput.value = account.email;
+    passwordInput.value = account.password;
+
+    // Trigger input events so validation recognizes the values
+    emailInput.dispatchEvent(new Event("input", { bubbles: true }));
+    passwordInput.dispatchEvent(new Event("input", { bubbles: true }));
+
+    // Submit login form
+    const loginForm = document.getElementById("login-form");
+
+    if (loginForm) {
+        loginForm.requestSubmit();
+    } else {
+        console.error("Login form not found.");
+    }
 };
 
 function showWelcomeSplash(user) {
