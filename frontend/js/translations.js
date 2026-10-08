@@ -297,6 +297,88 @@ unit_quintal: "quintal",
 unit_bunch_pack: "bunch / pack",
 unit_bottle: "bottle / litre",
 unit_piece: "piece",
+
+logged_out_successfully: "Logged out successfully",
+
+// ---------- LANDING PAGE ----------
+
+sustainable_farming: "Sustainable Farming",
+stronger_communities: "Stronger Communities",
+empowering_farmers: "Empowering Farmers,",
+connecting_communities: "Connecting Communities",
+explore_features: "Explore Features",
+direct_market_access: "Direct Market Access",
+expert_advisory: "Expert Advisory",
+secure_reliable: "Secure & Reliable",
+better_farmers: "Better Farmers",
+brighter_tomorrow: "Brighter Tomorrow",
+
+what_we_offer: "What We Offer",
+features_description:
+    "A complete platform serving every stakeholder in the agricultural ecosystem.",
+learn_more: "Learn More",
+
+farmers_register_profiles: "Farmers can register and create profiles.",
+upload_crop_details: "Upload crop details and images.",
+set_crop_prices: "Set crop prices and available quantities.",
+receive_buyer_orders: "Receive orders directly from buyers.",
+track_product_sales: "Track product sales and order status.",
+
+browse_agricultural_products: "Browse available agricultural products.",
+view_crop_farmer_details: "View crop details and farmer information.",
+place_orders_securely: "Place orders securely.",
+track_delivery_status: "Track delivery status.",
+view_purchase_history: "View previous purchase history.",
+
+track_orders_delivery: "Track orders and delivery status.",
+generate_delivery_otp: "Generate delivery OTP.",
+verify_delivery_otp: "Verify delivery using OTP.",
+update_delivery_progress: "Update delivery progress.",
+improve_delivery_security: "Improve delivery security.",
+
+connect_expert_advisors: "Connect farmers with expert advisors.",
+soil_based_recommendations: "Get soil-based recommendations.",
+district_crop_guidance: "Receive district-based crop guidance.",
+sustainable_farming_advice: "Access sustainable farming advice.",
+improve_crop_productivity: "Improve crop productivity.",
+
+grow: "Grow",
+sustainably: "Sustainably",
+healthy: "Healthy",
+farms: "Farms",
+better: "Better",
+communities: "Communities",
+
+about_ifmap: "About IFMAP",
+building_sustainable: "Building a Sustainable",
+agricultural_future: "Agricultural Future",
+
+about_description:
+    "IFMAP is a smart digital platform that connects farmers directly with buyers while providing personalized crop recommendations based on district and soil type.",
+
+about_goal:
+    "We aim to make agriculture more profitable, transparent, and sustainable for everyone.",
+
+direct_farmer_buyer: "Direct Farmer-to-Buyer Market",
+real_time_notifications: "Real-Time Notifications",
+soil_district_advisory: "Soil & District-Based Advisory",
+order_tracking: "Order Tracking System",
+secure_transactions: "Secure Transactions",
+support_local_farmers: "Support Local Farmers",
+
+get_in_touch: "Get In Touch",
+contact_us: "Contact Us",
+contact_description:
+    "We would love to hear from you. Feel free to reach out for any queries or support.",
+
+location: "Location",
+email: "Email",
+phone: "Phone",
+
+cultivating_better_tomorrow: "Cultivating a Better Tomorrow",
+
+footer_description:
+    "Empowering farmers, connecting communities, for a greener and healthier future."
     },
 
 
@@ -566,6 +648,82 @@ unit_quintal: "क्विंटल",
 unit_bunch_pack: "गुच्छा / पैक",
 unit_bottle: "बोतल",
 unit_piece: "टुकड़ा",
+
+logged_out_successfully: "सफलतापूर्वक लॉग आउट किया गया",
+
+// ---------- LANDING PAGE ----------
+
+sustainable_farming: "सतत कृषि",
+stronger_communities: "मजबूत समुदाय",
+empowering_farmers: "किसानों को सशक्त बनाना,",
+connecting_communities: "समुदायों को जोड़ना",
+explore_features: "सुविधाओं को देखें",
+direct_market_access: "सीधी बाजार पहुंच",
+expert_advisory: "विशेषज्ञ सलाह",
+secure_reliable: "सुरक्षित और विश्वसनीय",
+better_farmers: "बेहतर किसान",
+brighter_tomorrow: "उज्ज्वल भविष्य",
+
+what_we_offer: "हम क्या प्रदान करते हैं",
+features_description: "कृषि क्षेत्र के प्रत्येक हितधारक के लिए एक संपूर्ण मंच।",
+learn_more: "और जानें",
+
+farmers_register_profiles: "किसान पंजीकरण करके अपनी प्रोफ़ाइल बना सकते हैं।",
+upload_crop_details: "फसल की जानकारी और तस्वीरें अपलोड करें।",
+set_crop_prices: "फसल की कीमत और उपलब्ध मात्रा निर्धारित करें।",
+receive_buyer_orders: "खरीदारों से सीधे ऑर्डर प्राप्त करें।",
+track_product_sales: "उत्पाद बिक्री और ऑर्डर की स्थिति देखें।",
+
+browse_agricultural_products: "उपलब्ध कृषि उत्पाद देखें।",
+view_crop_farmer_details: "फसल और किसान की जानकारी देखें।",
+place_orders_securely: "सुरक्षित रूप से ऑर्डर करें।",
+track_delivery_status: "डिलीवरी की स्थिति देखें।",
+view_purchase_history: "पिछली खरीदारी का इतिहास देखें।",
+
+track_orders_delivery: "ऑर्डर और डिलीवरी की स्थिति ट्रैक करें।",
+generate_delivery_otp: "डिलीवरी OTP जनरेट करें।",
+verify_delivery_otp: "OTP का उपयोग करके डिलीवरी सत्यापित करें।",
+update_delivery_progress: "डिलीवरी की प्रगति अपडेट करें।",
+improve_delivery_security: "डिलीवरी सुरक्षा में सुधार करें।",
+
+connect_expert_advisors: "किसानों को विशेषज्ञ सलाहकारों से जोड़ें।",
+soil_based_recommendations: "मिट्टी आधारित सुझाव प्राप्त करें।",
+district_crop_guidance: "जिले के अनुसार फसल मार्गदर्शन प्राप्त करें।",
+sustainable_farming_advice: "सतत कृषि संबंधी सलाह प्राप्त करें।",
+improve_crop_productivity: "फसल उत्पादकता में सुधार करें।",
+
+grow: "बढ़ें",
+sustainably: "स्थायी रूप से",
+healthy: "स्वस्थ",
+farms: "खेत",
+better: "बेहतर",
+communities: "समुदाय",
+
+about_ifmap: "IFMAP के बारे में",
+building_sustainable: "एक सतत",
+agricultural_future: "कृषि भविष्य का निर्माण",
+
+about_description: "IFMAP एक स्मार्ट डिजिटल प्लेटफॉर्म है जो किसानों को सीधे खरीदारों से जोड़ता है और जिले तथा मिट्टी के प्रकार के आधार पर व्यक्तिगत फसल सुझाव प्रदान करता है।",
+
+about_goal: "हमारा उद्देश्य कृषि को सभी के लिए अधिक लाभदायक, पारदर्शी और टिकाऊ बनाना है।",
+
+direct_farmer_buyer: "सीधा किसान-से-खरीदार बाजार",
+real_time_notifications: "रियल-टाइम सूचनाएं",
+soil_district_advisory: "मिट्टी और जिला आधारित सलाह",
+order_tracking: "ऑर्डर ट्रैकिंग प्रणाली",
+secure_transactions: "सुरक्षित लेनदेन",
+support_local_farmers: "स्थानीय किसानों का समर्थन करें",
+
+get_in_touch: "संपर्क करें",
+contact_us: "हमसे संपर्क करें",
+contact_description: "हम आपसे सुनना पसंद करेंगे। किसी भी प्रश्न या सहायता के लिए बेझिझक संपर्क करें।",
+
+location: "स्थान",
+email: "ईमेल",
+phone: "फोन",
+
+cultivating_better_tomorrow: "एक बेहतर कल का निर्माण",
+footer_description: "किसानों को सशक्त बनाना, समुदायों को जोड़ना, एक हरित और स्वस्थ भविष्य के लिए।"
     },
 
 
@@ -837,6 +995,82 @@ unit_quintal: "குவிண்டால்",
 unit_bunch_pack: "கொத்து / பேக்",
 unit_bottle: "பாட்டில் / litre",
 unit_piece: "துண்டு",
+
+logged_out_successfully: "வெற்றிகரமாக வெளியேறப்பட்டது",
+
+// ---------- LANDING PAGE ----------
+
+sustainable_farming: "நிலையான விவசாயம்",
+stronger_communities: "வலுவான சமூகங்கள்",
+empowering_farmers: "விவசாயிகளை மேம்படுத்துதல்,",
+connecting_communities: "சமூகங்களை இணைத்தல்",
+explore_features: "அம்சங்களை ஆராயுங்கள்",
+direct_market_access: "நேரடி சந்தை அணுகல்",
+expert_advisory: "நிபுணர் ஆலோசனை",
+secure_reliable: "பாதுகாப்பான மற்றும் நம்பகமான",
+better_farmers: "சிறந்த விவசாயிகள்",
+brighter_tomorrow: "பிரகாசமான எதிர்காலம்",
+
+what_we_offer: "நாங்கள் வழங்குவது",
+features_description: "விவசாய சூழலின் அனைத்து தரப்பினருக்கும் சேவை செய்யும் முழுமையான தளம்.",
+learn_more: "மேலும் அறிக",
+
+farmers_register_profiles: "விவசாயிகள் பதிவு செய்து தங்கள் சுயவிவரங்களை உருவாக்கலாம்.",
+upload_crop_details: "பயிர் விவரங்கள் மற்றும் படங்களை பதிவேற்றலாம்.",
+set_crop_prices: "பயிர் விலை மற்றும் கிடைக்கும் அளவை நிர்ணயிக்கலாம்.",
+receive_buyer_orders: "வாங்குபவர்களிடமிருந்து நேரடியாக ஆர்டர்களைப் பெறலாம்.",
+track_product_sales: "பொருள் விற்பனை மற்றும் ஆர்டர் நிலையை கண்காணிக்கலாம்.",
+
+browse_agricultural_products: "கிடைக்கும் விவசாயப் பொருட்களைப் பார்வையிடுங்கள்.",
+view_crop_farmer_details: "பயிர் மற்றும் விவசாயி விவரங்களைப் பார்வையிடுங்கள்.",
+place_orders_securely: "பாதுகாப்பாக ஆர்டர் செய்யுங்கள்.",
+track_delivery_status: "டெலிவரி நிலையை கண்காணிக்கவும்.",
+view_purchase_history: "முந்தைய கொள்முதல் வரலாற்றைப் பார்வையிடுங்கள்.",
+
+track_orders_delivery: "ஆர்டர் மற்றும் டெலிவரி நிலையை கண்காணிக்கவும்.",
+generate_delivery_otp: "டெலிவரி OTP உருவாக்கவும்.",
+verify_delivery_otp: "OTP மூலம் டெலிவரியை சரிபார்க்கவும்.",
+update_delivery_progress: "டெலிவரி முன்னேற்றத்தைப் புதுப்பிக்கவும்.",
+improve_delivery_security: "டெலிவரி பாதுகாப்பை மேம்படுத்தவும்.",
+
+connect_expert_advisors: "விவசாயிகளை நிபுணர் ஆலோசகர்களுடன் இணைக்கவும்.",
+soil_based_recommendations: "மண் அடிப்படையிலான பரிந்துரைகளைப் பெறுங்கள்.",
+district_crop_guidance: "மாவட்ட அடிப்படையிலான பயிர் வழிகாட்டுதலைப் பெறுங்கள்.",
+sustainable_farming_advice: "நிலையான விவசாய ஆலோசனையைப் பெறுங்கள்.",
+improve_crop_productivity: "பயிர் உற்பத்தித்திறனை மேம்படுத்துங்கள்.",
+
+grow: "வளருங்கள்",
+sustainably: "நிலையான முறையில்",
+healthy: "ஆரோக்கியமான",
+farms: "பண்ணைகள்",
+better: "சிறந்த",
+communities: "சமூகங்கள்",
+
+about_ifmap: "IFMAP பற்றி",
+building_sustainable: "நிலையான",
+agricultural_future: "விவசாய எதிர்காலத்தை உருவாக்குதல்",
+
+about_description: "IFMAP என்பது விவசாயிகளை நேரடியாக வாங்குபவர்களுடன் இணைக்கும் ஒரு ஸ்மார்ட் டிஜிட்டல் தளமாகும். மேலும் மாவட்டம் மற்றும் மண் வகையின் அடிப்படையில் தனிப்பயனாக்கப்பட்ட பயிர் பரிந்துரைகளை வழங்குகிறது.",
+
+about_goal: "விவசாயத்தை அனைவருக்கும் அதிக லாபகரமானதாகவும், வெளிப்படையானதாகவும், நிலையானதாகவும் மாற்றுவதே எங்கள் நோக்கம்.",
+
+direct_farmer_buyer: "நேரடி விவசாயி-வாங்குபவர் சந்தை",
+real_time_notifications: "நிகழ்நேர அறிவிப்புகள்",
+soil_district_advisory: "மண் மற்றும் மாவட்ட அடிப்படையிலான ஆலோசனை",
+order_tracking: "ஆர்டர் கண்காணிப்பு அமைப்பு",
+secure_transactions: "பாதுகாப்பான பரிவர்த்தனைகள்",
+support_local_farmers: "உள்ளூர் விவசாயிகளுக்கு ஆதரவு",
+
+get_in_touch: "தொடர்பு கொள்ளுங்கள்",
+contact_us: "எங்களைத் தொடர்புகொள்ளுங்கள்",
+contact_description: "உங்களிடமிருந்து கேட்க நாங்கள் விரும்புகிறோம். ஏதேனும் கேள்விகள் அல்லது உதவிக்கு எங்களைத் தொடர்புகொள்ளுங்கள்.",
+
+location: "இடம்",
+email: "மின்னஞ்சல்",
+phone: "தொலைபேசி",
+
+cultivating_better_tomorrow: "சிறந்த நாளையை உருவாக்குதல்",
+footer_description: "விவசாயிகளை மேம்படுத்தி, சமூகங்களை இணைத்து, பசுமையான மற்றும் ஆரோக்கியமான எதிர்காலத்தை உருவாக்குதல்."
     },
 
 
@@ -1111,7 +1345,81 @@ unit_bunch_pack: "కట్ట / ప్యాక్",
 unit_bottle: "బాటిల్",
 unit_piece: "ముక్క",
 
+logged_out_successfully: "విజయవంతంగా లాగ్ అవుట్ అయ్యారు",
 
+// ---------- LANDING PAGE ----------
+
+sustainable_farming: "సుస్థిర వ్యవసాయం",
+stronger_communities: "బలమైన సమాజాలు",
+empowering_farmers: "రైతులను సాధికారత కల్పించడం,",
+connecting_communities: "సమాజాలను అనుసంధానించడం",
+explore_features: "ఫీచర్లను చూడండి",
+direct_market_access: "ప్రత్యక్ష మార్కెట్ ప్రాప్యత",
+expert_advisory: "నిపుణుల సలహా",
+secure_reliable: "సురక్షితమైన మరియు నమ్మదగిన",
+better_farmers: "మెరుగైన రైతులు",
+brighter_tomorrow: "ప్రకాశవంతమైన భవిష్యత్తు",
+
+what_we_offer: "మేము అందించేది",
+features_description: "వ్యవసాయ రంగంలోని ప్రతి భాగస్వామికి సేవలందించే సమగ్ర వేదిక.",
+learn_more: "మరింత తెలుసుకోండి",
+
+farmers_register_profiles: "రైతులు నమోదు చేసుకుని ప్రొఫైల్‌లను సృష్టించవచ్చు.",
+upload_crop_details: "పంట వివరాలు మరియు చిత్రాలను అప్‌లోడ్ చేయవచ్చు.",
+set_crop_prices: "పంట ధరలు మరియు అందుబాటులో ఉన్న పరిమాణాలను నిర్ణయించవచ్చు.",
+receive_buyer_orders: "కొనుగోలుదారుల నుండి నేరుగా ఆర్డర్‌లను పొందవచ్చు.",
+track_product_sales: "ఉత్పత్తి విక్రయాలు మరియు ఆర్డర్ స్థితిని ట్రాక్ చేయవచ్చు.",
+
+browse_agricultural_products: "అందుబాటులో ఉన్న వ్యవసాయ ఉత్పత్తులను చూడండి.",
+view_crop_farmer_details: "పంట మరియు రైతు వివరాలను చూడండి.",
+place_orders_securely: "సురక్షితంగా ఆర్డర్ చేయండి.",
+track_delivery_status: "డెలివరీ స్థితిని ట్రాక్ చేయండి.",
+view_purchase_history: "మునుపటి కొనుగోలు చరిత్రను చూడండి.",
+
+track_orders_delivery: "ఆర్డర్ మరియు డెలివరీ స్థితిని ట్రాక్ చేయండి.",
+generate_delivery_otp: "డెలివరీ OTPని రూపొందించండి.",
+verify_delivery_otp: "OTPతో డెలివరీని ధృవీకరించండి.",
+update_delivery_progress: "డెలివరీ పురోగతిని నవీకరించండి.",
+improve_delivery_security: "డెలివరీ భద్రతను మెరుగుపరచండి.",
+
+connect_expert_advisors: "రైతులను నిపుణుల సలహాదారులతో అనుసంధానించండి.",
+soil_based_recommendations: "నేల ఆధారిత సిఫార్సులను పొందండి.",
+district_crop_guidance: "జిల్లా ఆధారిత పంట మార్గదర్శకత్వాన్ని పొందండి.",
+sustainable_farming_advice: "సుస్థిర వ్యవసాయ సలహాలను పొందండి.",
+improve_crop_productivity: "పంట ఉత్పాదకతను మెరుగుపరచండి.",
+
+grow: "పెరగండి",
+sustainably: "సుస్థిరంగా",
+healthy: "ఆరోగ్యకరమైన",
+farms: "పొలాలు",
+better: "మెరుగైన",
+communities: "సమాజాలు",
+
+about_ifmap: "IFMAP గురించి",
+building_sustainable: "సుస్థిరమైన",
+agricultural_future: "వ్యవసాయ భవిష్యత్తును నిర్మించడం",
+
+about_description: "IFMAP రైతులను నేరుగా కొనుగోలుదారులతో అనుసంధానించే స్మార్ట్ డిజిటల్ వేదిక. జిల్లా మరియు నేల రకం ఆధారంగా వ్యక్తిగతీకరించిన పంట సిఫార్సులను కూడా అందిస్తుంది.",
+
+about_goal: "వ్యవసాయాన్ని అందరికీ మరింత లాభదాయకంగా, పారదర్శకంగా మరియు సుస్థిరంగా మార్చడం మా లక్ష్యం.",
+
+direct_farmer_buyer: "ప్రత్యక్ష రైతు-కొనుగోలుదారు మార్కెట్",
+real_time_notifications: "రియల్ టైమ్ నోటిఫికేషన్లు",
+soil_district_advisory: "నేల మరియు జిల్లా ఆధారిత సలహా",
+order_tracking: "ఆర్డర్ ట్రాకింగ్ వ్యవస్థ",
+secure_transactions: "సురక్షిత లావాదేవీలు",
+support_local_farmers: "స్థానిక రైతులకు మద్దతు",
+
+get_in_touch: "మమ్మల్ని సంప్రదించండి",
+contact_us: "మమ్మల్ని సంప్రదించండి",
+contact_description: "మీ నుండి వినడానికి మేము ఇష్టపడతాము. ఏవైనా ప్రశ్నలు లేదా సహాయం కోసం మమ్మల్ని సంప్రదించండి.",
+
+location: "స్థానం",
+email: "ఇమెయిల్",
+phone: "ఫోన్",
+
+cultivating_better_tomorrow: "మెరుగైన రేపటిని నిర్మించడం",
+footer_description: "రైతులను సాధికారత కల్పిస్తూ, సమాజాలను అనుసంధానిస్తూ, పచ్చని మరియు ఆరోగ్యకరమైన భవిష్యత్తును నిర్మించడం."
     }
 };
 

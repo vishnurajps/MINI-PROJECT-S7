@@ -569,3 +569,215 @@
 .password-toggle:hover {
     transform: translateY(-50%) scale(1.1);
 }
+
+/* =========================================================
+   IFMAP LOGIN FARMER CHARACTER
+   ========================================================= */
+
+#login-farmer-character {
+    position: fixed;
+    left: 35px;
+    bottom: 25px;
+    width: 220px;
+    height: 360px;
+    z-index: 20;
+    pointer-events: none;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+
+    animation:
+        farmerEnter 1.5s ease-out forwards,
+        farmerIdle 2.8s ease-in-out 1.5s infinite;
+
+    transition: transform 0.15s ease-out;
+}
+
+/* Farmer image */
+
+#farmer-character-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+
+    display: block;
+
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.18));
+}
+
+/* Character walks in from the left */
+
+@keyframes farmerEnter {
+    0% {
+        transform: translateX(-280px);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateX(25px);
+        opacity: 1;
+    }
+
+    75% {
+        transform: translateX(-8px);
+    }
+
+    90% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+/* Farmer gently moves while standing */
+
+#login-farmer-character {
+    animation:
+        farmerEnter 1.5s ease-out forwards,
+        farmerIdle 2.8s ease-in-out 1.5s infinite;
+}
+
+@keyframes farmerIdle {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* =========================================================
+   FARMER EYE OVERLAY
+   ========================================================= */
+
+.farmer-eye-overlay {
+    position: absolute;
+
+    width: 13px;
+    height: 17px;
+
+    background: white;
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 5;
+}
+
+/* Left eye position */
+.left-eye-overlay {
+    left: 61px;
+    top: 51px;
+}
+
+/* Right eye position */
+.right-eye-overlay {
+    left: 85px;
+    top: 45px;
+}
+
+/* Pupils */
+
+.farmer-pupil {
+    position: absolute;
+
+    width: 6px;
+    height: 8px;
+
+    background: #222;
+
+    border-radius: 50%;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        translate(var(--eye-x, 0px), var(--eye-y, 0px));
+
+    transition: transform 0.08s linear;
+}
+
+/* =========================================================
+   NATURAL CLOSED EYES
+   ========================================================= */
+
+#login-farmer-character.password-active .farmer-eye-overlay {
+    width: 15px;
+    height: 9px;
+
+    background: linear-gradient(
+        180deg,
+        #d99a70 0%,
+        #c9825c 100%
+    );
+
+    border-radius: 50%;
+
+    transform: translate(-2px, 3px);
+
+    box-shadow:
+        0 1px 1px rgba(80, 40, 25, 0.25);
+
+    z-index: 10;
+}
+
+/* =========================================================
+   LARGER CLOSED EYELIDS
+   ========================================================= */
+
+#login-farmer-character.password-active .farmer-eye-overlay {
+    width: 18px;
+    height: 12px;
+
+    background: linear-gradient(
+        180deg,
+        #d99a70 0%,
+        #c9825c 100%
+    );
+
+    border-radius: 50%;
+
+    transform: translate(-4px, 2px);
+
+    box-shadow:
+        0 1px 2px rgba(80, 40, 25, 0.25);
+
+    z-index: 10;
+}
+
+/* Closed eyelid line */
+
+#login-farmer-character.password-active .farmer-eye-overlay::after {
+    content: "";
+
+    position: absolute;
+
+    width: 14px;
+    height: 5px;
+
+    left: 2px;
+    top: 3px;
+
+    border-bottom: 2px solid #4a281d;
+
+    border-radius: 0 0 50% 50%;
+}
+
+/* Hide pupils */
+
+#login-farmer-character.password-active .farmer-pupil {
+    display: none;
+}
+

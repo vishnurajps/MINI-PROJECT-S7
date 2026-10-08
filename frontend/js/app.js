@@ -53,7 +53,12 @@ const Auth = {
 
   logout: () => {
     Auth.clear();
-    showToast("Logged out successfully", "info");
+showToast(
+  typeof t === 'function'
+    ? t('logged_out_successfully')
+    : 'Logged out successfully',
+  "info"
+);
     setTimeout(() => {
       window.location.href = "auth.html";
     }, 600);
@@ -133,15 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Always show Login and Register on the Home page
   if (currentPage === 'index.html' || currentPage === '') {
 
-    navAuthArea.innerHTML = `
-      <a href="auth.html" class="btn btn-outline btn-sm">
-        Login
-      </a>
+navAuthArea.innerHTML = `
+  <a href="auth.html" class="btn btn-outline btn-sm" data-i18n="login">
+    ${typeof t === 'function' ? t('login') : 'Login'}
+  </a>
 
-      <a href="auth.html" class="btn btn-primary btn-sm">
-        Register
-      </a>
-    `;
+  <a href="auth.html" class="btn btn-primary btn-sm" data-i18n="register">
+    ${typeof t === 'function' ? t('register') : 'Register'}
+  </a>
+`;
 
     return;
   }
@@ -174,15 +179,16 @@ document.addEventListener('DOMContentLoaded', () => {
           ${user.fullName}
         </span>
 
-        <a href="${dashboardUrl}" class="btn btn-outline btn-sm">
-          Dashboard
-        </a>
+<a href="${dashboardUrl}" class="btn btn-outline btn-sm" data-i18n="dashboard">
+  ${typeof t === 'function' ? t('dashboard') : 'Dashboard'}
+</a>
 
-        <button
-          onclick="Auth.logout()"
-          class="btn btn-danger btn-sm">
-          Logout
-        </button>
+<button
+  onclick="Auth.logout()"
+  class="btn btn-danger btn-sm"
+  data-i18n="logout">
+  ${typeof t === 'function' ? t('logout') : 'Logout'}
+</button>
 
       </div>
     `;
@@ -190,15 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
 
     // Show Login and Register for users who are not logged in
-    navAuthArea.innerHTML = `
-      <a href="auth.html" class="btn btn-outline btn-sm">
-        Login
-      </a>
+navAuthArea.innerHTML = `
+  <a href="auth.html" class="btn btn-outline btn-sm" data-i18n="login">
+    ${typeof t === 'function' ? t('login') : 'Login'}
+  </a>
 
-      <a href="auth.html" class="btn btn-primary btn-sm">
-        Register
-      </a>
-    `;
+  <a href="auth.html" class="btn btn-primary btn-sm" data-i18n="register">
+    ${typeof t === 'function' ? t('register') : 'Register'}
+  </a>
+`;
 
   }
 
@@ -237,12 +243,12 @@ function showWelcomeSplashScreen() {
 
     const role = data.role || "USER";
 
-    const roleNames = {
-        FARMER: "FARMER",
-        BUYER: "BUYER",
-        DELIVERY: "DELIVERY BOY",
-        ADVISORY: "ADVISOR"
-    };
+const roleNames = {
+    FARMER: typeof t === 'function' ? t('farmer') : 'FARMER',
+    BUYER: typeof t === 'function' ? t('buyer') : 'BUYER',
+    DELIVERY: typeof t === 'function' ? t('delivery_boy') : 'DELIVERY BOY',
+    ADVISORY: typeof t === 'function' ? t('advisor') : 'ADVISOR'
+};
 
     const roleName = roleNames[role] || "USER";
 
@@ -258,9 +264,9 @@ function showWelcomeSplashScreen() {
                 class="ifmap-splash-logo"
                 alt="IFMAP Logo">
 
-            <div class="ifmap-splash-title">
-                WELCOME BACK
-            </div>
+         <div class="ifmap-splash-title">
+    ${typeof t === 'function' ? t('welcome_back') : 'WELCOME BACK'}
+</div>
 
             <div class="ifmap-splash-role">
                 ${roleName}
@@ -269,8 +275,10 @@ function showWelcomeSplashScreen() {
             <div class="ifmap-splash-line"></div>
 
             <div class="ifmap-splash-subtitle">
-                Integrated Farmer Marketplace
-            </div>
+    ${typeof t === 'function'
+        ? t('integrated_farmer_marketplace')
+        : 'Integrated Farmer Marketplace'}
+</div>
 
         </div>
     `;

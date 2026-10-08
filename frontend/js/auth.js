@@ -539,3 +539,181 @@ document.querySelectorAll('input[type="password"]').forEach((passwordInput) => {
     });
 
 });
+
+// =========================================================
+// INTERACTIVE FARMER LOGIN CHARACTER
+// Eyes follow cursor + close eyes on password
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const farmer = document.getElementById("login-farmer-character");
+    const passwordInput = document.getElementById("login-password");
+
+    if (!farmer) return;
+
+    const pupils = farmer.querySelectorAll(".eye-pupil");
+
+    // -----------------------------------------------------
+    // Eyes follow mouse cursor
+    // -----------------------------------------------------
+
+    document.addEventListener("mousemove", (event) => {
+
+        const farmerRect = farmer.getBoundingClientRect();
+
+        const farmerCenterX =
+            farmerRect.left + farmerRect.width / 2;
+
+        const farmerCenterY =
+            farmerRect.top + 85;
+
+        const deltaX = event.clientX - farmerCenterX;
+        const deltaY = event.clientY - farmerCenterY;
+
+        const angle = Math.atan2(deltaY, deltaX);
+
+        const distance = Math.min(
+            5,
+            Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 80
+        );
+
+        const moveX = Math.cos(angle) * distance;
+        const moveY = Math.sin(angle) * distance;
+
+        pupils.forEach((pupil) => {
+
+            pupil.style.transform =
+                `translate(${moveX}px, ${moveY}px)`;
+
+        });
+
+    });
+
+    // -----------------------------------------------------
+    // Close farmer's eyes when password is being entered
+    // -----------------------------------------------------
+
+    if (passwordInput) {
+
+        passwordInput.addEventListener("focus", () => {
+
+            farmer.classList.add("password-active");
+
+        });
+
+        passwordInput.addEventListener("blur", () => {
+
+            farmer.classList.remove("password-active");
+
+        });
+
+    }
+
+});
+
+// =========================================================
+// FARMER MOUSE INTERACTION
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const farmer = document.getElementById("login-farmer-character");
+
+    if (!farmer) return;
+
+    document.addEventListener("mousemove", (event) => {
+
+        const rect = farmer.getBoundingClientRect();
+
+        const farmerCenterX = rect.left + rect.width / 2;
+        const farmerCenterY = rect.top + rect.height / 2;
+
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        const distanceX = mouseX - farmerCenterX;
+        const distanceY = mouseY - farmerCenterY;
+
+        // Limit the movement
+        const moveX = Math.max(
+            -8,
+            Math.min(8, distanceX / 80)
+        );
+
+        const moveY = Math.max(
+            -5,
+            Math.min(5, distanceY / 100)
+        );
+
+        farmer.style.setProperty("--mouse-x", `${moveX}px`);
+        farmer.style.setProperty("--mouse-y", `${moveY}px`);
+    });
+
+});
+
+// =========================================================
+// FARMER EYES FOLLOW MOUSE
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const farmer = document.getElementById("login-farmer-character");
+
+    if (!farmer) return;
+
+    const pupils = farmer.querySelectorAll(".farmer-pupil");
+
+    document.addEventListener("mousemove", (event) => {
+
+        const rect = farmer.getBoundingClientRect();
+
+        const faceX = rect.left + rect.width * 0.50;
+        const faceY = rect.top + rect.height * 0.25;
+
+        const dx = event.clientX - faceX;
+        const dy = event.clientY - faceY;
+
+        const maxX = 3;
+        const maxY = 3;
+
+        const eyeX = Math.max(
+            -maxX,
+            Math.min(maxX, dx / 100)
+        );
+
+        const eyeY = Math.max(
+            -maxY,
+            Math.min(maxY, dy / 100)
+        );
+
+        pupils.forEach((pupil) => {
+            pupil.style.setProperty("--eye-x", `${eyeX}px`);
+            pupil.style.setProperty("--eye-y", `${eyeY}px`);
+        });
+
+    });
+
+});
+
+// =========================================================
+// FARMER CLOSES EYES ON PASSWORD FOCUS
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const farmer = document.getElementById("login-farmer-character");
+    const passwordInput = document.getElementById("login-password");
+
+    if (!farmer || !passwordInput) return;
+
+    passwordInput.addEventListener("focus", () => {
+        farmer.classList.add("password-active");
+    });
+
+    passwordInput.addEventListener("blur", () => {
+        farmer.classList.remove("password-active");
+    });
+
+});
+
