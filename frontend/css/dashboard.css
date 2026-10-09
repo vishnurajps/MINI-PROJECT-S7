@@ -4097,3 +4097,15 @@
     font-weight: 700;
     color: #12452d;
 }
+
+
+/* Delivery Portal video subtitle */
+#delivery-portal-subtitle {
+    display: block;
+    margin: 12px 0 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #173b2b;
+    text-align: left;
+}
+
