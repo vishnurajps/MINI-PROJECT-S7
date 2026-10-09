@@ -162,47 +162,50 @@
 
         <div class="landing-feature-grid">
 
-            <!-- Farmer Marketplace -->
+<!-- Farmer Marketplace -->
+<div class="landing-feature-card farmer-card">
 
-            <div class="landing-feature-card farmer-card">
+    <div class="feature-icon">👨‍🌾</div>
 
-                <div class="feature-icon">👨‍🌾</div>
+    <h3 data-i18n="direct_marketplace">
+        Farmer Marketplace
+    </h3>
 
-                <h3 data-i18n="direct_marketplace">
-                    Farmer Marketplace
-                </h3>
+    <p data-i18n="direct_marketplace_desc">
+        List your crops, manage orders and receive
+        payments directly from buyers.
+    </p>
 
-                <p data-i18n="direct_marketplace_desc">
-                    List your crops, manage orders and receive
-                    payments directly from buyers.
-                </p>
+<button
+    class="learn-more-btn"
+    type="button"
+    id="marketplace-toggle">
 
-<button class="learn-more-btn">
     <span data-i18n="learn_more">Learn More</span>
     <span>→</span>
 </button>
 
-<div class="feature-details">
-    <ul>
-<li data-i18n="farmers_register_profiles">
-    Farmers can register and create profiles.
-</li>
-<li data-i18n="upload_crop_details">
-    Upload crop details and images.
-</li>
-<li data-i18n="set_crop_prices">
-    Set crop prices and available quantities.
-</li>
-<li data-i18n="receive_buyer_orders">
-    Receive orders directly from buyers.
-</li>
-<li data-i18n="track_product_sales">
-    Track product sales and order status.
-</li>
-    </ul>
+<div id="marketplace-details" class="feature-details" hidden>
+        <ul>
+            <li data-i18n="farmers_register_profiles">
+                Farmers can register and create profiles.
+            </li>
+            <li data-i18n="upload_crop_details">
+                Upload crop details and images.
+            </li>
+            <li data-i18n="set_crop_prices">
+                Set crop prices and available quantities.
+            </li>
+            <li data-i18n="receive_buyer_orders">
+                Receive orders directly from buyers.
+            </li>
+            <li data-i18n="track_product_sales">
+                Track product sales and order status.
+            </li>
+        </ul>
+    </div>
+
 </div>
-                
-            </div>
 
 
             <!-- Buyer Services -->
@@ -224,7 +227,7 @@
     <span data-i18n="learn_more">Learn More</span>
     <span>→</span>
 </button>
-<div id="buyer-details" class="feature-details">
+<div id="buyer-details" class="feature-details" hidden>
     <ul>
 <li data-i18n="browse_agricultural_products">
     Browse available agricultural products.
@@ -310,7 +313,7 @@
     <span>→</span>
 </button>
 
-<div id="advisory-details" class="feature-details">
+<div id="advisory-details" class="feature-details" hidden>
     <ul>
 <li data-i18n="connect_expert_advisors">
     Connect farmers with expert advisors.

@@ -211,11 +211,15 @@ navAuthArea.innerHTML = `
   
 });
 function toggleDetails(id) {
-    const details = document.getElementById(id);
+    const el = document.getElementById(id);
 
-    if (details) {
-        details.classList.toggle("show");
+    if (!el) {
+        console.error("Details section not found:", id);
+        return;
     }
+
+    el.hidden = !el.hidden;
+    el.classList.toggle("active", !el.hidden);
 }
 
 /* =========================================================
@@ -303,4 +307,32 @@ const roleNames = {
 
 document.addEventListener("DOMContentLoaded", () => {
     showWelcomeSplashScreen();
+});
+
+function showFeatureDetails(feature) {
+    const details = document.getElementById(`${feature}-details`);
+
+    if (!details) {
+        console.error(`Feature details not found: ${feature}`);
+        return;
+    }
+
+    details.hidden = !details.hidden;
+
+    if (!details.hidden) {
+        details.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('marketplace-toggle');
+
+    if (button) {
+        button.addEventListener('click', () => {
+            toggleDetails('marketplace-details');
+        });
+    }
 });

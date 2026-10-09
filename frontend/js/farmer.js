@@ -730,3 +730,4 @@ document.addEventListener('languageChanged', async () => {
             : t('add_fresh_produce');
     }
 });
+

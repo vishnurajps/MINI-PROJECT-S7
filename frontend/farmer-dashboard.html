@@ -47,21 +47,42 @@
   <!-- Dashboard Main Container -->
   <div class="dashboard-container">
     
-    <!-- Dashboard Header -->
-    <div class="dashboard-header">
-      <div class="dashboard-title">
-        <h2 data-i18n="farmer_portal">Farmer Portal</h2>
-        <p data-i18n="Manage your harvest, accept buyer orders, track delivery logistics, and check weather.">
-    Manage your harvest, accept buyer orders, track delivery logistics, and check weather.
-</p>
-      </div>
 
-      <div class="dashboard-actions">
-        <button onclick="openAddProductModal()" class="btn btn-primary">
-          ➕ <span data-i18n="add_product">Add New Produce</span>
-        </button>
-      </div>
-    </div>
+
+<!-- Farmer Portal Welcome Animation -->
+<section class="farmer-welcome-area" id="farmer-welcome-area">
+
+
+<div class="farmer-video-wrapper">
+
+    <video
+        id="farmer-portal-video"
+        class="farmer-portal-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-label="Farmer Portal welcome animation">
+
+        <source
+            src="videos/farmer-portal-animation.mp4"
+            type="video/mp4">
+    </video>
+
+    <a href="index.html" class="video-web-logo" aria-label="IFMAP Home">
+        <img src="images/ifmap-logo.png" alt="IFMAP logo">
+    </a>
+
+<p id="farmer-portal-subtitle">
+    Manage your harvest, accept buyer orders, track delivery logistics,
+    and check weather.
+</p>
+
+</div>
+
+
+</section>
 
     <!-- Metrics Row -->
     <div class="metrics-grid">

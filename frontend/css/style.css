@@ -2098,3 +2098,54 @@ select {
     position: relative;
     transform: translateX(100px);
 }
+
+.feature-details {
+    margin-top: 16px;
+    padding: 20px;
+    background: #f0faf2;
+    border: 1px solid #d5ead9;
+    border-radius: 12px;
+    color: #244b31;
+}
+
+.feature-details[hidden] {
+    display: none;
+}
+
+/* Feature details */
+.feature-details {
+    margin-top: 16px;
+    padding: 16px;
+    text-align: left;
+    border-radius: 12px;
+    background: #f0faf2;
+    border: 1px solid #d8eadb;
+}
+
+.feature-details[hidden] {
+    display: none !important;
+}
+
+.feature-details ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.feature-details li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.feature-details[hidden] {
+    display: none !important;
+}
+
+/* FIX: Learn More feature details visibility */
+
+.feature-details[hidden] {
+    display: none !important;
+}
+
+.feature-details:not([hidden]) {
+    display: block !important;
+}
