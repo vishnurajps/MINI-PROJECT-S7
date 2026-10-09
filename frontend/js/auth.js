@@ -350,10 +350,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // -----------------------------------------------------
     document.querySelectorAll('input[type="email"]').forEach((emailInput) => {
 
-        emailInput.setAttribute(
-            "pattern",
-            "[A-Za-z0-9._%+-]+@(gmail\\.com|bitsathy\\.ac\\.in)"
-        );
+  emailInput.setAttribute(
+    "pattern",
+    "[A-Za-z0-9._%+-]+@(gmail\\.com|bitsathy\\.ac\\.in)"
+);
 
         emailInput.setAttribute(
             "title",
@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const validEmail =
-                /^[A-Za-z0-9._%+-]+@(gmail\.com|bitsathy\.ac\.in)$/i.test(email);
+    /^[A-Za-z0-9._%+-]+@(gmail\.com|bitsathy\.ac\.in)$/i.test(email);
 
             if (!validEmail) {
                 emailInput.setCustomValidity(
@@ -407,8 +407,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const validPassword =
-                /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+const validPassword =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
 
             if (!validPassword) {
                 passwordInput.setCustomValidity(
@@ -488,8 +488,8 @@ document.querySelectorAll('input[type="email"]').forEach((emailInput) => {
             return;
         }
 
-        const validEmail =
-            /^[A-Za-z0-9._%+-]+@(gmail\.com|bitsathy\.ac\.in)$/i.test(email);
+const validEmail =
+    /^[A-Za-z0-9._%+-]+@(gmail\.com|bitsathy\.ac\.in)$/i.test(email);
 
         if (!validEmail) {
 
@@ -523,8 +523,8 @@ document.querySelectorAll('input[type="password"]').forEach((passwordInput) => {
             return;
         }
 
-        const validPassword =
-            /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+const validPassword =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
 
         if (!validPassword) {
 
