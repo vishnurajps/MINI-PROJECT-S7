@@ -2,8 +2,7 @@
  * AgroMarket Core Application Utilities (app.js)
  */
 
-const API_BASE = "http://localhost:8085/api";
-
+const API_BASE = "https://ifmap-backend.onrender.com/api";
 // Authentication state management
 const Auth = {
   getUser: () => {
