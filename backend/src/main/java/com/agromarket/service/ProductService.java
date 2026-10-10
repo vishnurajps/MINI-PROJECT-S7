@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductService {
 
@@ -121,4 +121,26 @@ public List<Product> getAllActiveProducts(String district, String category) {
             productRepository.save(p);
         });
     }
+    
+
+@Transactional
+public void restoreStock(Long productId, Double cancelledQuantity) {
+    Product product = productRepository.findById(productId)
+            .orElseThrow(() ->
+                    new RuntimeException("Product not found: " + productId));
+
+    if (cancelledQuantity == null || cancelledQuantity <= 0) {
+        throw new RuntimeException("Cancelled quantity must be greater than zero");
+    }
+
+    double currentQuantity = product.getQuantityAvailable() != null
+            ? product.getQuantityAvailable()
+            : 0.0;
+
+    product.setQuantityAvailable(currentQuantity + cancelledQuantity);
+    product.setUpdatedAt(LocalDateTime.now());
+
+    productRepository.save(product);
+}
+
 }

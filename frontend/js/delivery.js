@@ -62,7 +62,9 @@ async function loadDeliveryOrders(agent) {
     const myOrders = await myOrdersRes.json();
 
     // 2. Load available orders in district waiting for pickup
-    const availRes = await fetch(`${API_BASE}/orders/available-deliveries?district=${encodeURIComponent(agent.district)}`);
+const availRes = await fetch(
+    `${API_BASE}/orders/available-deliveries?agentId=${encodeURIComponent(agent.id)}`
+);
     const availableOrders = await availRes.json();
 
     renderActiveDeliveries(myOrders.filter(o => o.orderStatus !== 'DELIVERED' && o.orderStatus !== 'CANCELLED'));

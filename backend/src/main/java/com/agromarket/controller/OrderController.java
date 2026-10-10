@@ -154,8 +154,17 @@ public class OrderController {
     }
 
     @GetMapping("/available-deliveries")
-    public ResponseEntity<List<Order>> getAvailableDeliveries(@RequestParam(required = false) String district) {
-        return ResponseEntity.ok(orderService.getAvailableOrdersForDelivery(district));
+    public ResponseEntity<?> getAvailableDeliveries(
+            @RequestParam Long agentId) {
+        try {
+            List<Order> orders =
+                    orderService.getAvailableOrdersForDeliveryAgent(agentId);
+
+            return ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 
     /**
@@ -183,6 +192,19 @@ public class OrderController {
             Order order = orderService.confirmCodPayment(id, agentId);
             return ResponseEntity.ok(order);
 
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
+    
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelOrder(
+            @PathVariable Long id,
+            @RequestParam Long requesterId) {
+        try {
+            Order order = orderService.cancelOrder(id, requesterId);
+            return ResponseEntity.ok(order);
         } catch (Exception e) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", e.getMessage()));

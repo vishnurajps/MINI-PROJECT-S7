@@ -42,15 +42,21 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Farmer not found"));
 
         // Assign a delivery agent in the district if available
-        List<User> deliveryAgents = userRepository.findByRoleAndDistrict("DELIVERY", farmer.getDistrict());
-        User assignedAgent = null;
-        if (!deliveryAgents.isEmpty()) {
-            assignedAgent = deliveryAgents.get(0);
-        } else {
-            List<User> anyAgents = userRepository.findByRole("DELIVERY");
-            if (!anyAgents.isEmpty()) assignedAgent = anyAgents.get(0);
-        }
+     // Assign only an available delivery agent from the farmer's district
+        List<User> deliveryAgents =
+                userRepository.findByRoleAndDistrictAndIsAvailableTrue(
+                        "DELIVERY",
+                        farmer.getDistrict().trim()
+                );
 
+        User assignedAgent = deliveryAgents.isEmpty()
+                ? null
+                : deliveryAgents.get(0);
+     // Mark the selected delivery agent as unavailable
+        if (assignedAgent != null) {
+            assignedAgent.setIsAvailable(false);
+            userRepository.save(assignedAgent);
+        }
         Order order = new Order();
         String orderNum = "ORD-" + System.currentTimeMillis() % 1000000 + "-" + (100 + new Random().nextInt(900));
         order.setOrderNumber(orderNum);
@@ -172,25 +178,80 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        // If not assigned yet, assign to this agent
+        User agent = userRepository.findById(agentId)
+                .orElseThrow(() -> new RuntimeException("Delivery agent not found"));
+
+        if (!"DELIVERY".equalsIgnoreCase(agent.getRole())) {
+            throw new RuntimeException("User is not a delivery agent.");
+        }
+
+        // Verify district using the farmer's district stored in the order
+        if (order.getFarmerDistrict() == null
+                || agent.getDistrict() == null
+                || !order.getFarmerDistrict().trim()
+                        .equalsIgnoreCase(agent.getDistrict().trim())) {
+            throw new RuntimeException(
+                    "You can only deliver orders from your registered district."
+            );
+        }
+
+        // Only the assigned agent may update an assigned order
+        if (order.getDeliveryAgentId() != null
+                && !order.getDeliveryAgentId().equals(agentId)) {
+            throw new RuntimeException(
+                    "This order is assigned to another delivery agent."
+            );
+        }
+
+        // Validate permitted delivery status changes
+        String normalizedStatus = status == null
+                ? ""
+                : status.trim().toUpperCase();
+
+        if (!normalizedStatus.equals("PICKED_UP")
+                && !normalizedStatus.equals("OUT_FOR_DELIVERY")) {
+            throw new RuntimeException("Invalid delivery status.");
+        }
+
         if (order.getDeliveryAgentId() == null) {
-            User agent = userRepository.findById(agentId)
-                    .orElseThrow(() -> new RuntimeException("Agent not found"));
+            if (!Boolean.TRUE.equals(agent.getIsAvailable())) {
+                throw new RuntimeException(
+                        "You are currently unavailable for a new delivery."
+                );
+            }
+
+            if (!"ACCEPTED_BY_FARMER".equalsIgnoreCase(order.getOrderStatus())) {
+                throw new RuntimeException(
+                        "This order is not ready for delivery."
+                );
+            }
+
+            agent.setIsAvailable(false);
+            userRepository.save(agent);
+
             order.setDeliveryAgentId(agent.getId());
             order.setDeliveryAgentName(agent.getFullName());
             order.setDeliveryAgentPhone(agent.getPhone());
         }
 
-        order.setOrderStatus(status.toUpperCase());
+        order.setOrderStatus(normalizedStatus);
         Order updated = orderRepository.save(order);
 
-        // Notify both farmer and buyer
-        notificationService.sendNotification(order.getBuyerId(),
-                "Delivery Update: " + status,
-                "Your order #" + order.getOrderNumber() + " is now " + status.replace("_", " ") + ". Keep your OTP ready.");
-        notificationService.sendNotification(order.getFarmerId(),
-                "Order Update: " + status,
-                "Order #" + order.getOrderNumber() + " has been " + status.replace("_", " ") + " by " + order.getDeliveryAgentName());
+        notificationService.sendNotification(
+                order.getBuyerId(),
+                "Delivery Update: " + normalizedStatus,
+                "Your order #" + order.getOrderNumber()
+                        + " is now " + normalizedStatus.replace("_", " ")
+                        + ". Keep your OTP ready."
+        );
+
+        notificationService.sendNotification(
+                order.getFarmerId(),
+                "Order Update: " + normalizedStatus,
+                "Order #" + order.getOrderNumber()
+                        + " has been " + normalizedStatus.replace("_", " ")
+                        + " by " + order.getDeliveryAgentName()
+        );
 
         return updated;
     }
@@ -422,7 +483,16 @@ public class OrderService {
         order.setDeliveredAt(LocalDateTime.now());
 
         Order updatedOrder = orderRepository.save(order);
+     // Release the delivery agent only after successful delivery
+        if (order.getDeliveryAgentId() != null) {
+            User agent = userRepository.findById(order.getDeliveryAgentId())
+                    .orElse(null);
 
+            if (agent != null) {
+                agent.setIsAvailable(true);
+                userRepository.save(agent);
+            }
+        }
         // Notify Farmer
         notificationService.sendNotification(
                 order.getFarmerId(),
@@ -454,6 +524,83 @@ public class OrderService {
 
         return updatedOrder;
     }
+
+@Transactional
+public Order cancelOrder(Long orderId, Long requesterId) {
+
+    Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new RuntimeException("Order not found"));
+
+    // Only the buyer or farmer associated with this order can cancel
+    if (!order.getBuyerId().equals(requesterId)
+            && !order.getFarmerId().equals(requesterId)) {
+        throw new RuntimeException(
+                "Unauthorized: You cannot cancel this order.");
+    }
+
+    String status = order.getOrderStatus();
+
+    if ("DELIVERED".equalsIgnoreCase(status)
+            || "CANCELLED".equalsIgnoreCase(status)) {
+        throw new RuntimeException("This order cannot be cancelled.");
+    }
+
+    if ("PICKED_UP".equalsIgnoreCase(status)
+            || "OUT_FOR_DELIVERY".equalsIgnoreCase(status)) {
+        throw new RuntimeException(
+                "This order cannot be cancelled after pickup.");
+    }
+
+    // Restore stock only if the farmer had accepted the order
+    if ("ACCEPTED_BY_FARMER".equalsIgnoreCase(status)) {
+        for (OrderItem item : order.getItems()) {
+            productService.restoreStock(
+                    item.getProductId(),
+                    item.getQuantity()
+            );
+        }
+    }
+
+    order.setOrderStatus("CANCELLED");
+    Order cancelledOrder = orderRepository.save(order);
+
+    // Release the assigned agent if no other active orders remain
+    Long agentId = order.getDeliveryAgentId();
+
+    if (agentId != null) {
+        List<Order> activeOrders =
+                orderRepository.findByDeliveryAgentIdAndOrderStatusIn(
+                        agentId,
+                        Arrays.asList(
+                                "PLACED",
+                                "ACCEPTED_BY_FARMER",
+                                "PICKED_UP",
+                                "OUT_FOR_DELIVERY"
+                        )
+                );
+
+        if (activeOrders.isEmpty()) {
+            userRepository.findById(agentId).ifPresent(agent -> {
+                agent.setIsAvailable(true);
+                userRepository.save(agent);
+            });
+        }
+    }
+
+    // Notify the other participant
+    Long notifyUserId = requesterId.equals(order.getBuyerId())
+            ? order.getFarmerId()
+            : order.getBuyerId();
+
+    notificationService.sendNotification(
+            notifyUserId,
+            "Order Cancelled",
+            "Order #" + order.getOrderNumber() + " has been cancelled."
+    );
+
+    return cancelledOrder;
+}
+
     public List<Order> getOrdersByFarmer(Long farmerId) {
         return orderRepository.findByFarmerIdOrderByCreatedAtDesc(farmerId);
     }
@@ -476,7 +623,25 @@ public class OrderService {
         }
         return orderRepository.findByOrderStatusOrderByCreatedAtDesc("ACCEPTED_BY_FARMER");
     }
+    public List<Order> getAvailableOrdersForDeliveryAgent(Long agentId) {
 
+        User agent = userRepository.findById(agentId)
+                .orElseThrow(() ->
+                        new RuntimeException("Delivery agent not found"));
+
+        if (!"DELIVERY".equalsIgnoreCase(agent.getRole())) {
+            throw new RuntimeException(
+                    "Only delivery agents can view available deliveries");
+        }
+
+        if (agent.getDistrict() == null
+                || agent.getDistrict().trim().isEmpty()) {
+            throw new RuntimeException(
+                    "Delivery agent district is not registered");
+        }
+
+        return getAvailableOrdersForDelivery(agent.getDistrict().trim());
+    }
     public Optional<Order> getOrderById(Long id) {
         return orderRepository.findById(id);
     }
