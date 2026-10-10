@@ -792,13 +792,32 @@ async function loadBuyerOrders(buyerId) {
           <td>
             ${o.deliveryAgentName ? `🛵 ${o.deliveryAgentName}<br><small>📞 ${o.deliveryAgentPhone || ''}</small>` : '<span style="color:#94a3b8;">Assigning agent...</span>'}
           </td>
-          <td>${otpDisplay}</td>
+<td>${otpDisplay}</td>
+<td>${cancelButton || '<span style="color:#94a3b8;">Not available</span>'}</td>
         </tr>
       `;
+
+      
+      const canCancel =
+        o.orderStatus === 'PLACED' ||
+        o.orderStatus === 'ACCEPTED_BY_FARMER';
+
+      const cancelButton = canCancel
+        ? `<button
+             type="button"
+             class="btn btn-outline btn-sm"
+             onclick="cancelBuyerOrder(${o.id})"
+             style="color:#dc2626; border-color:#dc2626;">
+             Cancel Order
+           </button>`
+        : '';
+
     }).join('');
   } catch (err) {
     console.error("Error loading buyer orders:", err);
   }
+
+
 }
 
 // ---------------- ADVISORY ----------------
@@ -1711,3 +1730,41 @@ function loadIFMAPLogo() {
         img.src = "images/ifmap-logo.png";
     });
 }
+
+
+window.cancelBuyerOrder = async function(orderId) {
+  const buyer = Auth.getUser();
+
+  if (!confirm("Are you sure you want to cancel this order?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE}/orders/${orderId}/cancel?requesterId=${encodeURIComponent(buyer.id)}`,
+      { method: "POST" }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      showToast(
+        result.error || "Failed to cancel order.",
+        "error"
+      );
+      return;
+    }
+
+    showToast("Order cancelled successfully.", "success");
+
+    await loadBuyerOrders(buyer.id);
+    await loadBuyerProducts();
+
+  } catch (error) {
+    console.error("Cancellation error:", error);
+    showToast(
+      "Unable to cancel order. Please try again.",
+      "error"
+    );
+  }
+};
