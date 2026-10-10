@@ -379,6 +379,7 @@ cultivating_better_tomorrow: "Cultivating a Better Tomorrow",
 
 footer_description:
     "Empowering farmers, connecting communities, for a greener and healthier future."
+    
     },
 
 

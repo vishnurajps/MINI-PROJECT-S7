@@ -52,18 +52,47 @@
   <!-- Main Container -->
   <div class="dashboard-container">
     
-    <div class="dashboard-header">
-      <div class="dashboard-title">
-        <h2 data-i18n="buyer_portal">Buyer Marketplace</h2>
-        <p data-i18n="buyer_description">
-    Buy farm-fresh vegetables, fruits, and grains directly from farmers in your district.
-</p>
-      </div>
+    
+<!-- Buyer Portal Welcome Video -->
+<section class="farmer-welcome-area" id="buyer-welcome-area">
+    <div class="farmer-welcome-content">
+
+        <div class="farmer-video-wrapper">
+            <video
+                id="buyer-portal-video"
+                class="farmer-portal-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-label="Buyer Portal welcome animation">
+
+                <source
+                    src="videos/buyer-portal-animation.mp4"
+                    type="video/mp4">
+
+                Your browser does not support HTML video.
+            </video>
+
+            <a href="index.html"
+               class="video-web-logo"
+               aria-label="IFMAP Home">
+                <img src="images/ifmap-logo.png" alt="IFMAP Logo">
+            </a>
+        </div>
+
+        <p id="buyer-portal-subtitle" class="portal-video-subtitle">
+            Discover fresh produce, connect with farmers, place orders, and track your deliveries.
+        </p>
+
+    </div>
+</section>
+
       <div>
         <span style="font-size:0.9rem; color:#64748b;">
     <span data-i18n="current_district">Current District</span>: <strong id="buyer-district-display" style="color:var(--dark);">-</strong></span>
       </div>
-    </div>
 
     <!-- Navigation Tabs -->
     <div class="tab-nav">

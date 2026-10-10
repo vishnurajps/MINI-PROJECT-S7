@@ -4109,3 +4109,22 @@
     text-align: left;
 }
 
+/* Buyer Portal subtitle */
+#buyer-portal-subtitle {
+    display: block;
+    margin: 12px 0 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #173b2b;
+    text-align: left;
+}
+
+/* Advisor Portal Video Subtitle */
+#advisor-portal-subtitle {
+  display: block;
+  margin: 12px 0 24px;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #173b2b;
+  text-align: left;
+}
