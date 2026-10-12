@@ -58,6 +58,7 @@ public class User {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String bankName;
+    @Column(name = "is_available")
     private Boolean isAvailable = true;
 
     // Advisory specific attributes
