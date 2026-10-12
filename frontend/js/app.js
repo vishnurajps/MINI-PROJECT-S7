@@ -97,11 +97,33 @@ function formatCurrency(amount) {
   return "₹" + Number(amount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+
 function formatDate(dateStr) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    if (!dateStr) return "";
+
+    let value = String(dateStr).trim();
+
+    // Backend LocalDateTime values have no timezone.
+    // Treat them as IST rather than letting the browser guess.
+    if (!/(Z|[+-]\d{2}:\d{2})$/i.test(value)) {
+        value = value.replace(" ", "T") + "+05:30";
+    }
+
+    const d = new Date(value);
+
+    if (Number.isNaN(d.getTime())) return "";
+
+    return d.toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    });
 }
+
 
 // Global initialization
 // Global initialization
