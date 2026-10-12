@@ -167,6 +167,20 @@ public class OrderController {
         }
     }
 
+@PostMapping("/{id}/claim")
+public ResponseEntity<?> claimDeliveryOrder(
+        @PathVariable Long id,
+        @RequestParam Long agentId) {
+    try {
+        Order order = orderService.claimDeliveryOrder(id, agentId);
+        return ResponseEntity.ok(order);
+    } catch (Exception e) {
+        return ResponseEntity.badRequest()
+                .body(Map.of("error", e.getMessage()));
+    }
+}
+
+
     /**
      * Farmer monthly earnings for Chart.js bar chart
      */

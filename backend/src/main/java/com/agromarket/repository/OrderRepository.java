@@ -19,4 +19,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             Long deliveryAgentId,
             List<String> orderStatuses
     );
+
+List<Order> findByFarmerDistrictIgnoreCaseAndOrderStatusAndDeliveryAgentIdIsNullOrderByCreatedAtDesc(
+        String district,
+        String orderStatus
+);
+
 }

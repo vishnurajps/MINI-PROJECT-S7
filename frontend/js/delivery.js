@@ -243,9 +243,47 @@ window.updateStatus = async function(orderId, status) {
   }
 };
 
+
 window.claimAndPickup = async function(orderId) {
-  await updateStatus(orderId, 'PICKED_UP');
+    const agent = Auth.getUser();
+
+    if (!agent || !agent.id) {
+        showToast("Delivery agent information not found", "error");
+        return;
+    }
+
+    try {
+        // Step 1: Claim the order
+        const claimRes = await fetch(
+            `${API_BASE}/orders/${orderId}/claim?agentId=${encodeURIComponent(agent.id)}`,
+            {
+                method: 'POST'
+            }
+        );
+
+        const claimData = await claimRes.json().catch(() => ({}));
+
+        if (!claimRes.ok) {
+            showToast(
+                claimData.error || "Unable to claim this order",
+                "error"
+            );
+            await loadDeliveryOrders(agent);
+            return;
+        }
+
+        showToast("Order claimed successfully!", "success");
+
+        // Step 2: Refresh the dashboard
+        // The order should now appear under My Deliveries.
+        await loadDeliveryOrders(agent);
+
+    } catch (err) {
+        console.error("Error claiming delivery:", err);
+        showToast("Server error while claiming order", "error");
+    }
 };
+
 
 window.openOtpModal = function(orderId, orderNum, payMethod, payStatus, farmerUpi, qrUrl, total, farmerShare, deliveryShare) {
   activeOrderIdForOtp = orderId;

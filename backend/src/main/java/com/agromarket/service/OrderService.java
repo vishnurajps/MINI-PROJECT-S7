@@ -41,8 +41,9 @@ public class OrderService {
         User farmer = userRepository.findById(request.getFarmerId())
                 .orElseThrow(() -> new RuntimeException("Farmer not found"));
 
+
         // Assign a delivery agent in the district if available
-     // Assign only an available delivery agent from the farmer's district
+        // Assign only an available delivery agent from the farmer's district
         List<User> deliveryAgents =
                 userRepository.findByRoleAndDistrictAndIsAvailableTrue(
                         "DELIVERY",
@@ -52,11 +53,13 @@ public class OrderService {
         User assignedAgent = deliveryAgents.isEmpty()
                 ? null
                 : deliveryAgents.get(0);
-     // Mark the selected delivery agent as unavailable
+
+        // Mark the selected delivery agent as unavailable
         if (assignedAgent != null) {
             assignedAgent.setIsAvailable(false);
             userRepository.save(assignedAgent);
         }
+
         Order order = new Order();
         String orderNum = "ORD-" + System.currentTimeMillis() % 1000000 + "-" + (100 + new Random().nextInt(900));
         order.setOrderNumber(orderNum);
@@ -73,11 +76,7 @@ public class OrderService {
         order.setFarmerQrCodeUrl(farmer.getQrCodeUrl());
         order.setFarmerDistrict(farmer.getDistrict());
 
-        if (assignedAgent != null) {
-            order.setDeliveryAgentId(assignedAgent.getId());
-            order.setDeliveryAgentName(assignedAgent.getFullName());
-            order.setDeliveryAgentPhone(assignedAgent.getPhone());
-        }
+
 
         // OTP will be generated AFTER payment is completed
         order.setDeliveryOtp(null);
@@ -125,12 +124,7 @@ public class OrderService {
                 "New Order Received!",
                 "Buyer " + buyer.getFullName() + " placed order #" + savedOrder.getOrderNumber() + " for ₹" + savedOrder.getProductTotal() + ". Please confirm to process.");
 
-        // If delivery agent assigned, notify delivery agent
-        if (assignedAgent != null) {
-            notificationService.sendNotification(assignedAgent.getId(),
-                    "New Delivery Assigned",
-                    "Order #" + savedOrder.getOrderNumber() + " in " + farmer.getDistrict() + " assigned to you.");
-        }
+
 
         return savedOrder;
     }
@@ -613,16 +607,19 @@ public Order cancelOrder(Long orderId, Long requesterId) {
         return orderRepository.findByDeliveryAgentIdOrderByCreatedAtDesc(agentId);
     }
 
-    public List<Order> getAvailableOrdersForDelivery(String district) {
-        if (district != null && !district.trim().isEmpty()) {
-            List<Order> list = new ArrayList<>();
-            list.addAll(orderRepository.findByFarmerDistrictAndOrderStatusOrderByCreatedAtDesc(district, "ACCEPTED_BY_FARMER"));
-            list.addAll(orderRepository.findByFarmerDistrictAndOrderStatusOrderByCreatedAtDesc(district, "PICKED_UP"));
-            list.addAll(orderRepository.findByFarmerDistrictAndOrderStatusOrderByCreatedAtDesc(district, "OUT_FOR_DELIVERY"));
-            return list;
-        }
-        return orderRepository.findByOrderStatusOrderByCreatedAtDesc("ACCEPTED_BY_FARMER");
+
+public List<Order> getAvailableOrdersForDelivery(String district) {
+    if (district == null || district.trim().isEmpty()) {
+        return Collections.emptyList();
     }
+
+    return orderRepository
+            .findByFarmerDistrictIgnoreCaseAndOrderStatusAndDeliveryAgentIdIsNullOrderByCreatedAtDesc(
+                    district.trim(),
+                    "ACCEPTED_BY_FARMER"
+            );
+}
+
     public List<Order> getAvailableOrdersForDeliveryAgent(Long agentId) {
 
         User agent = userRepository.findById(agentId)
@@ -642,6 +639,68 @@ public Order cancelOrder(Long orderId, Long requesterId) {
 
         return getAvailableOrdersForDelivery(agent.getDistrict().trim());
     }
+    
+
+@Transactional
+public Order claimDeliveryOrder(Long orderId, Long agentId) {
+
+    Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new RuntimeException("Order not found"));
+
+    User agent = userRepository.findById(agentId)
+            .orElseThrow(() -> new RuntimeException("Delivery agent not found"));
+
+    if (!"DELIVERY".equalsIgnoreCase(agent.getRole())) {
+        throw new RuntimeException("Only delivery agents can claim orders.");
+    }
+
+    if (agent.getDistrict() == null
+            || order.getFarmerDistrict() == null
+            || !agent.getDistrict().trim()
+                    .equalsIgnoreCase(order.getFarmerDistrict().trim())) {
+        throw new RuntimeException(
+                "You can only claim orders in your registered district.");
+    }
+
+    if (!"ACCEPTED_BY_FARMER".equalsIgnoreCase(order.getOrderStatus())) {
+        throw new RuntimeException("This order is not ready for delivery.");
+    }
+
+    if (order.getDeliveryAgentId() != null) {
+        throw new RuntimeException("This order has already been assigned.");
+    }
+
+    if (!Boolean.TRUE.equals(agent.getIsAvailable())) {
+        throw new RuntimeException("You are currently unavailable.");
+    }
+
+    order.setDeliveryAgentId(agent.getId());
+    order.setDeliveryAgentName(agent.getFullName());
+    order.setDeliveryAgentPhone(agent.getPhone());
+
+    agent.setIsAvailable(false);
+    userRepository.save(agent);
+
+    Order claimedOrder = orderRepository.save(order);
+
+    notificationService.sendNotification(
+            order.getFarmerId(),
+            "Delivery Agent Assigned",
+            "Agent " + agent.getFullName()
+                    + " has accepted delivery for order #"
+                    + order.getOrderNumber() + "."
+    );
+
+    notificationService.sendNotification(
+            order.getBuyerId(),
+            "Delivery Agent Assigned",
+            "A delivery agent has been assigned to order #"
+                    + order.getOrderNumber() + "."
+    );
+
+    return claimedOrder;
+}
+
     public Optional<Order> getOrderById(Long id) {
         return orderRepository.findById(id);
     }
